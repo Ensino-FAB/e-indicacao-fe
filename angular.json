@@ -10,7 +10,7 @@
           "style": "scss"
         }
       },
-      "root": "",
+      "root": "e-ingresso",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -28,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss", 
+              "src/assets/scss/global.scss"
             ],
             "scripts": []
           },

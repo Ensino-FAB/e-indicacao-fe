@@ -1,0 +1,42 @@
+<nav class="nav flex-container row middle">
+  <com-icon
+    slot="icon"
+    class="nav-modules-btn"
+    size="3.1"
+    (click)="$event.stopPropagation(); toggleModulesPanel()"
+    >apps</com-icon
+  >
+  <div
+    [@toggleModulesPanel]
+    ensinoClickOutside
+    (clickOutside)="toggleModulesPanel()"
+    class="nav-modules-container"
+    *ngIf="isModulesPanelOpen"
+  >
+    <com-card>
+      <nav>
+        <ng-container *ngFor="let item of configNav; index as i">
+          <ul class="flex-container row wrap nav-modules-wrapper">
+            <li>
+              <a
+                target="_blank"
+                class="flex-container col middle"
+                [href]="item.href"
+                (click)="toggleModulesPanel()"
+              >
+                <ng-container *ngIf="item.srcImage !== ''">
+                  <img class="nav-module-icon" [src]="item.srcImage" />
+                </ng-container>
+
+                <span>{{ item.title }}</span>
+              </a>
+            </li>
+          </ul>
+        </ng-container>
+      </nav>
+    </com-card>
+  </div>
+  <ul class="nav-items-container flex-container row middle">
+    <ng-content></ng-content>
+  </ul>
+</nav>
