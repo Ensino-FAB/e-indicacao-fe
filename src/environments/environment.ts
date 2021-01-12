@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  CURSOS_CONCLUSAO_API: 'http://localhost:8080/esistens-conclusao-api',
+  CURSOS_INDICACAO_API: 'http://localhost:8080/esistens-indicacao-api',
   KEYCLOAK_URL: 'http://localhost:8084/auth',
   KEYCLOAK_REALM: 'FAB',
   KEYCLOAK_CLIENT_ID: 'ensino-client',
