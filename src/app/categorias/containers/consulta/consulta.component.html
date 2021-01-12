@@ -18,10 +18,11 @@
       <td>{{categoria.codigo}}</td>
       <td>{{categoria.titulo}}</td>
       <td>{{categoria.descricao}}</td>
+      <td><i class="pi pi-check"></i></td>
     </tr>
   </ng-template>
 </p-table>
 
 <p>
-  <p-button label="Nova Categoria"></p-button>
+  <p-button label="Nova Categoria" (click)="novaCategoria()"></p-button>
 </p>
