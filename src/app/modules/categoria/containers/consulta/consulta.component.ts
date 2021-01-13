@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Categoria} from "../../../models/categoria.model";
+import {Categoria} from "../../../../models/categoria.model";
 
 @Component({
   selector: 'app-consulta',

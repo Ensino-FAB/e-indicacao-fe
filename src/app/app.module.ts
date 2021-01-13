@@ -13,7 +13,7 @@ import {
   DropmenuModule,
 } from '@cca-fab/cca-fab-components-common';
 import { environment } from '../environments/environment';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {CommonModule, HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 function initializeKeycloak(keycloak: KeycloakService): any {
   return () =>
@@ -42,7 +42,7 @@ function initializeKeycloak(keycloak: KeycloakService): any {
     DropmenuModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
   ],
   providers: [
     {

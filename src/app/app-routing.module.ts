@@ -12,8 +12,11 @@ const routes: Routes = [
   },
   {
     path: 'categorias',
+    data: {
+      breadcrumb: 'categorias',
+    },
     loadChildren: () =>
-      import('./categorias/categorias.module').then((m) => m.CategoriasModule),
+      import('./modules/categoria/categoria.module').then((m) => m.CategoriasModule),
   }
 ];
 

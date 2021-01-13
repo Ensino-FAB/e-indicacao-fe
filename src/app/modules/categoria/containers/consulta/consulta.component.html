@@ -1,0 +1,28 @@
+  <div [class]="'main-container box p-shadow-8'" >
+  <span class="p-input-icon-left" style="width: 100%; margin: 10px">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText placeholder="Digite um termo para buscar" [(ngModel)]="termoBusca" style="width: 100%"/>
+</span>
+
+  <p-table [value]="categorias">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Codigo</th>
+        <th>Titulo</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-categoria>
+      <tr>
+        <td>{{categoria.codigo}}</td>
+        <td>{{categoria.titulo}}</td>
+        <td>{{categoria.descricao}}</td>
+        <td><i class="pi pi-check"></i></td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+    <p-button label="Nova Categoria" (click)="novaCategoria()"></p-button>
+
+  </div>
