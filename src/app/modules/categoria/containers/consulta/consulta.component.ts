@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Categoria} from "../../../../models/categoria.model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-consulta',
@@ -8,6 +9,8 @@ import {Categoria} from "../../../../models/categoria.model";
 })
 export class ConsultaComponent implements OnInit {
   termoBusca: string;
+  options: string[] = ['Detalhar','Editar','Excluir'];
+  selectedOption: string;
   categorias: Categoria[] = [
     {id:0,codigo:"test1",titulo:"abc",descricao:"asdf"},
     {id:1,codigo:"test2",titulo:"def",descricao:"rere"},
@@ -23,13 +26,14 @@ export class ConsultaComponent implements OnInit {
     {id:11,codigo:"test3",titulo:"ght",descricao:"cvxcv"}
   ];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
   novaCategoria(){
-    console.log("ir para nova categoria");
+    this.router.navigate(['criar'], { relativeTo: this.route });
   }
 
 }

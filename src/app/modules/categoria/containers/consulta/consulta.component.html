@@ -4,7 +4,7 @@
     <input type="text" pInputText placeholder="Digite um termo para buscar" [(ngModel)]="termoBusca" style="width: 100%"
            (input)="tabela.filterGlobal($event.target.value, 'contains')"/>
 </span>
-  <div class="card" style="width: 100%; padding: 10px">
+  <div class="card" style="width: 100%; padding: 10px;">
     <p-table #tabela [value]="categorias" [globalFilterFields]="['codigo','titulo','descricao']"
              [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
              [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
@@ -22,6 +22,8 @@
           <td>{{categoria.titulo}}</td>
           <td>{{categoria.descricao}}</td>
           <td style="text-align: center;"><i class="pi pi-check"></i></td>
+<!--          <td><p-dropdown inputId="dropdown" [autoDisplayFirst]="false"-->
+<!--                          [(ngModel)]="options"></p-dropdown></td>-->
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">

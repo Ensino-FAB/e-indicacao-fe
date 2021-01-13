@@ -7,7 +7,6 @@ import { ConsultaComponent } from './containers/consulta/consulta.component';
 import { CadastroComponent } from './containers/cadastro/cadastro.component';
 import { EdicaoComponent } from './containers/edicao/edicao.component';
 import { DetalheComponent } from './containers/detalhe/detalhe.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [ConsultaComponent, CadastroComponent, EdicaoComponent, DetalheComponent],
