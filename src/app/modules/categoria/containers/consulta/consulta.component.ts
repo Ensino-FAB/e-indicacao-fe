@@ -9,9 +9,18 @@ import {Categoria} from "../../../../models/categoria.model";
 export class ConsultaComponent implements OnInit {
   termoBusca: string;
   categorias: Categoria[] = [
-    {id:0,codigo:"test1",titulo:"test1",descricao:"asdf"},
-    {id:1,codigo:"test2",titulo:"test2",descricao:"asdf"},
-    {id:2,codigo:"test3",titulo:"test3",descricao:"asdf"}
+    {id:0,codigo:"test1",titulo:"abc",descricao:"asdf"},
+    {id:1,codigo:"test2",titulo:"def",descricao:"rere"},
+    {id:2,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:3,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:4,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:5,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:6,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:7,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:8,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:9,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:10,codigo:"test3",titulo:"ght",descricao:"cvxcv"},
+    {id:11,codigo:"test3",titulo:"ght",descricao:"cvxcv"}
   ];
 
   constructor() { }
