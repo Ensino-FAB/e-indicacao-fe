@@ -17,6 +17,14 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import('./modules/categoria/categoria.module').then((m) => m.CategoriasModule),
+  },
+  {
+    path: 'eventos',
+    data: {
+      breadcrumb: 'eventos',
+    },
+    loadChildren: () =>
+      import('./modules/evento/evento.module').then((m) => m.EventoModule),
   }
 ];
 
