@@ -7,9 +7,11 @@ import {
 } from '@angular/core';
 
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: '[ensinoClickOutside]',
 })
 export class ClickOutsideDirective {
+  // tslint:disable-next-line:variable-name
   constructor(private _elementRef: ElementRef) {}
 
   @Output()

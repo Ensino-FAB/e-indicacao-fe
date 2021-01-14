@@ -10,6 +10,7 @@ import { NavToggleMenu } from 'src/app/core/models/nav-toggle-menu.model';
 
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'ensino-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],

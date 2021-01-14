@@ -9,6 +9,7 @@ interface MenuItem {
 }
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'ensino-sub-nav',
   templateUrl: './sub-nav.component.html',
   styleUrls: ['./sub-nav.component.scss'],

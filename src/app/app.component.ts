@@ -57,6 +57,7 @@ import * as moment from 'moment';
   ],
 })
 export class AppComponent implements OnDestroy {
+  // tslint:disable-next-line:variable-name
   private _sessionInterval: any;
   tokenDuration: moment.Duration;
   title = 'E-Ingresso';

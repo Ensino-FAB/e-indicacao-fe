@@ -15,7 +15,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import {InputTextModule} from "primeng/inputtext";
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
   exports: [
