@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Categoria} from "../../../../models/categoria.model";
 import {Observable} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CategoriaService} from "../../../../services/categoria.service";
 
 @Component({
@@ -17,6 +17,7 @@ export class CadastroComponent implements OnInit {
   id: number;
 
   constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
               private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {

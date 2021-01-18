@@ -3,7 +3,7 @@ import {Observable, Subscription} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Categoria} from "../../../../models/categoria.model";
 import {CategoriaService} from "../../../../services/categoria.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 
 @Component({
@@ -21,6 +21,7 @@ export class CategoriaFormComponent implements OnInit, OnDestroy {
 
   constructor(private categoriaService: CategoriaService,
               private messageService: MessageService,
+              private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -48,7 +49,7 @@ export class CategoriaFormComponent implements OnInit, OnDestroy {
             detail: 'A capacitação foi salva com sucesso!',
             severity: 'success',
           });
-          //this.router.navigate(['categorias', 'consultar']);
+          this.router.navigate(['categorias', { relativeTo: this.route }]);
         })
       );
     } else {
