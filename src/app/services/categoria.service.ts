@@ -31,7 +31,7 @@ export class CategoriaService {
   }
 
   findAll(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${this.endpoint}/categoria`);
+    return this.http.get<Categoria[]>(`${this.endpoint}`);
   }
 
   find(id: number) {

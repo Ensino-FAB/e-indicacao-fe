@@ -1,1 +1,13 @@
-<p>cadastro works!</p>
+<header>
+  <div class="flex-container between">
+    <h1 *ngIf="!id">Cadastro de Categoria</h1>
+    <h1 *ngIf="id">
+      Edição de Categoria
+    </h1>
+    <div class="flex-container middle"></div>
+  </div>
+</header>
+
+  <div>
+    <app-categoria-form [data]="data"></app-categoria-form>
+  </div>

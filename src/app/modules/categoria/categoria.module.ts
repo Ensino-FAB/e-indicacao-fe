@@ -9,6 +9,9 @@ import { EdicaoComponent } from './containers/edicao/edicao.component';
 import { DetalheComponent } from './containers/detalhe/detalhe.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
+import {ButtonModule, FormModule, InputModule, TextareaModule} from "@cca-fab/cca-fab-components-common";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -16,6 +19,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     CadastroComponent,
     EdicaoComponent,
     DetalheComponent,
+    CategoriaFormComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +27,11 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     PrimengComponentsModule,
     MultiSelectModule,
     AutoCompleteModule,
+    FormModule,
+    InputModule,
+    TextareaModule,
+    ButtonModule,
+    ToastModule
   ],
 })
 export class CategoriasModule {}
