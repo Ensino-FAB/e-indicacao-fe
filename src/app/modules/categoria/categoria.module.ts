@@ -9,15 +9,22 @@ import {DetalheComponent} from './containers/detalhe/detalhe.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {
+  TooltipModule,
+  CardModule,
   ButtonModule,
   IconModule,
   TableModule,
+  ModalModule,
+  TagModule,
+  LabelModule,
   FormModule,
   SelectModule,
+  TextareaModule,
   InputModule,
 } from '@cca-fab/cca-fab-components-common';
 import {CategoriaFacade} from './containers/categoria-facade';
 import { CadastroComponent } from './containers/cadastro/cadastro.component';
+import { DetalheCategoriaComponent } from './components/detalhe-categoria/detalhe-categoria.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +32,7 @@ import { CadastroComponent } from './containers/cadastro/cadastro.component';
     EdicaoComponent,
     DetalheComponent,
     CadastroComponent,
+    DetalheCategoriaComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +45,8 @@ import { CadastroComponent } from './containers/cadastro/cadastro.component';
     ButtonModule,
     TableModule,
     IconModule,
-    SelectModule
+    SelectModule,
+    TextareaModule
   ],
   providers: [CategoriaFacade],
 })

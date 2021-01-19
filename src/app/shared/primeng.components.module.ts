@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import {CardModule as CardModulePrimeNg} from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
@@ -35,6 +36,7 @@ import {ToastModule as ToastModuloPrime} from 'primeng/toast';
     ConfirmDialogModule,
     CheckboxModule,
     DynamicDialogModule,
+    CardModulePrimeNg
   ],
 })
 export class PrimengComponentsModule { }
