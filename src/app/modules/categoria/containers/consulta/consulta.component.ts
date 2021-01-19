@@ -23,34 +23,38 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   categoriaSearch = new FormGroup({
     q: new FormControl(''),
-    nome: new FormControl(''),
-    sigla: new FormControl(''),
-    tipo: new FormControl(''),
+    descricao: new FormControl(''),
+    titulo: new FormControl(''),
   });
 
   columns: TableColumn[] = [
     {
       field: 'id',
       title: 'Código',
-      width: '20%',
-    },
-    {
-      field: 'descricao',
-      title: 'Descrição',
-      width: '30%',
+      width: '10%',
     },
 
     {
       field: 'titulo',
       title: 'Título',
-      width: '30%',
+      width: '25%',
     },
+
+
+    {
+      field: 'descricao',
+      title: 'Descrição',
+      width: '55%',
+    },
+
+
   ];
 
   data = [];
   loadindMockData = new Array(10).fill({
+    id: '',
     descricao: '',
-    status: '',
+    titulo: '',
   });
 
   options: object[];
@@ -71,7 +75,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.options = [
       {name: 'Codigo', value: 'id'},
-      {name: 'Titulo', value: 'tiulo'},
+      {name: 'Titulo', value: 'titulo'},
       {name: 'Descrição', value: 'descricao'},
     ];
     this.refresh();
