@@ -1,7 +1,8 @@
-import {BaseModel} from '../core/models/base.model';
+import {BaseSearch} from '../core/models/base-search.model';
+import {StatusEvento} from './evento.model';
 
 
-export interface Evento extends BaseModel {
+export interface EventoSearchModel extends BaseSearch {
   categoriaId: number;
   codOrganizacaoGestora: number;
   dataInicio: Date;
@@ -14,8 +15,4 @@ export interface Evento extends BaseModel {
   sigla: string;
   statusEvento: StatusEvento;
   ticket: string;
-}
-
-export interface StatusEvento {
-  descricao: string;
 }
