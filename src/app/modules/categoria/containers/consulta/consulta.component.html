@@ -1,86 +1,145 @@
-<!--<section @fadeIn>-->
+<section @fadeIn>
   <div class="flex-container col wrapper">
     <div class="flex-container col grow main-control">
       <div class="flex-container col grow aside-content">
         <div class="grid-item">
           <div class="flex-container row middle between aside-wrapper">
             <h2 class="fin-page-title">consultar categoria</h2>
-            <a
-              class="pi pi-plus-circle"
-              style="font-size: 2rem"
-              [routerLink]="['/categorias', 'criar']"
-            ></a>
+            <div class="flex-container end">
+              <a [routerLink]="['/categoria', 'cadastro']">
+                <com-button flat transparent>
+                  <com-icon slot="icon">add</com-icon>
+                </com-button>
+              </a>
+              <com-button disabled="true" transparent flat>
+                <com-icon outlined slot="icon">save_alt</com-icon>
+              </com-button>
+            </div>
           </div>
         </div>
-
-<!--        <div class="grid-item">-->
-<!--          <div class="sort-card">-->
-<!--            <div class="menu-card-sort">-->
-<!--              <span>Ordernar por</span>-->
-<!--              <p-autoComplete [dropdown]="true"> </p-autoComplete>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
+        <div class="grid-item">
+          <div class="sort-card">
+            <div class="menu-card-sort">
+              <span>Ordernar por</span>
+              <com-select
+                class="no-margin-bottom"
+                [options]="options"
+                [label]="'Selecione'"
+                (changed)="handleSortChange($event)"
+              ></com-select>
+              <div class="order-btn" [ngClass]="{ isAsc: asc }">
+                <com-button flat transparent (click)="handleInvertSort()">
+                  <com-icon outlined slot="icon">sort</com-icon>
+                </com-button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="main-content grid-item">
-          <span class="p-input-icon-left" style="width: 100%; padding: 10px">
-            <i class="pi pi-search" style="padding-left: 15px"></i>
-            <input
-              type="text"
-              pInputText
-              placeholder="Digite um termo para buscar"
-              [(ngModel)]="termoBusca"
-              style="width: 30%; height: 40px; font-size: 100%"
-              (input)="tabela.filterGlobal($event.target.value, 'contains')"
-            />
-          </span>
-      </div>
-
-      <div class="grid-item">
-        <div class="menu-card-sort">
-          <div class="card" style="width: 100%; padding: 10px">
-            <p-table
-              #tabela
-              [value]="categorias"
-              [globalFilterFields]="['codigo', 'titulo', 'descricao']"
-              [rows]="10"
-              [showCurrentPageReport]="true"
-              [rowsPerPageOptions]="[10, 25, 50]"
-              [paginator]="true"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            >
-              <ng-template pTemplate="header">
-                <tr>
-                  <th pSortableColumn="codigo" style="width: 20rem; font-size: 200%">Codigo <p-sortIcon field="codigo"></p-sortIcon></th>
-                  <th pSortableColumn="titulo" style="width: 30rem; font-size: 200%">Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
-                  <th pSortableColumn="descricao" style="width: 30rem; font-size: 200%">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
-                  <th style="width: 6rem; font-size: 200%">Ações</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-categoria>
-                <tr>
-                  <td style="font-size: 150%">{{ categoria.codigo }}</td>
-                  <td style="font-size: 150%">{{ categoria.titulo }}</td>
-                  <td style="font-size: 150%">{{ categoria.descricao }}</td>
-                  <td style="text-align: center">
-                    <i class="pi pi-check"></i>
-                  </td>
-                  <!--          <td><p-dropdown inputId="dropdown" [autoDisplayFirst]="false"-->
-                  <!--                          [(ngModel)]="options"></p-dropdown></td>-->
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="emptymessage">
-                <tr>
-                  <td colspan="7">Não existem categorias cadastradas.</td>
-                </tr>
-              </ng-template>
-            </p-table>
-            <div></div>
-          </div>
-          <div class="order-btn"></div>
-        </div>
+        <com-form [formGroup]="categoriaSearch">
+          <com-form-section formTitle="Filtrar">
+            <com-input
+              formControlName="titulo"
+              placeholder="Digite o Título "
+              label="Título"
+            ></com-input>
+          </com-form-section>
+          <com-form-section block>
+            <div class="flex-container row button-set">
+              <com-button fill (click)="onSubmit()">
+                <ng-container slot="text">Filtrar</ng-container>
+              </com-button>
+              <com-button transparent flat (click)="clean()">
+                <ng-container slot="text">Limpar</ng-container>
+              </com-button>
+            </div>
+          </com-form-section>
+        </com-form>
       </div>
     </div>
-    <div class="main-content grid-item"></div>
+    <div class="grid-item">
+      <com-table
+        [data]="data"
+        [pageSize]="pageSize"
+        [maxPageSize]="100"
+        [minPageSize]="5"
+        [pageIndex]="page"
+        [totalPages]="totalPages"
+        [columns]="columns"
+        (refresh)="refresh()"
+        (pageSizeChanged)="handlePageSizeChange($event)"
+        (pageIndexChanged)="handlePageIndexChange($event)"
+        (nextPage)="handleNextPage()"
+        (previousPage)="handlePreviousPage()"
+        (firstPage)="onFirstPage()"
+        (lastPage)="onLastPage()"
+        *ngIf="!_isLoading"
+      >
+        <!-- Ações -->
+        <ng-template let-content name="action">
+          <div class="table-actions">
+            <div>
+              <a routerLink="/categoria/detalhar/{{ content.data.id }}">
+                <com-button transparent>
+                  <com-icon outlined slot="icon">launch</com-icon>
+                </com-button>
+              </a>
+            </div>
+            <div>
+              <a routerLink="/categoria/editar/{{ content.data.id }}">
+                <com-button
+                  secondary
+                  transparent
+                  [disabled]="
+                    content.data.editavel == 'NAO_EDITAVEL' ? true : false
+                  "
+                >
+                  <com-icon outlined slot="icon">edit</com-icon>
+                </com-button>
+              </a>
+            </div>
+            <div>
+              <a>
+                <com-button
+                  warning
+                  transparent
+                  (click)="onDelete(content.data.id)"
+                  [disabled]="
+                    content.data.editavel == 'NAO_EDITAVEL' ? true : false
+                  "
+                >
+                  <com-icon outlined slot="icon">delete</com-icon>
+                </com-button>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+      </com-table>
+      <com-table
+        [data]="loadindMockData"
+        [pageSize]="20"
+        [maxPageSize]="1"
+        [minPageSize]="1"
+        [pageIndex]="1"
+        [totalPages]="1"
+        [columns]="columns"
+        *ngIf="_isLoading"
+      >
+        <ng-template name="nome">
+          <div class="table-field-skeleton"></div>
+        </ng-template>
+        <ng-template name="sigla">
+          <div class="table-field-skeleton"></div>
+        </ng-template>
+        <ng-template name="email">
+          <div class="table-field-skeleton"></div>
+        </ng-template>
+        <ng-template name="tipo">
+          <div class="table-field-skeleton"></div>
+        </ng-template>
+        <ng-template let-content name="action"></ng-template>
+      </com-table>
+    </div>
   </div>
-<!--</section>-->
+</section>

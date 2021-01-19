@@ -1,10 +1,14 @@
-
+@import 'src/assets/scss/breakpoints.scss';
+@import 'src/assets/scss/mixins.scss';
 
 :host {
   display: block;
   margin: 0 auto;
   max-width: 100%;
 
+  @include respond-to(xl) {
+    max-width: 138rem;
+  }
 
   .wrapper {
     position: relative;
@@ -12,6 +16,11 @@
     margin: calc(var(--padding) / 2);
     margin-bottom: 3rem;
 
+    .main-control {
+      @include respond-to(lg) {
+        flex-direction: row;
+      }
+    }
 
     .main-content,
     .aside-content {
@@ -171,6 +180,7 @@
 
     background-color: var(--grey);
 
+    @include skeleton();
 
     animation: 3000ms ease-in-out skeleton infinite;
   }

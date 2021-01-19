@@ -11,17 +11,17 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'categorias',
+    path: 'categoria',
     data: {
-      breadcrumb: 'categorias',
+      breadcrumb: 'categoria',
     },
     loadChildren: () =>
       import('./modules/categoria/categoria.module').then((m) => m.CategoriasModule),
   },
   {
-    path: 'eventos',
+    path: 'evento',
     data: {
-      breadcrumb: 'eventos',
+      breadcrumb: 'evento',
     },
     loadChildren: () =>
       import('./modules/evento/evento.module').then((m) => m.EventoModule),
