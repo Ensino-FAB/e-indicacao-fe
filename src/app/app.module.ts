@@ -5,7 +5,7 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   IconModule,
@@ -16,6 +16,7 @@ import {environment} from '../environments/environment';
 import {CommonModule, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {ToastService} from './shared/services/toast.service';
 import {ToastModule} from './shared/components/toast/toast.module';
+import {HttpErrorInterceptor} from './http-error.interceptor';
 
 function initializeKeycloak(keycloak: KeycloakService): any {
   return () =>
@@ -59,6 +60,13 @@ function initializeKeycloak(keycloak: KeycloakService): any {
       multi: true,
       deps: [KeycloakService],
     },
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
+
   ],
   bootstrap: [AppComponent]
 })
