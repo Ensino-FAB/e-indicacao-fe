@@ -1,25 +1,30 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { CATEGORIAS_ROUTES } from './categorias-routing.module';
-import { PrimengComponentsModule } from '../../shared/primeng.components.module';
-import { ConsultaComponent } from './containers/consulta/consulta.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {CATEGORIAS_ROUTES} from './categorias-routing.module';
+import {PrimengComponentsModule} from '../../shared/primeng.components.module';
+import {ConsultaComponent} from './containers/consulta/consulta.component';
+import {EdicaoComponent} from './containers/edicao/edicao.component';
+import {DetalheComponent} from './containers/detalhe/detalhe.component';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {
+  ButtonModule,
+  IconModule,
+  TableModule,
+  FormModule,
+  SelectModule,
+  InputModule,
+} from '@cca-fab/cca-fab-components-common';
+import {CategoriaFacade} from './containers/categoria-facade';
 import { CadastroComponent } from './containers/cadastro/cadastro.component';
-import { EdicaoComponent } from './containers/edicao/edicao.component';
-import { DetalheComponent } from './containers/detalhe/detalhe.component';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
-import {ButtonModule, FormModule, InputModule, TextareaModule} from "@cca-fab/cca-fab-components-common";
-import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
     ConsultaComponent,
-    CadastroComponent,
     EdicaoComponent,
     DetalheComponent,
-    CategoriaFormComponent
+    CadastroComponent,
   ],
   imports: [
     CommonModule,
@@ -29,9 +34,12 @@ import {ToastModule} from "primeng/toast";
     AutoCompleteModule,
     FormModule,
     InputModule,
-    TextareaModule,
     ButtonModule,
-    ToastModule
+    TableModule,
+    IconModule,
+    SelectModule
   ],
+  providers: [CategoriaFacade],
 })
-export class CategoriasModule {}
+export class CategoriasModule {
+}
