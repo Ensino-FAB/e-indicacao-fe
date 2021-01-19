@@ -24,6 +24,7 @@ import {
 } from '@cca-fab/cca-fab-components-common';
 import {CategoriaFacade} from './containers/categoria-facade';
 import { CadastroComponent } from './containers/cadastro/cadastro.component';
+import { DetalheCategoriaComponent } from './components/detalhe-categoria/detalhe-categoria.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CadastroComponent } from './containers/cadastro/cadastro.component';
     EdicaoComponent,
     DetalheComponent,
     CadastroComponent,
+    DetalheCategoriaComponent,
   ],
   imports: [
     CommonModule,
