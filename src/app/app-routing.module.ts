@@ -27,9 +27,9 @@ const routes: Routes = [
       import('./modules/evento/evento.module').then((m) => m.EventoModule),
   },
   {
-    path: 'indicacoes',
+    path: 'indicacao',
     data: {
-      breadcrumb: 'indicações',
+      breadcrumb: 'indicacao',
     },
     loadChildren: () =>
       import('./modules/indicacao/indicacao.module').then((m) => m.IndicacaoModule),
