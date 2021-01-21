@@ -35,7 +35,7 @@ export class CategoriaFacade {
     return this.service.save(record);
   }
 
-  public findOrganizacao(id: number): Observable<Categoria> {
+  public findCategoria(id: number): Observable<Categoria> {
     return this.service.findById(id);
   }
 }

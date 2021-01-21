@@ -46,7 +46,9 @@ import { DetalheCategoriaComponent } from './components/detalhe-categoria/detalh
     TableModule,
     IconModule,
     SelectModule,
-    TextareaModule
+    TextareaModule,
+    LabelModule,
+    CardModule
   ],
   providers: [CategoriaFacade],
 })
