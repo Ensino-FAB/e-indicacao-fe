@@ -10,7 +10,7 @@ export const EVENTOS_ROUTES: Routes = [
   { path: '', component: ConsultaComponent, data: { breadcrumb: null } },
   { path: 'criar', component: CadastroComponent, data: { breadcrumb: null } },
   { path: 'editar/:id', component: EdicaoComponent, data: { breadcrumb: null } },
-  { path: 'detalhes/:id', component: DetalheComponent, data: { breadcrumb: null } },
+  { path: 'detalhar/:id', component: DetalheComponent, data: { breadcrumb: null } },
 ];
 
 @NgModule({

@@ -35,7 +35,7 @@ export class EventoFacade {
     return this.service.save(record);
   }
 
-  public findOrganizacao(id: number): Observable<Evento> {
+  public findEvento(id: number): Observable<Evento> {
     return this.service.findById(id);
   }
 }

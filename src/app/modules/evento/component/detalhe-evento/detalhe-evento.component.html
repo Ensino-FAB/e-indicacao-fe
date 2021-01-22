@@ -1,0 +1,36 @@
+<com-card>
+  <div class="container">
+    <div class="wrapper">
+      <header>
+        <h2 [ngClass]="{ skeleton: loading }" *ngIf="header">
+          {{ header }}
+        </h2>
+      </header>
+      <section>
+        <div style="display: flex">
+          <div
+            style="
+              display: flex;
+              align-items: flex-start;
+              width: 50%;
+              flex-direction: column;
+            "
+          >
+            <div class="flex-container col" style="margin-bottom: 3rem">
+              <com-label>Descrição</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.descricao }}
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <div style="width: 100%; display: flex; justify-content: flex-end">
+        <com-button fill routerLink="/categoria/">
+          <ng-container slot="text">voltar</ng-container>
+        </com-button>
+      </div>
+    </div>
+  </div>
+</com-card>
