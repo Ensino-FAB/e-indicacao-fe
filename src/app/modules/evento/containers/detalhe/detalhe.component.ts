@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {of, Subscription, timer} from "rxjs";
 import {Evento} from "../../../../models/evento.model";
 import {ActivatedRoute} from "@angular/router";
-import {EventoFacade} from "../evento-facade";
+import {EventoFacade} from "../../evento-facade";
 import {mapTo, mergeAll, share, takeUntil} from "rxjs/operators";
 import {fadeIn} from "../../../../shared/utils/animation";
 

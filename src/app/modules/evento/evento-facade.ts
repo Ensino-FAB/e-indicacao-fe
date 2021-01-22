@@ -1,9 +1,9 @@
 import {Injectable, Injector} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Pageable} from '../../../core/models/pageable.model';
-import {EventoService} from "../../../services/evento.service";
-import {EventoSearchModel} from "../../../models/evento-search.model";
-import {Evento} from "../../../models/evento.model";
+import {Pageable} from '../../core/models/pageable.model';
+import {EventoService} from '../../services/evento.service';
+import {EventoSearchModel} from '../../models/evento-search.model';
+import {Evento} from '../../models/evento.model';
 
 
 @Injectable()
