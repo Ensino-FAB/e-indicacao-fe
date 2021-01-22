@@ -111,7 +111,7 @@ export class AppComponent implements OnDestroy {
   refreshTokenTime(): void {
     if (
       !this.tokenDuration ||
-      Math.round(this.tokenDuration.asMinutes()) <= 10
+      Math.round(this.tokenDuration.asMinutes()) <= 300
     ) {
       this.keycloak.updateToken(-1).then((refreshed) => {
         if (refreshed) {

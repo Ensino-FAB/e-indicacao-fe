@@ -4,11 +4,13 @@ import {Evento} from "../../../../models/evento.model";
 import {ActivatedRoute} from "@angular/router";
 import {EventoFacade} from "../evento-facade";
 import {mapTo, mergeAll, share, takeUntil} from "rxjs/operators";
+import {fadeIn} from "../../../../shared/utils/animation";
 
 @Component({
   selector: 'app-detalhe',
   templateUrl: './detalhe.component.html',
-  styleUrls: ['./detalhe.component.scss']
+  styleUrls: ['./detalhe.component.scss'],
+  animations: [fadeIn()]
 })
 export class DetalheComponent implements OnInit {
 

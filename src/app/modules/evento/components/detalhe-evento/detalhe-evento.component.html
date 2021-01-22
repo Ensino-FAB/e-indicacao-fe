@@ -17,17 +17,60 @@
             "
           >
             <div class="flex-container col" style="margin-bottom: 3rem">
+              <com-label>Sigla</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.sigla }}
+              </span>
+              <com-label>Nome</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.nome }}
+              </span>
               <com-label>Descrição</com-label>
               <span [ngClass]="{ skeleton: loading }">
                 {{ evento?.descricao }}
               </span>
+              <com-label>Categoria</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento.categoria? evento.categoria.titulo : "..." }}
+              </span>
+              <com-label>Organização Gestora</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.codOrganizacaoGestora }}
+              </span>
+              <com-label>Data Início</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.dataInicio }}
+              </span>
+              <com-label>Início da Indicação</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.dataInicioIndicacao }}
+              </span>
+              <com-label>Data Término</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.dataTermino }}
+              </span>
+              <com-label>Término da Indicação</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.dataTerminoIndicacao }}
+              </span>
+              <com-label>Observações</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.observacoes }}
+              </span>
+              <com-label>Status</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.statusEvento.descricao }}
+              </span>
+              <com-label>Ticket</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ evento?.ticket }}
+              </span>
             </div>
-
           </div>
         </div>
       </section>
       <div style="width: 100%; display: flex; justify-content: flex-end">
-        <com-button fill routerLink="/categoria/">
+        <com-button fill routerLink="/evento/">
           <ng-container slot="text">voltar</ng-container>
         </com-button>
       </div>
