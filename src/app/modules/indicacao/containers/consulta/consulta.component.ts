@@ -5,6 +5,9 @@ import {TableColumn} from '@cca-fab/cca-fab-components-common';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {IndicacaoFacade} from '../../indicacao-facade';
+import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
+import {PessoaService} from "../../../../services/pessoa.service";
+import {OrganizacaoSearchModel} from "../../../../models/organizacao-search.model";
 
 @Component({
   selector: 'app-consulta',
@@ -17,6 +20,11 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   _isLoading = false;
 
+
+  pessoaOptions: SelectOption[] = [];
+
+  organizacaoOptions: SelectOption[] = [];
+
   indicacaoSearch = new FormGroup({
     q: new FormControl(''),
     descricao: new FormControl(''),
@@ -25,14 +33,14 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   columns: TableColumn[] = [
     {
-      field: 'Pessoa',
-      title: 'codPessoa',
+      field: 'codPessoa',
+      title: 'Pessoa',
       width: '10%',
     },
 
     {
-      field: 'Evento',
-      title: 'eventoId',
+      field: 'eventoId',
+      title: 'Evento',
       width: '25%',
     },
 
@@ -71,17 +79,19 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: IndicacaoFacade,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private pessoaService: PessoaService
   ) {
   }
 
   ngOnInit(): void {
     this.options = [
-      {name: 'Codigo', value: 'id'},
-      {name: 'Titulo', value: 'titulo'},
-      {name: 'Descrição', value: 'descricao'},
+      {name: 'Pessoa', value: 'codPessoa'},
+      {name: 'Evento', value: 'eventoId'},
     ];
     this.refresh();
+    this.findPessoas();
+    this.findOrganizacao();
   }
 
   // tslint:disable-next-line:typedef
@@ -175,8 +185,36 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       this.facade.delete(id).subscribe(() => {
         this.refresh();
         this.toastService.show({
-          message: 'Categoria deletada com sucesso!',
+          message: 'Indicação deletada com sucesso!',
           type: 'success',
+        });
+      })
+    );
+  }
+
+  findPessoas(search = {}): void {
+    this.pessoaOptions = [];
+    this.subs$.push(
+      this.facade.pessoaService.findAll(search).subscribe((response) => {
+        response.content.map((pessoa) => {
+          this.pessoaOptions.push({
+            name: pessoa.nome,
+            value: pessoa.id,
+          });
+        });
+      })
+    );
+  }
+
+  findOrganizacao (search = {}): void {
+    this.organizacaoOptions = [];
+    this.subs$.push(
+      this.facade.organizacaoService.findAll(search).subscribe((response) => {
+        response.content.map((organizacao) => {
+          this.organizacaoOptions.push({
+            name: organizacao.nome,
+            value: organizacao.id,
+          });
         });
       })
     );
