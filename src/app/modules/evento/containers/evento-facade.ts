@@ -9,19 +9,19 @@ import {Evento} from "../../../models/evento.model";
 @Injectable()
 export class EventoFacade {
   // tslint:disable-next-line:variable-name
-  private _categoriaService: EventoService;
+  private _eventoService: EventoService;
 
   constructor(private injector: Injector) {
   }
 
   private get service(): EventoService {
-    if (!this._categoriaService) {
-      this._categoriaService = this.injector.get(EventoService);
+    if (!this._eventoService) {
+      this._eventoService = this.injector.get(EventoService);
     }
-    return this._categoriaService;
+    return this._eventoService;
   }
 
-  public getAllCategoria(
+  public getAllEvento(
     search: EventoSearchModel
   ): Observable<Pageable<Evento>> {
     return this.service.findAll(search);

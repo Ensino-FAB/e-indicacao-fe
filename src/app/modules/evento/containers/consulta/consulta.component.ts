@@ -21,29 +21,38 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   _isLoading = false;
 
-  categoriaSearch = new FormGroup({
+  eventoSearch = new FormGroup({
     q: new FormControl(''),
     nome: new FormControl(''),
     sigla: new FormControl(''),
-    tipo: new FormControl(''),
+    statusEvento: new FormControl(''),
   });
 
   columns: TableColumn[] = [
     {
-      field: 'id',
-      title: 'Código',
+      field: 'categoriaId',
+      title: 'Categoria',
       width: '20%',
     },
     {
-      field: 'descricao',
-      title: 'Descrição',
-      width: '30%',
+      field: 'codOrganizacaoGestora',
+      title: 'Organização Gestora',
+      width: '10%',
     },
-
     {
-      field: 'titulo',
-      title: 'Título',
-      width: '30%',
+      field: 'nome',
+      title: 'Nome',
+      width: '35%',
+    },
+    {
+      field: 'sigla',
+      title: 'Sigla',
+      width: '15%',
+    },
+    {
+      field: 'statusEvento',
+      title: 'Status',
+      width: '20%',
     },
   ];
 
@@ -70,8 +79,11 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.options = [
-      {name: 'Codigo', value: 'id'},
-      {name: 'Titulo', value: 'tiulo'},
+      {name: 'Categoria', value: 'categoriaId'},
+      {name: 'Organização Gestora', value: 'codOrganizacaoGestora'},
+      {name: 'Nome', value: 'nome'},
+      {name: 'Sigla', value: 'sigla'},
+      {name: 'Status', value: 'statusEvento'},
       {name: 'Descrição', value: 'descricao'},
     ];
     this.refresh();
@@ -80,28 +92,37 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:typedef
   refresh() {
     const search = {
-      ...this.categoriaSearch.value,
+      ...this.eventoSearch.value,
       page: this.page ? this.page - 1 : 0,
       size: this.pageSize,
       sort: this.orderBy.map((item) => (this.asc ? item : item + ',desc')),
     };
-    const getCategoria$ = this.facade.getAllCategoria(search).pipe(share());
+    const getEvento$ = this.facade.getAllEvento(search).pipe(share());
     const isLoading$ = of(
-      timer(150).pipe(mapTo(true), takeUntil(getCategoria$)),
-      getCategoria$.pipe(mapTo(false))
+      timer(150).pipe(mapTo(true), takeUntil(getEvento$)),
+      getEvento$.pipe(mapTo(false))
     ).pipe(mergeAll());
 
     this.subs$.push(
       isLoading$.subscribe((status) => {
         this._isLoading = status;
       }),
-      getCategoria$.subscribe((res) => {
+      getEvento$.subscribe((res) => {
         this.count = res.totalElements;
         this.data = res.content.map((item) => ({
           id: `${item?.id}`,
+          categoriaId: `${item.categoriaId}`,
+          codOrganizacaoGestora: `${item.codOrganizacaoGestora}`,
+          dataInicio: `${item.dataInicio}`,
+          dataInicioIndicacao: `${item?.dataInicioIndicacao}`,
+          dataTermino: `${item.dataTermino}`,
+          dataTerminoIndicacao: `${item.dataTerminoIndicacao}`,
           descricao: `${item.descricao}`,
-          imageUrl: `${item.imageUrl}`,
-          titulo: `${item.titulo}`,
+          nome: `${item?.nome}`,
+          observacoes: `${item.observacoes}`,
+          sigla: `${item.sigla}`,
+          statusEvento: `${item.statusEvento}`,
+          ticket: `${item?.ticket}`,
         }));
 
         this.totalPages = res.totalPages;
@@ -165,7 +186,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       this.facade.delete(id).subscribe(() => {
         this.refresh();
         this.toastService.show({
-          message: 'Categoria deletada com sucesso!',
+          message: 'Evento deletado com sucesso!',
           type: 'success',
         });
       })
@@ -173,7 +194,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   }
 
   clean() {
-    this.categoriaSearch.reset();
+    this.eventoSearch.reset();
     this.refresh();
   }
 
