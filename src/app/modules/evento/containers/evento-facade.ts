@@ -1,29 +1,29 @@
 import {Injectable, Injector} from '@angular/core';
-import {CategoriaService} from '../../../services/categoria.service';
-import {CategoriaSearchModel} from '../../../models/categoria-search.model';
 import {Observable} from 'rxjs';
 import {Pageable} from '../../../core/models/pageable.model';
-import {Categoria} from '../../../models/categoria.model';
+import {EventoService} from "../../../services/evento.service";
+import {EventoSearchModel} from "../../../models/evento-search.model";
+import {Evento} from "../../../models/evento.model";
 
 
 @Injectable()
 export class EventoFacade {
   // tslint:disable-next-line:variable-name
-  private _categoriaService: CategoriaService;
+  private _categoriaService: EventoService;
 
   constructor(private injector: Injector) {
   }
 
-  private get service(): CategoriaService {
+  private get service(): EventoService {
     if (!this._categoriaService) {
-      this._categoriaService = this.injector.get(CategoriaService);
+      this._categoriaService = this.injector.get(EventoService);
     }
     return this._categoriaService;
   }
 
   public getAllCategoria(
-    search: CategoriaSearchModel
-  ): Observable<Pageable<Categoria>> {
+    search: EventoSearchModel
+  ): Observable<Pageable<Evento>> {
     return this.service.findAll(search);
   }
 
@@ -31,11 +31,11 @@ export class EventoFacade {
     return this.service.remove(id);
   }
 
-  public save(record: Categoria): any {
+  public save(record: Evento): any {
     return this.service.save(record);
   }
 
-  public findOrganizacao(id: number): Observable<Categoria> {
+  public findOrganizacao(id: number): Observable<Evento> {
     return this.service.findById(id);
   }
 }
