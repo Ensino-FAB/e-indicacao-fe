@@ -5,7 +5,7 @@ import {ToastData} from '../../../core/models/toast-data.model';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // tslint:disable-next-line:components-selector
   selector: 'ensino-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss'],
