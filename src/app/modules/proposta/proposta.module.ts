@@ -5,11 +5,12 @@ import { AnaliseComponent } from './containers/analise/analise.component';
 import { ConsultaComponent } from './containers/consulta/consulta.component';
 import { RouterModule } from '@angular/router';
 import { PrimengComponentsModule } from 'src/app/shared/primeng.components.module';
+import { CardParticipantDetailComponent } from './components/card-participant-detail/card-participant-detail.component';
 
 
 
 @NgModule({
-  declarations: [AnaliseComponent, ConsultaComponent],
+  declarations: [AnaliseComponent, ConsultaComponent, CardParticipantDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(PROPOSTA_ROUTES),
