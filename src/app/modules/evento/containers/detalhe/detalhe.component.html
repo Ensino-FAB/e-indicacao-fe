@@ -1,1 +1,17 @@
-<p>detalhe works!</p>
+<section class="flex-container row center main-container" @fadeIn>
+  <div class="flex-container col wrap main-content">
+    <div class="grid-item">
+      <div class="sub-header flex-container between middle">
+        <h1>Detalhes do Evento #{{ id ? id : 'id' }}</h1>
+      </div>
+    </div>
+    <div class="grid-item">
+      <app-detalhe-evento
+        [loading]="isLoading"
+        [header]="evento?.nome"
+        [evento]="evento"
+      >
+      </app-detalhe-evento>
+    </div>
+  </div>
+</section>
