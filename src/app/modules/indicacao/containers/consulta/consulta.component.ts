@@ -5,31 +5,17 @@ import {TableColumn} from '@cca-fab/cca-fab-components-common';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {IndicacaoFacade} from '../../indicacao-facade';
-import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
-import {PessoaService} from "../../../../services/pessoa.service";
-import {fadeIn} from "../../../../shared/utils/animation";
-import {ActivatedRoute} from "@angular/router";
-
 
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
-  styleUrls: ['./consulta.component.scss'],
-  animations: [fadeIn()],
-
+  styleUrls: ['./consulta.component.scss']
 })
 export class ConsultaComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
 
-  private idEvento: number;
-
   // tslint:disable-next-line:variable-name
   _isLoading = false;
-
-
-  pessoaOptions: SelectOption[] = [];
-
-  eventoOptions: SelectOption[] = [];
 
   indicacaoSearch = new FormGroup({
     q: new FormControl(''),
@@ -39,14 +25,14 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   columns: TableColumn[] = [
     {
-      field: 'codPessoa',
-      title: 'Pessoa',
+      field: 'Pessoa',
+      title: 'codPessoa',
       width: '10%',
     },
 
     {
-      field: 'eventoId',
-      title: 'Evento',
+      field: 'Evento',
+      title: 'eventoId',
       width: '25%',
     },
 
@@ -85,26 +71,17 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: IndicacaoFacade,
-    private toastService: ToastService,
-    private pessoaService: PessoaService,
-    private route: ActivatedRoute
+    private toastService: ToastService
   ) {
   }
 
   ngOnInit(): void {
-
-    this.idEvento = this.route.snapshot.params.id;
-
-
     this.options = [
-      {name: 'Pessoa', value: 'codPessoa'},
-      {name: 'Evento', value: 'eventoId'},
+      {name: 'Codigo', value: 'id'},
+      {name: 'Titulo', value: 'titulo'},
+      {name: 'Descrição', value: 'descricao'},
     ];
     this.refresh();
-    // @ts-ignore
-    this.findPessoas();
-    // @ts-ignore
-    this.findEvento();
   }
 
   // tslint:disable-next-line:typedef
@@ -115,8 +92,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       size: this.pageSize,
       sort: this.orderBy.map((item) => (this.asc ? item : item + ',desc')),
     };
-    const getIndicacao$ = this.facade.indicacaoService.findAllIndicacoesByEvento( this.idEvento).pipe(share());
-    console.log(getIndicacao$)
+    const getIndicacao$ = this.facade.getAllIndicacao(search).pipe(share());
     const isLoading$ = of(
       timer(150).pipe(mapTo(true), takeUntil(getIndicacao$)),
       getIndicacao$.pipe(mapTo(false))
@@ -127,16 +103,18 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         this._isLoading = status;
       }),
       getIndicacao$.subscribe((res) => {
-        this.data = res.map((item) => ({
+        this.count = res.totalElements;
+        this.data = res.content.map((item) => ({
           id: `${item?.id}`,
-          codPessoa: `${item.pessoa.nome}`,
-          eventoId: `${item.evento.nome}`,
-          codOrganizacaoBeneficiada: `${item.organizacaoBeneficiada.nome}`,
-          codOrganizacaoSolicitante: `${item.organizacaoSolicitante.nome}`,
+          codṔessoa: `${item.codPessoa}`,
+          eventoId: `${item.eventoId}`,
+          codOrganizacaoBeneficiada: `${item.codOrganizacaoBeneficiada}`,
+          codOrganizacaoSolicitante: `${item.codOrganizacaoSolicitante}`,
           justificativa: `${item.justificativa}`,
           observacoes: `${item.observacoes}`,
-        })
-        );
+        }));
+
+        this.totalPages = res.totalPages;
       })
     );
   }
@@ -194,39 +172,11 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   onDelete(id: number): void {
     this.subs$.push(
-      this.facade.indicacaoService.remove(id).subscribe(() => {
+      this.facade.delete(id).subscribe(() => {
         this.refresh();
         this.toastService.show({
-          message: 'Indicação deletada com sucesso!',
+          message: 'Categoria deletada com sucesso!',
           type: 'success',
-        });
-      })
-    );
-  }
-
-  findPessoas(search): void {
-    this.pessoaOptions = [];
-    this.subs$.push(
-      this.facade.pessoaService.findAll(search).subscribe((response) => {
-        response.content.map((pessoa) => {
-          this.pessoaOptions.push({
-            name: pessoa.nome,
-            value: pessoa.id,
-          });
-        });
-      })
-    );
-  }
-
-  findEvento(search): void {
-    this.eventoOptions = [];
-    this.subs$.push(
-      this.facade.eventoService.findAll(search).subscribe((response) => {
-        response.content.map((evento) => {
-          this.eventoOptions.push({
-            name: evento.nome,
-            value: evento.id,
-          });
         });
       })
     );
