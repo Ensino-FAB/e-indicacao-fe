@@ -17,7 +17,6 @@ export interface Evento extends BaseModel {
   sigla: string;
   statusEvento: StatusEvento;
   ticket: string;
-  organizacao: Organizacao;
 }
 
 export interface StatusEvento {
