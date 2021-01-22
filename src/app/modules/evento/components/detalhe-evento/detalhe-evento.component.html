@@ -2,9 +2,9 @@
   <div class="container">
     <div class="wrapper">
       <header>
-        <h2 [ngClass]="{ skeleton: loading }" *ngIf="header">
-          {{ header }}
-        </h2>
+        <h1 [ngClass]="{ skeleton: loading }" *ngIf="header">
+          {{ header | uppercase }}
+        </h1>
       </header>
       <section>
         <div style="display: flex">
@@ -16,6 +16,7 @@
               flex-direction: column;
             "
           >
+            <br>
             <div class="flex-container col" style="margin-bottom: 3rem">
               <com-label>Sigla</com-label>
               <span [ngClass]="{ skeleton: loading }">
@@ -29,10 +30,14 @@
               <span [ngClass]="{ skeleton: loading }">
                 {{ evento?.descricao }}
               </span>
-              <com-label>Categoria</com-label>
+<!--              <com-label>Categoria</com-label>-->
+<!--              <span [ngClass]="{ skeleton: loading }">-->
+<!--                              {{ evento.categoria? evento.categoria.titulo : "..." }}-->
+<!--                            </span>-->
+              <com-label>Id da Categoria</com-label>
               <span [ngClass]="{ skeleton: loading }">
-                {{ evento.categoria? evento.categoria.titulo : "..." }}
-              </span>
+                              {{ evento.categoriaId }}
+                            </span>
               <com-label>Organização Gestora</com-label>
               <span [ngClass]="{ skeleton: loading }">
                 {{ evento?.codOrganizacaoGestora }}
