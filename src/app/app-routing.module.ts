@@ -33,6 +33,14 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import('./modules/indicacao/indicacao.module').then((m) => m.IndicacaoModule),
+  },
+  {
+    path: 'proposta',
+    data: {
+      breadcrumb: 'proposta',
+    },
+    loadChildren: () =>
+      import('./modules/proposta/proposta.module').then((m) => m.PropostaModule),
   }
 ];
 
