@@ -1,7 +1,7 @@
 import {BaseModel} from '../core/models/base.model';
 
 
-export interface EventoModel extends BaseModel {
+export interface Indicacao extends BaseModel {
   eventoId: number;
   codOrganizacaoSolicitante: number;
   codOrganizacaoBeneficiada: number;
