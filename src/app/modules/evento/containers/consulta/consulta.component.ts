@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {of, Subscription, timer} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
 import {TableColumn} from '@cca-fab/cca-fab-components-common';
-import {EventoFacade} from '../evento-facade';
+import {EventoFacade} from '../../evento-facade';
 import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {fadeIn} from '../../../../shared/utils/animation';

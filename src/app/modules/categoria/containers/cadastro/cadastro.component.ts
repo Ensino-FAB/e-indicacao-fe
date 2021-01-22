@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {fadeIn} from '../../../../shared/utils/animation';
 import {Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CategoriaFacade} from '../categoria-facade';
+import {CategoriaFacade} from '../../categoria-facade';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {Router} from '@angular/router';
 

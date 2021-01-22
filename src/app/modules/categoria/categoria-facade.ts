@@ -1,9 +1,9 @@
 import {Injectable, Injector} from '@angular/core';
-import {CategoriaService} from '../../../services/categoria.service';
-import {CategoriaSearchModel} from '../../../models/categoria-search.model';
+import {CategoriaService} from '../../services/categoria.service';
+import {CategoriaSearchModel} from '../../models/categoria-search.model';
 import {Observable} from 'rxjs';
-import {Pageable} from '../../../core/models/pageable.model';
-import {Categoria} from '../../../models/categoria.model';
+import {Pageable} from '../../core/models/pageable.model';
+import {Categoria} from '../../models/categoria.model';
 
 
 @Injectable()
