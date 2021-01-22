@@ -8,6 +8,14 @@ import {PrimengComponentsModule} from 'src/app/shared/primeng.components.module'
 import {DetalheComponent} from './containers/detalhe/detalhe.component';
 import {EdicaoComponent} from './containers/edicao/edicao.component';
 import {IndicacaoFacade} from './indicacao-facade';
+import {
+  ButtonModule,
+  FormModule,
+  IconModule,
+  InputModule,
+  SelectModule,
+  TableModule
+} from "@cca-fab/cca-fab-components-common";
 
 
 @NgModule({
@@ -16,6 +24,12 @@ import {IndicacaoFacade} from './indicacao-facade';
     CommonModule,
     RouterModule.forChild(INDICACAO_ROUTES),
     PrimengComponentsModule,
+    ButtonModule,
+    IconModule,
+    SelectModule,
+    FormModule,
+    InputModule,
+    TableModule,
   ],
   providers: [IndicacaoFacade],
 })

@@ -1,5 +1,6 @@
 import { Organizacao } from './organizacao.model';
 import { BaseModel } from './../core/models/base.model';
+import {BaseSearch} from '../core/models/base-search.model';
 import { Indicacao, IndicacaoResponse } from './indicacao.model';
 
 export interface Pessoa extends BaseModel {
@@ -8,10 +9,20 @@ export interface Pessoa extends BaseModel {
   nrOrdem: string;
   siglaPosto: string;
   email: string;
-  contatoPrincipal: string;
   organizacao?: Organizacao;
 }
 
+export interface PessoaSearch extends BaseSearch {
+  nrCpf?: string;
+  nome?: string;
+  siglaPosto?: string;
+  siglaQuadro?: string;
+  siglaEspecialidade?: string;
+  situacao?: string;
+  email?: string;
+  organizacaoMilitarId?: number;
+  contatoPrincipal?: string;
+}
 
 export interface PessoaIndicada{
   prioridade?: number;
