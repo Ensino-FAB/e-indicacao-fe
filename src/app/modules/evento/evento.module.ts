@@ -19,7 +19,7 @@ import {
   SelectModule,
   InputModule, CardModule, LabelModule,
 } from '@cca-fab/cca-fab-components-common';
-import {EventoFacade} from './containers/evento-facade';
+import {EventoFacade} from './evento-facade';
 import { DetalheEventoComponent } from './component/detalhe-evento/detalhe-evento.component';
 
 

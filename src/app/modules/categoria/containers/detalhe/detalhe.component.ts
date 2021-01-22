@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {of, Subscription, timer} from 'rxjs';
 import {Categoria} from '../../../../models/categoria.model';
 import {ActivatedRoute} from '@angular/router';
-import {CategoriaFacade} from '../categoria-facade';
+import {CategoriaFacade} from '../../categoria-facade';
 import {mapTo, mergeAll, share, takeUntil, tap} from 'rxjs/operators';
 import {fadeIn} from '../../../../shared/utils/animation';
 

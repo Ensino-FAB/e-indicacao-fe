@@ -22,7 +22,7 @@ import {
   TextareaModule,
   InputModule,
 } from '@cca-fab/cca-fab-components-common';
-import {CategoriaFacade} from './containers/categoria-facade';
+import {CategoriaFacade} from './categoria-facade';
 import { CadastroComponent } from './containers/cadastro/cadastro.component';
 import { DetalheCategoriaComponent } from './components/detalhe-categoria/detalhe-categoria.component';
 
