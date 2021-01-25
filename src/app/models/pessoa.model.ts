@@ -13,15 +13,7 @@ export interface Pessoa extends BaseModel {
 }
 
 export interface PessoaSearch extends BaseSearch {
-  nrCpf?: string;
   nome?: string;
-  siglaPosto?: string;
-  siglaQuadro?: string;
-  siglaEspecialidade?: string;
-  situacao?: string;
-  email?: string;
-  organizacaoMilitarId?: number;
-  contatoPrincipal?: string;
 }
 
 export interface PessoaIndicada{

@@ -1,1 +1,48 @@
-<p>cadastro-step1 works!</p>
+<com-form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <com-form-section partly formTitle="Dados do Evento" step="1">
+    <com-label>Evento* </com-label>
+
+    <com-autocomplete
+      enableConfirmOnInexistentValue
+      autoActiveFirstOption
+      (changed)="filterEvento($event)"
+      label="Filtrar por nome"
+      [options]="eventoIdOptions"
+      [invalid]="
+        form.get('eventoId').invalid && form.get('eventoId').touched
+      "
+      formControlName="eventoId"
+      class="full-width"
+    >
+    </com-autocomplete>
+    <br />
+  </com-form-section>
+
+
+  <com-form-section partly formTitle="Dados da Pessoa" step="2">
+    <com-label>Pessoa* </com-label>
+
+    <com-autocomplete
+      enableConfirmOnInexistentValue
+      autoActiveFirstOption
+      (changed)="filterPessoa($event)"
+      label="Filtrar por nome"
+      [options]="pessoaIdOptions"
+      [invalid]="
+        form.get('codPessoa').invalid && form.get('codPessoa').touched
+      "
+      formControlName="codPessoa"
+      class="full-width"
+    >
+    </com-autocomplete>
+    <br />
+  </com-form-section>
+
+  <com-form-section block>
+    <footer class="flex-container end">
+      <com-button primary (click)="onNext()">
+        <span slot="text">próximo</span>
+      </com-button>
+    </footer>
+  </com-form-section>
+</com-form>
