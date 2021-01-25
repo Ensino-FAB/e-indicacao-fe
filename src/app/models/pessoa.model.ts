@@ -9,3 +9,12 @@ export interface Pessoa extends BaseModel {
     email: string;
     organizacao?: Organizacao;
   }
+
+
+export interface PessoaIndicada{
+    index?: number;
+    nome: string;
+    siglaPosto: string;
+    organizacaoBeneficiada: string;
+    organizacaoSolicitante: string;
+  }

@@ -1,4 +1,4 @@
-<section @fadeIn>
+<section>
     <div class="flex-container col wrapper">
         <div class="aside-wrapper">
             <h2 class="indicacao-page-title">Análise das indicações</h2>
@@ -11,12 +11,17 @@
                 neque quas!</p>
         </p-card>
 
-        <p-pickList [source]="indicados" [target]="selecionados">
+        <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Indicados"
+            targetHeader="Selecionados" dragdrop="true" [style]="{'font-size':'1.7rem'}"
+            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
             <ng-template let-pessoa pTemplate="item">
                 <div>
-                    <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{pessoa.nome}}</div>
+                    <h1>{{pessoa.nome}}</h1>
+                    <div>{{pessoa.organizacaoBeneficiada}}</div>
+                    <div>{{pessoa.organizacaoSolicitante}}</div>
                 </div>
             </ng-template>
         </p-pickList>
     </div>
+    <h1>Teste</h1>
 </section>

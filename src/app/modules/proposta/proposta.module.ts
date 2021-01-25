@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PropostaFacade } from './containers/proposta-facade';
 import { PROPOSTA_ROUTES } from './proposta-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +17,7 @@ import { CardParticipantDetailComponent } from './components/card-participant-de
     CommonModule,
     RouterModule.forChild(PROPOSTA_ROUTES),
     PrimengComponentsModule,
-  ]
+  ],
+  providers: [PropostaFacade]
 })
 export class PropostaModule { }
