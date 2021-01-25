@@ -10,24 +10,28 @@ import {EventoSearchModel} from "../../../../models/evento-search.model";
   templateUrl: './cadastro-step1.component.html',
   styleUrls: ['./cadastro-step1.component.scss']
 })
-export class CadastroStep1Component implements OnInit , OnDestroy{
+export class CadastroStep1Component implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
   pessoaIdOptions: SelectOption[] = [];
   eventoIdOptions: SelectOption[] = [];
+  organizacaoIdOptions: SelectOption[] = [];
 
   @Output() next = new EventEmitter();
   @Input() form: FormGroup;
 
-  constructor(private facade: IndicacaoFacade) {}
+  constructor(private facade: IndicacaoFacade) {
+  }
 
   ngOnInit(): void {
     // @ts-ignore
     this.reloadEventoId();
     // @ts-ignore
     this.reloadPessoaId();
+    // @ts-ignore
+    this.reloadOrganizacaoId();
   }
 
-  reloadEventoId (search): void {
+  reloadEventoId(search): void {
     this.eventoIdOptions = [];
     this.subs$.push(
       this.facade.eventoService.findAll(search).subscribe((response) => {
@@ -41,7 +45,7 @@ export class CadastroStep1Component implements OnInit , OnDestroy{
     );
   }
 
-  reloadPessoaId (search): void {
+  reloadPessoaId(search): void {
     this.pessoaIdOptions = [];
     this.subs$.push(
       this.facade.pessoaService.findAll(search).subscribe((response) => {
@@ -55,21 +59,43 @@ export class CadastroStep1Component implements OnInit , OnDestroy{
     );
   }
 
+  reloadOrganizacaoId(search): void {
+    this.organizacaoIdOptions = [];
+    this.subs$.push(
+      this.facade.organizacaoService.findAll(search).subscribe((response) => {
+        response.content.map((organizacao) => {
+          this.organizacaoIdOptions.push({
+            name: organizacao.nome + ' - ' + organizacao.sigla,
+            value: organizacao.id,
+          });
+        });
+      })
+    );
+  }
+
+  filterOrganizacao(event): void {
+    const organizacaoName: string = event;
+    if (organizacaoName.length > 2) {
+      this.reloadOrganizacaoId({nome: organizacaoName});
+    }
+  }
+
   filterEvento(event): void {
     const eventoName: string = event;
-    if (eventoName.length > 2) {
-      this.reloadEventoId({ nome: eventoName });
+    if (eventoName.length > 3) {
+      this.reloadEventoId({nome: eventoName});
     }
   }
 
-  filterPessoa(event1): void {
-    const pessoaName: string = event1;
-    if (pessoaName.length > 2) {
-      this.reloadPessoaId({ nome: pessoaName });
+  filterPessoa(event): void {
+    const pessoaName: string = event;
+    if (pessoaName.length > 3) {
+      this.reloadPessoaId({nome: pessoaName});
     }
   }
 
-  onSubmit(): void {}
+  onSubmit(): void {
+  }
 
   onNext() {
     this.next.emit(this.form.value);
