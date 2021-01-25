@@ -1,1 +1,12 @@
-<p>card-participant-detail works!</p>
+<div class="flex-container middle">
+    <p-card class="card" [header]="pessoa?.nome">
+        <p>OID: {{ pessoa?.id }}</p>
+        <p>EMAIL: {{ pessoa?.email }}</p>
+        <p>TELEFONE: {{ pessoa?.telefone }}</p>
+        <p>OM DO INDICADO: {{ pessoa?.organizacaoIndicado }}</p>
+        <p>SOLICITADO POR: {{ pessoa?.organizacaoSolicitacao }}</p>
+        <p>OM BENEFICIADA: {{ pessoa?.organizacaoBeneficiada }}</p>
+        <p>JUSTIFICATICA: {{ pessoa?.justificativa }}</p>
+        <p>OBSERVAÇÕES: {{ pessoa?.observacao }}</p>
+    </p-card>
+</div>
