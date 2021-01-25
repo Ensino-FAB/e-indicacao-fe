@@ -17,7 +17,7 @@ import {
   TableModule,
   FormModule,
   SelectModule,
-  InputModule, CardModule, LabelModule,
+  InputModule, CardModule, LabelModule, TextareaModule,
 } from '@cca-fab/cca-fab-components-common';
 import {EventoFacade} from './containers/evento-facade';
 import { DetalheEventoComponent } from './components/detalhe-evento/detalhe-evento.component';
@@ -44,7 +44,8 @@ import { DetalheEventoComponent } from './components/detalhe-evento/detalhe-even
     IconModule,
     SelectModule,
     CardModule,
-    LabelModule
+    LabelModule,
+    TextareaModule
   ],
   providers: [EventoFacade],
 })
