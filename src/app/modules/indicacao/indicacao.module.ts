@@ -9,10 +9,11 @@ import {DetalheComponent} from './containers/detalhe/detalhe.component';
 import {EdicaoComponent} from './containers/edicao/edicao.component';
 import {IndicacaoFacade} from './indicacao-facade';
 import {
+  AutocompleteModule,
   ButtonModule,
   FormModule,
   IconModule,
-  InputModule,
+  InputModule, LabelModule,
   SelectModule,
   TableModule
 } from "@cca-fab/cca-fab-components-common";
@@ -34,6 +35,8 @@ import { StepperComponent } from './components/stepper/stepper.component';
     FormModule,
     InputModule,
     TableModule,
+    LabelModule,
+    AutocompleteModule,
   ],
   providers: [IndicacaoFacade],
 })
