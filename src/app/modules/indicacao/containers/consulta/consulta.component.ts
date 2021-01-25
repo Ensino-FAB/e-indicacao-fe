@@ -7,8 +7,7 @@ import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {IndicacaoFacade} from '../../indicacao-facade';
 import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
 import {PessoaService} from "../../../../services/pessoa.service";
-import {OrganizacaoSearchModel} from "../../../../models/organizacao-search.model";
-import {EventoSearchModel} from "../../../../models/evento-search.model";
+
 
 @Component({
   selector: 'app-consulta',
@@ -119,10 +118,10 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         this.count = res.totalElements;
         this.data = res.content.map((item) => ({
           id: `${item?.id}`,
-          codṔessoa: `${item.codPessoa}`,
-          eventoId: `${item.eventoId}`,
-          codOrganizacaoBeneficiada: `${item.codOrganizacaoBeneficiada}`,
-          codOrganizacaoSolicitante: `${item.codOrganizacaoSolicitante}`,
+          codPessoa: `${item.pessoa.nome}`,
+          eventoId: `${item.evento.nome}`,
+          codOrganizacaoBeneficiada: `${item.organizacaoBeneficiada.nome}`,
+          codOrganizacaoSolicitante: `${item.organizacaoSolicitante.nome}`,
           justificativa: `${item.justificativa}`,
           observacoes: `${item.observacoes}`,
         }));

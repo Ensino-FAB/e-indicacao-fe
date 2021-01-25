@@ -1,1 +1,36 @@
-<p>cadastro-step2 works!</p>
+<com-form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <com-form-section partly formTitle="Complementação" step="2">
+    <br />
+    <com-input
+      formControlName="observacoes"
+      label="Observações"
+      [invalid]="
+        (form.get('observacoes').invalid && form.get('observacoes').touched) ||
+        form.errors?.observacoes
+      "
+    ></com-input>
+
+    <com-input
+      formControlName="justificativa"
+      label="Justificativa"
+      [invalid]="
+        (form.get('justificativa').invalid && form.get('justificativa').touched) ||
+        form.errors?.justificativa
+      "
+    ></com-input>
+  </com-form-section>
+  <com-form-section block>
+    <footer class="flex-container end">
+      <com-button (click)="back.emit()">
+        <ng-container slot="text">anterior</ng-container>
+      </com-button>
+      <br>
+      <com-button fill routerLink='indicacao'>
+        <ng-container slot="text">voltar para a lista</ng-container>
+      </com-button>
+      <com-button (click)="next.emit()"  fill confirm>
+        <ng-container slot="text">confirmar e gravar conclusão</ng-container>
+      </com-button>
+    </footer>
+  </com-form-section>
+</com-form>

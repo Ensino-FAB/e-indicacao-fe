@@ -42,7 +42,9 @@
       <app-cadastro-step2
         [form]="form"
         *ngIf="currentStep === 2"
+        (back)="previousStep()"
         (next)="nextStep()"
+        [formInvalid]="form.invalid"
       ></app-cadastro-step2>
     </div>
     <div class="wrapper">
