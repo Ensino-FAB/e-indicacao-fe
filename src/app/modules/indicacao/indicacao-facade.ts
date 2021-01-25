@@ -1,12 +1,8 @@
 import {Injectable, Injector} from '@angular/core';
 
-import {Observable} from 'rxjs';
 import {IndicacaoService} from '../../services/indicacao.service';
-import {IndicacaoSearchModel} from '../../models/indicacao-search.model';
-import {Indicacao} from '../../models/indicacao.model';
-import {Pageable} from '../../core/models/pageable.model';
 import {PessoaService} from '../../services/pessoa.service';
-import {OrganizacaoService} from "../../services/organizacao.service";
+import {EventoService} from "../../services/evento.service";
 
 
 @Injectable()
@@ -18,31 +14,18 @@ export class IndicacaoFacade {
   private _pessoaService: PessoaService;
 
   // tslint:disable-next-line:variable-name
-  private _organizacaoService: OrganizacaoService;
+  private _eventoService: EventoService;
 
 
   constructor(private injector: Injector) {
   }
 
-  private get service(): IndicacaoService {
+
+  public get indicacaoService(): IndicacaoService {
     if (!this._indicacaoService) {
       this._indicacaoService = this.injector.get(IndicacaoService);
     }
     return this._indicacaoService;
-  }
-
-  public getAllIndicacao(
-    search: IndicacaoSearchModel
-  ): Observable<Pageable<Indicacao>> {
-    return this.service.findAll(search);
-  }
-
-  public delete(id: number): Observable<any> {
-    return this.service.remove(id);
-  }
-
-  public save(record: Indicacao): any {
-    return this.service.save(record);
   }
 
   public get pessoaService(): PessoaService {
@@ -52,14 +35,11 @@ export class IndicacaoFacade {
     return this._pessoaService;
   }
 
-  public get organizacaoService(): OrganizacaoService {
-    if (!this._organizacaoService) {
-      this._organizacaoService = this.injector.get(OrganizacaoService);
+  public get eventoService(): EventoService {
+    if (!this._eventoService) {
+      this._eventoService = this.injector.get(EventoService);
     }
-    return this._organizacaoService;
+    return this._eventoService;
   }
 
-  public findIndicacao(id: number): Observable<Indicacao> {
-    return this.service.findById(id);
-  }
 }
