@@ -16,10 +16,14 @@ import {
   SelectModule,
   TableModule
 } from "@cca-fab/cca-fab-components-common";
+import { AutocompletePessoasComponent } from './components/autocomplete-pessoas/autocomplete-pessoas.component';
+import { CadastroStep1Component } from './components/cadastro-step1/cadastro-step1.component';
+import { CadastroStep2Component } from './components/cadastro-step2/cadastro-step2.component';
+import { StepperComponent } from './components/stepper/stepper.component';
 
 
 @NgModule({
-  declarations: [CadastroComponent, ConsultaComponent, DetalheComponent, EdicaoComponent],
+  declarations: [CadastroComponent, ConsultaComponent, DetalheComponent, EdicaoComponent, AutocompletePessoasComponent, CadastroStep1Component, CadastroStep2Component, StepperComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(INDICACAO_ROUTES),
