@@ -53,7 +53,7 @@ export class EventoService {
 
   // tslint:disable-next-line:typedef
   update(id: number, record: Evento) {
-    return this.http.put(`${this.endpoint}/${id}`, record).pipe(take(1));
+    return this.http.put(`${this.endpoint}`, record).pipe(take(1));
   }
 
   save(record: Evento): any {

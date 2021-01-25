@@ -1,11 +1,10 @@
 import {BaseModel} from '../core/models/base.model';
 import {Categoria} from "./categoria.model";
-import {Organizacao} from "./organizacao.model";
 
 
 export interface Evento extends BaseModel {
   categoriaId: number;
-  categoria: Categoria;
+  categoria?: Categoria;
   codOrganizacaoGestora: number;
   dataInicio: Date;
   dataInicioIndicacao: Date;
