@@ -1,12 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-
-type StepperStatus = 'active' | 'disabled' | 'checked' | 'invalid';
-
-
-interface StepperStyleMap {
-  first: StepperStatus;
-  second: StepperStatus;
-}
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-stepper',
@@ -14,20 +6,10 @@ interface StepperStyleMap {
   styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent implements OnInit {
-  @Input() map: StepperStyleMap = {
-    first: 'active',
-    second: 'disabled',
-  };
 
-  @Input() step = 1;
+  constructor() { }
 
-  @Output() changed = new EventEmitter();
-
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  onChange(value: number) {
-    this.changed.emit(value);
+  ngOnInit(): void {
   }
+
 }

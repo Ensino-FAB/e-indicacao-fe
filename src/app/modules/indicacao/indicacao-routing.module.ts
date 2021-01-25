@@ -9,7 +9,7 @@ import {DetalheComponent} from "./containers/detalhe/detalhe.component";
 
 export const INDICACAO_ROUTES: Routes = [
   {
-    path: 'evento/:id',
+    path: '',
     component: ConsultaComponent,
     data: { breadcrumb: null },
   },
