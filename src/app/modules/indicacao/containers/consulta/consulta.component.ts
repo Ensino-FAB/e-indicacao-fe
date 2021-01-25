@@ -8,6 +8,7 @@ import {IndicacaoFacade} from '../../indicacao-facade';
 import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
 import {PessoaService} from "../../../../services/pessoa.service";
 import {OrganizacaoSearchModel} from "../../../../models/organizacao-search.model";
+import {EventoSearchModel} from "../../../../models/evento-search.model";
 
 @Component({
   selector: 'app-consulta',
@@ -23,7 +24,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   pessoaOptions: SelectOption[] = [];
 
-  organizacaoOptions: SelectOption[] = [];
+  eventoOptions: SelectOption[] = [];
 
   indicacaoSearch = new FormGroup({
     q: new FormControl(''),
@@ -90,8 +91,10 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       {name: 'Evento', value: 'eventoId'},
     ];
     this.refresh();
+    // @ts-ignore
     this.findPessoas();
-    this.findOrganizacao();
+    // @ts-ignore
+    this.findEvento();
   }
 
   // tslint:disable-next-line:typedef
@@ -102,7 +105,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       size: this.pageSize,
       sort: this.orderBy.map((item) => (this.asc ? item : item + ',desc')),
     };
-    const getIndicacao$ = this.facade.getAllIndicacao(search).pipe(share());
+    const getIndicacao$ = this.facade.indicacaoService.findAll(search).pipe(share());
     const isLoading$ = of(
       timer(150).pipe(mapTo(true), takeUntil(getIndicacao$)),
       getIndicacao$.pipe(mapTo(false))
@@ -182,7 +185,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   onDelete(id: number): void {
     this.subs$.push(
-      this.facade.delete(id).subscribe(() => {
+      this.facade.indicacaoService.remove(id).subscribe(() => {
         this.refresh();
         this.toastService.show({
           message: 'Indicação deletada com sucesso!',
@@ -192,7 +195,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     );
   }
 
-  findPessoas(search = {}): void {
+  findPessoas(search): void {
     this.pessoaOptions = [];
     this.subs$.push(
       this.facade.pessoaService.findAll(search).subscribe((response) => {
@@ -206,14 +209,14 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     );
   }
 
-  findOrganizacao (search = {}): void {
-    this.organizacaoOptions = [];
+  findEvento(search): void {
+    this.eventoOptions = [];
     this.subs$.push(
-      this.facade.organizacaoService.findAll(search).subscribe((response) => {
-        response.content.map((organizacao) => {
-          this.organizacaoOptions.push({
-            name: organizacao.nome,
-            value: organizacao.id,
+      this.facade.eventoService.findAll(search).subscribe((response) => {
+        response.content.map((evento) => {
+          this.eventoOptions.push({
+            name: evento.nome,
+            value: evento.id,
           });
         });
       })
