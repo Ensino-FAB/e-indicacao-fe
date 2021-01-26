@@ -1,11 +1,6 @@
 <com-card>
   <div class="container">
     <div class="wrapper">
-<!--      <header>-->
-<!--        <h1 [ngClass]="{ skeleton: loading }" *ngIf="header">-->
-<!--          {{ header | uppercase }}-->
-<!--        </h1>-->
-<!--      </header>-->
       <section>
         <div class="grid-container">
           <div style="display: flex">
@@ -37,17 +32,17 @@
                 <br>
                 <com-label>Data Início</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataInicio }}
+                {{ evento?.dataInicio | date}}
               </span>
                 <br>
                 <com-label>Início da Indicação</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataInicioIndicacao }}
+                {{ evento?.dataInicioIndicacao | date}}
               </span>
                 <br>
                 <com-label>Status</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.statusEvento.descricao }}
+                {{ evento?.statusEvento }}
               </span>
               </div>
             </div>
@@ -76,18 +71,18 @@
                 <br>
                 <com-label>Organização Gestora</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.codOrganizacaoGestora }}
+                {{ evento?.organizacaoResponse.nome }}
               </span>
                 <br>
 
                 <com-label>Data Término</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataTermino }}
+                {{ evento?.dataTermino | date}}
               </span>
                 <br>
                 <com-label>Término da Indicação</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataTerminoIndicacao }}
+                {{ evento?.dataTerminoIndicacao | date}}
               </span>
                 <br>
                 <com-label>Ticket</com-label>
