@@ -8,6 +8,7 @@ import {IndicacaoFacade} from '../../indicacao-facade';
 import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
 import {PessoaService} from "../../../../services/pessoa.service";
 import {fadeIn} from "../../../../shared/utils/animation";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -19,6 +20,8 @@ import {fadeIn} from "../../../../shared/utils/animation";
 })
 export class ConsultaComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
+
+  private idEvento: number;
 
   // tslint:disable-next-line:variable-name
   _isLoading = false;
@@ -83,11 +86,16 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   constructor(
     private facade: IndicacaoFacade,
     private toastService: ToastService,
-    private pessoaService: PessoaService
+    private pessoaService: PessoaService,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+
+    this.idEvento = this.route.snapshot.params.id;
+
+
     this.options = [
       {name: 'Pessoa', value: 'codPessoa'},
       {name: 'Evento', value: 'eventoId'},
@@ -107,7 +115,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       size: this.pageSize,
       sort: this.orderBy.map((item) => (this.asc ? item : item + ',desc')),
     };
-    const getIndicacao$ = this.facade.indicacaoService.findAll(search).pipe(share());
+    const getIndicacao$ = this.facade.indicacaoService.findAllIndicacoesByEvento( this.idEvento).pipe(share());
+    console.log(getIndicacao$)
     const isLoading$ = of(
       timer(150).pipe(mapTo(true), takeUntil(getIndicacao$)),
       getIndicacao$.pipe(mapTo(false))
@@ -118,8 +127,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         this._isLoading = status;
       }),
       getIndicacao$.subscribe((res) => {
-        this.count = res.totalElements;
-        this.data = res.content.map((item) => ({
+        this.data = res.map((item) => ({
           id: `${item?.id}`,
           codPessoa: `${item.pessoa.nome}`,
           eventoId: `${item.evento.nome}`,
@@ -127,9 +135,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
           codOrganizacaoSolicitante: `${item.organizacaoSolicitante.nome}`,
           justificativa: `${item.justificativa}`,
           observacoes: `${item.observacoes}`,
-        }));
-
-        this.totalPages = res.totalPages;
+        })
+        );
       })
     );
   }
