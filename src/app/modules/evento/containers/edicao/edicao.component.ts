@@ -45,7 +45,7 @@ export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
   ngOnInit(): void {
     this.eventoForm = new FormGroup({
       id: new FormControl(''),
-      categoria: new FormControl('', Validators.required),
+      categoria: new FormControl({disabled:true}, Validators.required),
       categoriaId: new FormControl('', Validators.required),
       codOrganizacaoGestora: new FormControl('', Validators.required),
       descricao: new FormControl(''),
@@ -58,7 +58,7 @@ export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
       sigla: new FormControl('', Validators.required),
       statusEvento: new FormControl(''),
       ticket: new FormControl('', Validators.required),
-      organizacaoResponse: new FormControl('',)
+      organizacaoResponse: new FormControl({disabled:true},)
     });
     this.subs$.push(
       this.activeRoute.params.subscribe((params) => (this.id = params.id)),
@@ -71,9 +71,6 @@ export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
               categoria: resp.categoria.titulo,
               organizacaoResponse: resp.organizacaoResponse.nome
             })
-          console.log(resp)
-          console.log(this.eventoForm)
-
         })
   );
   }
