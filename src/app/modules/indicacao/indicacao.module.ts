@@ -15,7 +15,7 @@ import {
   IconModule,
   InputModule, LabelModule,
   SelectModule,
-  TableModule
+  TableModule, TextareaModule
 } from "@cca-fab/cca-fab-components-common";
 import { AutocompletePessoasComponent } from './components/autocomplete-pessoas/autocomplete-pessoas.component';
 import { CadastroStep1Component } from './components/cadastro-step1/cadastro-step1.component';
@@ -37,6 +37,7 @@ import { StepperComponent } from './components/stepper/stepper.component';
     TableModule,
     LabelModule,
     AutocompleteModule,
+    TextareaModule,
   ],
   providers: [IndicacaoFacade],
 })

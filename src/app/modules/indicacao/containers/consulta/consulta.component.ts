@@ -7,12 +7,15 @@ import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {IndicacaoFacade} from '../../indicacao-facade';
 import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
 import {PessoaService} from "../../../../services/pessoa.service";
+import {fadeIn} from "../../../../shared/utils/animation";
 
 
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
-  styleUrls: ['./consulta.component.scss']
+  styleUrls: ['./consulta.component.scss'],
+  animations: [fadeIn()],
+
 })
 export class ConsultaComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
