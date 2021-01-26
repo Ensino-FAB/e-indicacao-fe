@@ -29,30 +29,30 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   });
 
   columns: TableColumn[] = [
-    {
-      field: 'categoriaId',
-      title: 'Categoria',
-      width: '20%',
-    },
-    {
-      field: 'codOrganizacaoGestora',
-      title: 'Organização Gestora',
-      width: '10%',
-    },
-    {
-      field: 'nome',
-      title: 'Nome',
-      width: '35%',
-    },
-    {
+        {
       field: 'sigla',
       title: 'Sigla',
       width: '15%',
     },
     {
+      field: 'nome',
+      title: 'Nome',
+      width: '25%',
+    },
+    {
+      field: 'categoriaTitulo',
+      title: 'Categoria',
+      width: '20%',
+    },
+    {
+      field: 'organizacaoGestoraSigla',
+      title: 'Organização Gestora',
+      width: '20%',
+    },
+    {
       field: 'statusEvento',
       title: 'Status',
-      width: '20%',
+      width: '10%',
     },
   ];
 
@@ -79,8 +79,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.options = [
-      {name: 'Categoria', value: 'categoriaId'},
-      {name: 'Organização Gestora', value: 'codOrganizacaoGestora'},
+      {name: 'Categoria', value: 'categoriaTitulo'},
+      {name: 'Organização Gestora', value: 'organizacaoGestoraSigla'},
       {name: 'Nome', value: 'nome'},
       {name: 'Sigla', value: 'sigla'},
       {name: 'Status', value: 'statusEvento'},
@@ -112,7 +112,9 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         this.data = res.content.map((item) => ({
           id: `${item?.id}`,
           categoriaId: `${item.categoriaId}`,
+          categoriaTitulo: `${item.categoria.titulo}`,
           codOrganizacaoGestora: `${item.codOrganizacaoGestora}`,
+          organizacaoGestoraSigla: `${item.organizacaoResponse.sigla}`,
           dataInicio: `${item.dataInicio}`,
           dataInicioIndicacao: `${item?.dataInicioIndicacao}`,
           dataTermino: `${item.dataTermino}`,
