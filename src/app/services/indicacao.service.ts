@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {Indicacao, IndicacaoResponse} from '../models/indicacao.model';
+import {Indicacao} from '../models/indicacao.model';
 import {IndicacaoSearchModel} from '../models/indicacao-search.model';
 import {Pageable} from '../core/models/pageable.model';
 import {take} from 'rxjs/operators';
@@ -42,8 +42,8 @@ export class IndicacaoService {
     });
   }
 
-  findAllIndicacoesByEvento(idEvento: number): Observable<IndicacaoResponse[]> {
-    return this.http.get<IndicacaoResponse[]>(`${environment.CURSOS_INDICACAO_API}/indicacao/evento/${idEvento}`);
+  findAllIndicacoesByEvento( idEvento: number): Observable<Indicacao[]> {
+    return this.http.get<Indicacao[]>(`${environment.CURSOS_INDICACAO_API}/indicacao/evento/${idEvento}`);
   }
 
   // tslint:disable-next-line:typedef
