@@ -82,7 +82,7 @@ export class CadastroComponent implements OnInit {
             message: 'A Indicação foi salva com sucesso!',
             type: 'success',
           });
-          this.router.navigate(['']);
+          this.router.navigate(['indicacao']);
         });
     }
   }
