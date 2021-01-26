@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, OnDestroy} from '@angular/core';
 import {fadeInOut} from "../../../../shared/utils/animation";
 import {Subscription} from "rxjs";
 import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
@@ -14,7 +14,7 @@ import {IndicacaoService} from "../../../../services/indicacao.service";
   animations: [fadeInOut()],
 
 })
-export class CadastroStep2Component implements OnInit {
+export class CadastroStep2Component implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
 
   @Output() next = new EventEmitter();
@@ -52,6 +52,16 @@ export class CadastroStep2Component implements OnInit {
     this.form.removeAt(index);
     if (this.form.controls.length === 0) {
       this.addFormItem();
+    }
+  }
+
+  onConfirmTree(value: SelectOption, i) {
+    this.form.controls[i].get('pessoa').setValue(value);
+  }
+
+  blurTree(i) {
+    if (!this.form.controls[i].get('pessoa').touched) {
+      this.form.controls[i].get('pessoa').markAsTouched();
     }
   }
 
