@@ -10,141 +10,227 @@
       <com-form [id]="formId" [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
         <com-form-section block>
           <div class="grid-container">
+            <div style="display: flex; margin-bottom: 20px">
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 25%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+              >
+                <com-input class="full-width"
+                           formControlName="sigla"
+                           label="Sigla"
+                           [invalid]="
+              (eventoForm.get('sigla').invalid &&
+                eventoForm.get('sigla').touched) ||
+              eventoForm.errors?.sigla
+            "
+                ></com-input>
+              </div>
+                <div
+                  style="
+              display: flex;
+              align-items: flex-start;
+              width: 50%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+                >
+                  <com-input class="full-width"
+                             formControlName="nome"
+                             label="Nome"
+                             [invalid]="
+              (eventoForm.get('nome').invalid &&
+                eventoForm.get('nome').touched) ||
+              eventoForm.errors?.nome
+            "
+                  ></com-input>
+                </div>
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 25%;
+              flex-direction: column;
+            "
+              >
+                <com-select
+                  formControlName="statusEvento"
+                  class="no-margin-bottom"
+                  [options]="statusEvento"
+                  [label]="'Status do Evento'"
+                >
+                </com-select>
+              </div>
+              </div>
+            <div style="display: flex; margin-bottom: 20px">
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 35%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+              >
+                <com-input class="full-width"
+                           disabled="true"
+                           formControlName="categoria"
+                           label="Categoria"
+                           [invalid]="
+              (eventoForm.get('categoria').invalid &&
+                eventoForm.get('categoria').touched) ||
+              eventoForm.errors?.categoria
+            "
+                ></com-input>
+              </div>
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 65%;
+              flex-direction: column;
+            "
+              >
+                <com-input class="full-width"
+                          disabled="true"
+                          formControlName="organizacaoResponse"
+                          label="Organização Gestora"
+                          [invalid]="
+              (eventoForm.get('organizacaoResponse').invalid &&
+                eventoForm.get('organizacaoResponse').touched) ||
+              eventoForm.errors?.organizacaoResponse
+            "
+              ></com-input>
+              </div>
+
+            </div>
+
+            <div style="display: flex; margin-bottom: 20px">
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 25%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+              >
+                <com-input type="date" class="full-width"
+                           formControlName="dataInicio"
+                           label="Data Início"
+                           [invalid]="
+              (eventoForm.get('dataInicio').invalid &&
+                eventoForm.get('dataInicio').touched) ||
+              eventoForm.errors?.dataInicio
+            "
+                ></com-input>
+              </div>
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 25%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+              >
+                <com-input type="date" class="full-width"
+                           formControlName="dataInicioIndicacao"
+                           label="Data Início da Indicação"
+                           [invalid]="
+              (eventoForm.get('dataInicioIndicacao').invalid &&
+                eventoForm.get('dataInicioIndicacao').touched) ||
+              eventoForm.errors?.dataInicioIndicacao
+            "
+                ></com-input>
+              </div>
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 25%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+              >
+                <com-input type="date" class="full-width"
+                           formControlName="dataTermino"
+                           label="Data Término"
+                           [invalid]="
+              (eventoForm.get('dataTermino').invalid &&
+                eventoForm.get('dataTermino').touched) ||
+              eventoForm.errors?.dataTermino
+            "
+                ></com-input>
+              </div>
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 25%;
+              flex-direction: column;
+            "
+              >
+                <com-input type="date" class="full-width"
+                           formControlName="dataTerminoIndicacao"
+                           label="Data Término da Indicação"
+                           [invalid]="
+              (eventoForm.get('dataTerminoIndicacao').invalid &&
+                eventoForm.get('dataTerminoIndicacao').touched) ||
+              eventoForm.errors?.dataTerminoIndicacao
+            "
+                ></com-input>
+              </div>
+            </div>
             <div style="display: flex">
               <div
                 style="
               display: flex;
               align-items: flex-start;
               width: 50%;
+              padding-right: 10px;
               flex-direction: column;
             "
               >
-                <com-input
-                  formControlName="sigla"
-                  label="Sigla"
-                  [invalid]="
-              (eventoForm.get('sigla').invalid &&
-                eventoForm.get('sigla').touched) ||
-              eventoForm.errors?.sigla
-            "
-                ></com-input>
-
-                <com-input
-                  formControlName="categoriaId"
-                  label="Categoria"
-                  [invalid]="
-              (eventoForm.get('categoriaId').invalid &&
-                eventoForm.get('categoriaId').touched) ||
-              eventoForm.errors?.categoriaId
-            "
-                ></com-input>
-                <com-input
-                  formControlName="statusEvento"
-                  label="Status do Evento"
-                  [invalid]="
-              (eventoForm.get('statusEvento').invalid &&
-                eventoForm.get('statusEvento').touched) ||
-              eventoForm.errors?.statusEvento
-            "
-                ></com-input>
-                <com-input
-                  formControlName="dataInicio"
-                  label="Data Início"
-                  [invalid]="
-              (eventoForm.get('dataInicio').invalid &&
-                eventoForm.get('dataInicio').touched) ||
-              eventoForm.errors?.dataInicio
-            "
-                ></com-input>
-                <com-input
-                  formControlName="dataInicioIndicacao"
-                  label="Data Início da Indicação"
-                  [invalid]="
-              (eventoForm.get('dataInicioIndicacao').invalid &&
-                eventoForm.get('dataInicioIndicacao').touched) ||
-              eventoForm.errors?.dataInicioIndicacao
-            "
-                ></com-input>
-                <com-textarea
-                  formControlName="descricao"
-                  label="Descrição"
-                  maxlength="4000"
-                  helper="Campo em texto livre"
-                  [invalid]="
+                <com-textarea class="full-width"
+                              formControlName="descricao"
+                              label="Descrição"
+                              maxlength="4000"
+                              helper="Campo em texto livre"
+                              [invalid]="
               (eventoForm.get('descricao').invalid &&
                 eventoForm.get('descricao').touched) ||
               eventoForm.errors?.descricao
             "
                 ></com-textarea>
-
               </div>
-              <div
-                style="
+          <div
+            style="
               display: flex;
               align-items: flex-start;
               width: 50%;
               flex-direction: column;
             "
-              >
-                <com-input
-                  formControlName="nome"
-                  label="Nome"
-                  [invalid]="
-              (eventoForm.get('nome').invalid &&
-                eventoForm.get('nome').touched) ||
-              eventoForm.errors?.nome
-            "
-                ></com-input>
-                <com-input
-                  formControlName="codOrganizacaoGestora"
-                  label="Organização Gestora"
-                  [invalid]="
-              (eventoForm.get('codOrganizacaoGestora').invalid &&
-                eventoForm.get('codOrganizacaoGestora').touched) ||
-              eventoForm.errors?.codOrganizacaoGestora
-            "
-                ></com-input>
-                <com-input
-                  formControlName="ticket"
-                  label="Ticket"
-                  [invalid]="
-              (eventoForm.get('ticket').invalid &&
-                eventoForm.get('ticket').touched) ||
-              eventoForm.errors?.ticket
-            "
-                ></com-input>
-                <com-input
-                  formControlName="dataTermino"
-                  label="Data Término"
-                  [invalid]="
-              (eventoForm.get('dataTermino').invalid &&
-                eventoForm.get('dataTermino').touched) ||
-              eventoForm.errors?.dataTermino
-            "
-                ></com-input>
-                <com-input
-                  formControlName="dataTerminoIndicacao"
-                  label="Data Término da Indicação"
-                  [invalid]="
-              (eventoForm.get('dataTerminoIndicacao').invalid &&
-                eventoForm.get('dataTerminoIndicacao').touched) ||
-              eventoForm.errors?.dataTerminoIndicacao
-            "
-                ></com-input>
-                <com-textarea
-                  formControlName="observacoes"
-                  label="Observações"
-                  maxlength="4000"
-                  helper="Campo em texto livre"
-                  [invalid]="
+          >
+            <com-textarea class="full-width"
+                         formControlName="observacoes"
+                         label="Observações"
+                         maxlength="4000"
+                         helper="Campo em texto livre"
+                         [invalid]="
                   (eventoForm.get('observacoes').invalid &&
                     eventoForm.get('observacoes').touched) ||
                   eventoForm.errors?.observacoes
                 "
-                >
-                </com-textarea>
-              </div></div></div>
-
+          >
+          </com-textarea>
+          </div>
+            </div>
+          </div>
         </com-form-section>
 
         <com-form-section block>

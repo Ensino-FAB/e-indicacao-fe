@@ -1,11 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnDestroy, OnInit} from '@angular/core';
 import {fadeIn} from "../../../../shared/utils/animation";
 import {Subscription} from "rxjs";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Form, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {EventoFacade} from "../evento-facade";
 import {ToastService} from "../../../../shared/services/toast.service";
 import {Evento, StatusEvento} from "../../../../models/evento.model";
+import {Categoria} from "../../../../models/categoria.model";
+import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
 
 @Component({
   selector: 'app-edicao',
@@ -13,46 +15,67 @@ import {Evento, StatusEvento} from "../../../../models/evento.model";
   styleUrls: ['./edicao.component.scss'],
   animations: [fadeIn()]
 })
-export class EdicaoComponent implements OnInit, OnDestroy {
+export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private subs$: Subscription[] = [];
   private id: number;
   private isLoading = false;
   eventoForm: FormGroup;
   formId: 'evento-form';
-
   evento: Evento;
+
+  statusEvento: SelectOption[] =[
+    {
+      value: 'ABERTO',
+      name: 'Evento aberto'
+    },
+    {
+      value: 'FINALIZADO',
+      name: 'Evento finalizado'
+    }
+  ]
 
   constructor(
     private router: Router,
-              private facade: EventoFacade,
-              private toast: ToastService,
-              private activeRoute: ActivatedRoute) { }
+    private facade: EventoFacade,
+    private toast: ToastService,
+    private activeRoute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.eventoForm = new FormGroup({
       id: new FormControl(''),
-      categoriaId: new FormControl('',Validators.required),
-      codOrganizacaoGestora: new FormControl('',Validators.required),
+      categoria: new FormControl('', Validators.required),
+      categoriaId: new FormControl('', Validators.required),
+      codOrganizacaoGestora: new FormControl('', Validators.required),
       descricao: new FormControl(''),
-      nome: new FormControl('',Validators.required),
+      nome: new FormControl('', Validators.required),
       dataInicio: new FormControl(''),
       dataInicioIndicacao: new FormControl(''),
       dataTermino: new FormControl(''),
       dataTerminoIndicacao: new FormControl(''),
       observacoes: new FormControl(''),
-      sigla: new FormControl('',Validators.required),
-      statusEvento: new FormControl('',Validators.required),
-      ticket: new FormControl('',Validators.required),
+      sigla: new FormControl('', Validators.required),
+      statusEvento: new FormControl(''),
+      ticket: new FormControl('', Validators.required),
+      organizacaoResponse: new FormControl('',)
     });
     this.subs$.push(
       this.activeRoute.params.subscribe((params) => (this.id = params.id)),
       this.facade
         .findEvento(this.id)
         .subscribe((resp) => {
-          this.eventoForm.patchValue(resp)
+          this.eventoForm.setValue(
+            {
+              ...resp,
+              categoria: resp.categoria.titulo,
+              organizacaoResponse: resp.organizacaoResponse.nome
+            })
+          console.log(resp)
+          console.log(this.eventoForm)
+
         })
-    );
+  );
   }
 
   onSubmit(): void {
@@ -80,6 +103,11 @@ export class EdicaoComponent implements OnInit, OnDestroy {
     this.subs$.forEach((sub) => {
       sub.unsubscribe();
     });
+  }
+
+  ngAfterViewChecked(): void {
+    const statusEvento = this.eventoForm.get('statusEvento').value;
+    this.eventoForm.get('statusEvento').setValue(statusEvento);
   }
 
 }
