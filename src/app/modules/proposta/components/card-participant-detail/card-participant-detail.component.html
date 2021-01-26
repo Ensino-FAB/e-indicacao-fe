@@ -1,8 +1,7 @@
 <div class="flex-container middle">
     <p-card class="card" [header]="pessoa?.nome">
-        <p><span class="title">OID:</span> {{ pessoa?.id }}</p>
         <p><span class="title">EMAIL:</span> {{ pessoa?.email }}</p>
-        <p><span class="title">TELEFONE:</span> {{ pessoa?.telefone }}</p>
+        <p><span class="title">TELEFONE:</span> {{ pessoa?.contatoPrincipal }}</p>
         <p><span class="title">OM DO INDICADO:</span> {{ pessoa?.organizacaoIndicado }}</p>
         <p><span class="title">SOLICITADO POR:</span> {{ pessoa?.organizacaoSolicitacao }}</p>
         <p><span class="title">OM BENEFICIADA:</span> {{ pessoa?.organizacaoBeneficiada }}</p>
