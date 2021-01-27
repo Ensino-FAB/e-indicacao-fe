@@ -97,7 +97,7 @@ export class CadastroComponent implements OnInit {
             message: 'A Indicação foi salva com sucesso!',
             type: 'success',
           });
-          this.router.navigate(['indicacao']);
+          this.router.navigate(['indicacao' , 'evento', this.idEvento]);
         });
     }
   }
