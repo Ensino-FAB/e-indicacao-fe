@@ -6,6 +6,9 @@ import {EventoFacade} from '../../evento-facade';
 import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {fadeIn} from '../../../../shared/utils/animation';
+import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
+import {CategoriaService} from "../../../../services/categoria.service";
+import {Categoria} from "../../../../models/categoria.model";
 
 
 @Component({
@@ -29,7 +32,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   });
 
   columns: TableColumn[] = [
-        {
+    {
       field: 'sigla',
       title: 'Sigla',
       width: '15%',
@@ -70,10 +73,13 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   count: number;
   orderBy: string[] = ['id'];
   totalPages = 1;
+  eventoOptions: SelectOption[] = [];
+  categoriaOptions: SelectOption[] = [];
 
   constructor(
     private facade: EventoFacade,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private categoriaService: CategoriaService,
   ) {
   }
 
@@ -87,6 +93,13 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       {name: 'Descrição', value: 'descricao'},
     ];
     this.refresh();
+
+    // @ts-ignore
+    this.findEvento();
+
+    // @ts-ignore
+    this.findCategoria()
+
   }
 
   // tslint:disable-next-line:typedef
@@ -194,6 +207,35 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       })
     );
   }
+
+  findEvento(search): void {
+    this.eventoOptions = [];
+    this.subs$.push(
+      this.facade.getAllEvento(search).subscribe((response) => {
+        response.content.map((evento) => {
+          this.eventoOptions.push({
+            name: evento.nome,
+            value: evento.id,
+          });
+        });
+      })
+    );
+  }
+
+  findCategoria(search): void {
+    this.categoriaOptions = [];
+    this.subs$.push(
+      this.facade.getAllEvento(search).subscribe((response) => {
+        response.content.map((evento) => {
+          this.eventoOptions.push({
+            name: evento.categoria.titulo,
+            value: evento.id,
+          });
+        });
+      })
+    );
+  }
+
 
   clean() {
     this.eventoSearch.reset();

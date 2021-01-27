@@ -26,15 +26,10 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   _isLoading = false;
 
-
   pessoaOptions: SelectOption[] = [];
 
-  eventoOptions: SelectOption[] = [];
-
   indicacaoSearch = new FormGroup({
-    q: new FormControl(''),
-    descricao: new FormControl(''),
-    titulo: new FormControl(''),
+    codPessoa: new FormControl(''),
   });
 
   columns: TableColumn[] = [
@@ -103,8 +98,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     this.refresh();
     // @ts-ignore
     this.findPessoas();
-    // @ts-ignore
-    this.findEvento();
   }
 
   // tslint:disable-next-line:typedef
@@ -115,8 +108,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       size: this.pageSize,
       sort: this.orderBy.map((item) => (this.asc ? item : item + ',desc')),
     };
-    const getIndicacao$ = this.facade.indicacaoService.findAllIndicacoesByEvento( this.idEvento).pipe(share());
-    console.log(getIndicacao$)
+    const getIndicacao$ = this.facade.indicacaoService.findAllIndicacoesByEvento(search, this.idEvento).pipe(share());
     const isLoading$ = of(
       timer(150).pipe(mapTo(true), takeUntil(getIndicacao$)),
       getIndicacao$.pipe(mapTo(false))
@@ -187,6 +179,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     this.refresh();
   }
 
+  confirmed(event): void {}
+
   onSubmit() {
     this.page = 1;
     this.refresh();
@@ -217,19 +211,12 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       })
     );
   }
+  filter(event): void {
+    const pessoaNome: string = event;
 
-  findEvento(search): void {
-    this.eventoOptions = [];
-    this.subs$.push(
-      this.facade.eventoService.findAll(search).subscribe((response) => {
-        response.content.map((evento) => {
-          this.eventoOptions.push({
-            name: evento.nome,
-            value: evento.id,
-          });
-        });
-      })
-    );
+    if (pessoaNome.length > 3) {
+      this.findPessoas({ nome: pessoaNome });
+    }
   }
 
   clean() {

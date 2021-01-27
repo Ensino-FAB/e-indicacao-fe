@@ -39,11 +39,16 @@
       <div class="main-content grid-item">
         <com-form [formGroup]="indicacaoSearch">
           <com-form-section formTitle="Filtrar">
-            <com-input
-              formControlName="evento.nome"
-              placeholder="Digite o nome do Evento"
-              label="Evento"
-            ></com-input>
+            <com-autocomplete
+              enableConfirmOnInexistentValue
+              autoActiveFirstOption
+              (changed)="filter($event)"
+              (confirmed)="confirmed($event)"
+              label="Filtrar por Pessoa"
+              class="full-width"
+              [options]="pessoaOptions"
+              formControlName="codPessoa"
+            ></com-autocomplete>
           </com-form-section>
           <com-form-section block>
             <div class="flex-container row button-set">
