@@ -113,6 +113,19 @@
                 </com-button>
               </a>
             </div>
+            <div>
+              <a routerLink="/indicacao/evento/{{ content.data.id }}">
+                <com-button
+                  secondary
+                  transparent
+                  [disabled]="
+                    content.data.editavel == 'NAO_EDITAVEL' ? true : false
+                  "
+                >
+                  <com-icon outlined slot="icon">people_alt</com-icon>
+                </com-button>
+              </a></div>
+
           </div>
         </ng-template>
       </com-table>
