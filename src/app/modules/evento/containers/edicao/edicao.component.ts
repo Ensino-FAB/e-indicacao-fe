@@ -3,11 +3,11 @@ import {fadeIn} from "../../../../shared/utils/animation";
 import {Subscription} from "rxjs";
 import {Form, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {EventoFacade} from "../evento-facade";
 import {ToastService} from "../../../../shared/services/toast.service";
 import {Evento, StatusEvento} from "../../../../models/evento.model";
 import {Categoria} from "../../../../models/categoria.model";
 import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
+import {EventoFacade} from "../../evento-facade";
 
 @Component({
   selector: 'app-edicao',

@@ -19,8 +19,9 @@ import {
   SelectModule,
   InputModule, CardModule, LabelModule, TextareaModule,
 } from '@cca-fab/cca-fab-components-common';
-import {EventoFacade} from './containers/evento-facade';
-import { DetalheEventoComponent } from './component/detalhe-evento/detalhe-evento.component';
+import {DetalheEventoComponent} from "./components/detalhe-evento/detalhe-evento.component";
+import {EventoFacade} from "./evento-facade";
+
 
 
 @NgModule({

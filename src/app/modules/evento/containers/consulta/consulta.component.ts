@@ -37,7 +37,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     {
       field: 'nome',
       title: 'Nome',
-      width: '25%',
+      width: '15%',
     },
     {
       field: 'categoriaTitulo',
