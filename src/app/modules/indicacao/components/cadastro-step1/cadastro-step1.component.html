@@ -1,23 +1,4 @@
 <com-form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <com-form-section partly formTitle="Evento" step="1">
-
-    <com-autocomplete
-      enableConfirmOnInexistentValue
-      autoActiveFirstOption
-      (changed)="filterEvento($event)"
-      label="Filtrar por nome"
-      [options]="eventoIdOptions"
-      [invalid]="
-        form.get('eventoId').invalid && form.get('eventoId').touched
-      "
-      formControlName="eventoId"
-      class="full-width"
-    >
-    </com-autocomplete>
-    <br />
-
-  </com-form-section>
-
   <com-form-section partly formTitle="Organização Solicitante" step="2">
 
     <com-autocomplete

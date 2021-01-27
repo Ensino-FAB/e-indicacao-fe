@@ -21,7 +21,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ConsultaComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
 
-  private idEvento: number;
+  idEvento: number;
 
   // tslint:disable-next-line:variable-name
   _isLoading = false;
