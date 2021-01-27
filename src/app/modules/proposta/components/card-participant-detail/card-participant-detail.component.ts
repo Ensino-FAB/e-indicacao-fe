@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Pessoa } from '../../../../models/pessoa.model';
 
 @Component({
   selector: 'app-card-participant-detail',
@@ -8,7 +7,7 @@ import { Pessoa } from '../../../../models/pessoa.model';
 })
 export class CardParticipantDetailComponent implements OnInit {
 
-  @Input() pessoa: any;
+  @Input() pessoaSelecionada: any;
 
   constructor() { }
 

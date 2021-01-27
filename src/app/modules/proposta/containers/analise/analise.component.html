@@ -4,7 +4,7 @@
             <h2 class="indicacao-page-title">Análise das indicações</h2>
         </div>
 
-        <app-card-participant-detail *ngIf="pessoaSelecionada" [pessoa]="pessoaSelecionada">
+        <app-card-participant-detail *ngIf="pessoaSelecionada" [pessoaSelecionada]="pessoaSelecionada">
         </app-card-participant-detail>
 
         <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Indicados"
@@ -14,15 +14,17 @@
             (onMoveAllToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSource($event)"
             (onMoveAllToSource)="onMoveAllToSource($event)" (onTargetSelect)="onTargetSelect($event)"
             (onSourceSelect)="onSourceSelect($event)">
-            <ng-template let-pessoa pTemplate="item">
+            <ng-template let-pickListItem pTemplate="item">
                 <div class="p-mb-3">
                     <div>
-                        <div class="texto-pessoa p-mb-1">{{pessoa.index ? pessoa.index + ' - ':''}}{{pessoa.nome}}</div>
-                        <div class="texto-OM">solicitante: {{pessoa.organizacaoSolicitante}}</div>
-                        <div class="texto-OM">beneficiada: {{pessoa.organizacaoBeneficiada}}</div>
+                        <div class="texto-pessoa p-mb-1">{{pickListItem.prioridade ? pickListItem.prioridade + ' - ':''}}{{pickListItem.indicacao.pessoa.nome}}</div>
+                        <div class="texto-OM">solicitante: {{pickListItem.indicacao.organizacaoSolicitante.sigla}}</div>
+                        <div class="texto-OM">beneficiada: {{pickListItem.indicacao.organizacaoBeneficiada.sigla}}</div>
                     </div>
                 </div>
             </ng-template>
         </p-pickList>
+
+        <p-button (click)="salvarProposta()" label="Salvar" styleClass="p-button-lg p-mt-3"></p-button>
     </div>
 </section>

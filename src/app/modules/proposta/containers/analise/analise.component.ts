@@ -1,10 +1,15 @@
+import { Indicacao } from './../../../../models/indicacao.model';
+import { PessoaIndicada } from 'src/app/models/pessoa.model';
+import { ToastService } from './../../../../shared/services/toast.service';
+import { Proposta } from './../../../../models/proposta.model';
+import { ItemProposta } from './../../../../models/item-proposta.model';
 import { Subscription, of, timer } from 'rxjs';
 
 import { PropostaFacade } from './../proposta-facade';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PessoaIndicada } from 'src/app/models/pessoa.model';
 import { share, mapTo, takeUntil, mergeAll } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-analise',
@@ -16,10 +21,14 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   private idEvento: number;
   isLoading = false;
   indicados: PessoaIndicada[] = [];
+  indicacoes: Indicacao[] = [];
   selecionados: PessoaIndicada[] = [];
   pessoaSelecionada: PessoaIndicada;
 
-  constructor(private route: ActivatedRoute, private propostaFacade: PropostaFacade) { }
+  constructor(
+    private route: ActivatedRoute,
+    private propostaFacade: PropostaFacade,
+    private toast: ToastService) { }
 
   ngOnInit(): void {
     this.idEvento = this.route.snapshot.params.id;
@@ -36,70 +45,94 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       }),
       getIndicacoes$
         .subscribe(indicacoes => {
+          this.indicacoes = indicacoes;
           const pessoas = indicacoes.map(ind => {
+            //console.log('indicacao', ind)
             const pessoaIndicada: PessoaIndicada = {
-              nome: ind.pessoa.nome,
-              siglaPosto: ind.pessoa.siglaPosto,
-              organizacaoBeneficiada: ind.organizacaoBeneficiada.sigla,
-              organizacaoSolicitante: ind.organizacaoSolicitante.sigla,
-              organizacaoIndicado: ind.pessoa.organizacao.sigla,
-              justificativa: ind.justificativa,
-              observacao: ind.observacoes,
-              contatoPrincipal: ind.pessoa.contatoPrincipal,
-              email: ind.pessoa.email
+              indicacao: ind
             };
+            //console.log('pessoa indicada', pessoaIndicada)
             return pessoaIndicada;
           });
-
           this.indicados = pessoas;
         })
     );
   }
 
-  onTargetReorder(event: any): void{
+  salvarProposta(): void {
+    if (this.selecionados.length) {
+      const itensProposta = this.selecionados.map(item => {
+        const itemProposta: ItemProposta = {
+          id: undefined,
+          prioridade: item.prioridade,
+          indicacao: item.indicacao
+        };
+        return itemProposta;
+      });
+
+      const proposta: Proposta = {
+        id: undefined,
+        dataInclusao: new Date(),
+        eventoId: this.idEvento,
+        observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
+        organizacaoMilitarId: '1234567',
+        statusProposta: 'ABERTA',
+        itensProposta
+      };
+
+      this.propostaFacade
+      .createProposta(proposta).subscribe(response => {
+        this.toast.show({
+          message: 'A proposta foi salva com sucesso!',
+          type: 'success',
+        });
+      }
+      );
+    }
+  }
+
+  onTargetReorder(event: any): void {
     this.calcularOrdem();
   }
 
-  onMoveToTarget(event: any): void{
+  onMoveToTarget(event: any): void {
     this.calcularOrdem();
   }
 
-  onMoveAllToTarget(event: any): void{
+  onMoveAllToTarget(event: any): void {
     this.calcularOrdem();
   }
 
-  onMoveToSource(event: any): void{
+  onMoveToSource(event: any): void {
     this.calcularOrdem();
     this.removeOrdem();
   }
 
-  onMoveAllToSource(event: any): void{
+  onMoveAllToSource(event: any): void {
     this.calcularOrdem();
     this.removeOrdem();
   }
 
-  onSourceSelect(event: any): void{
-    if(event.items){
+  onSourceSelect(event: any): void {
+    if (event.items) {
       this.pessoaSelecionada = event.items[0];
-      console.log(this.pessoaSelecionada);
     }
   }
 
-  onTargetSelect(event: any): void{
-    if(event.items){
+  onTargetSelect(event: any): void {
+    if (event.items) {
       this.pessoaSelecionada = event.items[0];
-      console.log(this.pessoaSelecionada);
     }
   }
 
-  calcularOrdem(): void{
+  calcularOrdem(): void {
     this.selecionados.forEach((ind, i) => {
-        ind.index = i + 1;
+      ind.prioridade = i + 1;
     });
   }
 
-  removeOrdem(): void{
-    this.indicados.forEach(ind => ind.index = undefined);
+  removeOrdem(): void {
+    this.indicados.forEach(ind => ind.prioridade = undefined);
   }
 
   ngOnDestroy(): void {
