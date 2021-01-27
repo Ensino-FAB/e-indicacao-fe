@@ -42,8 +42,10 @@ export class IndicacaoService {
     });
   }
 
-  findAllIndicacoesByEvento( idEvento: number): Observable<Indicacao[]> {
-    return this.http.get<Indicacao[]>(`${environment.CURSOS_INDICACAO_API}/indicacao/evento/${idEvento}`);
+  findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<Indicacao[]> {
+    this.removeEmptyFields(search);
+    const params = new HttpParams({fromObject: search});
+    return this.http.get<any[]>(`${environment.CURSOS_INDICACAO_API}/indicacao/evento/${idEvento}` , {params});
   }
 
   // tslint:disable-next-line:typedef
