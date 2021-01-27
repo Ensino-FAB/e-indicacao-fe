@@ -5,7 +5,6 @@ import {Evento} from "./evento.model";
 
 
 export interface Indicacao extends BaseModel {
-  eventoId: number;
   codOrganizacaoSolicitante: number;
   codOrganizacaoBeneficiada: number;
   codPessoa: number;

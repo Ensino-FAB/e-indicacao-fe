@@ -51,8 +51,8 @@ export class IndicacaoService {
     return this.http.get<Indicacao>(`${this.endpoint}/${id}`).pipe(take(1));
   }
 
-  create(record: Indicacao): Observable<Indicacao> {
-    return this.http.post(this.endpoint, record).pipe(take(1)) as Observable<Indicacao>;
+  create(record: Indicacao, idEvento: number): Observable<Indicacao> {
+    return this.http.post(`${this.endpoint}/cadastro/evento/${idEvento}`, record).pipe(take(1)) as Observable<Indicacao>;
   }
 
   // tslint:disable-next-line:typedef
@@ -60,11 +60,11 @@ export class IndicacaoService {
     return this.http.put(`${this.endpoint}/${id}`, record).pipe(take(1));
   }
 
-  save(record: Indicacao): any {
+  save(record: Indicacao, idEvento: number): any {
     if (record.id) {
       return this.update(record.id, record);
     }
-    return this.create(record);
+    return this.create(record, idEvento);
   }
 
   remove(id: number): Observable<any> {

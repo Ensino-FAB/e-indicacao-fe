@@ -3,9 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {fadeIn} from 'src/app/shared/utils/animation';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {IndicacaoFacade} from "../../indicacao-facade";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ToastService} from "../../../../shared/services/toast.service";
 import {Indicacao} from "../../../../models/indicacao.model";
+import {Evento} from "../../../../models/evento.model";
 
 @Component({
   selector: 'app-cadastro',
@@ -16,6 +17,10 @@ import {Indicacao} from "../../../../models/indicacao.model";
 export class CadastroComponent implements OnInit {
   form: FormGroup;
 
+  public idEvento: number;
+  public evento: Evento;
+
+
   currentStep = 1;
   statusMap = {first: 'active', second: 'disabled'};
 
@@ -23,21 +28,32 @@ export class CadastroComponent implements OnInit {
     private fb: FormBuilder,
     private facade: IndicacaoFacade,
     private router: Router,
-    private toast: ToastService
+    private toast: ToastService,
+    private activatedRoute: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
+    this.idEvento = this.activatedRoute.snapshot.params.idEvento;
+    this.buscarEvento();
+
+    console.log(this.idEvento)
+
     this.form = this.fb.group({
       codOrganizacaoBeneficiada: ['', Validators.required],
       codOrganizacaoSolicitante: ['', Validators.required],
       justificativa: ['', Validators.required],
       observacoes: [''],
-      eventoId: [''],
       codPessoa: [''],
-
     });
   }
+
+  buscarEvento() {
+    this.facade.eventoService.findById(this.idEvento).subscribe((response) => {
+      this.evento = response;
+    });
+  }
+
 
   newFin() {
     window.location.reload();
@@ -72,11 +88,10 @@ export class CadastroComponent implements OnInit {
         codOrganizacaoSolicitante: this.form.get('codOrganizacaoSolicitante').value,
         justificativa: this.form.get('justificativa').value,
         observacoes: this.form.get('observacoes').value,
-        eventoId: this.form.get('eventoId').value,
         codPessoa: this.form.get('codPessoa').value,
       };
       this.facade.indicacaoService
-        .create(requestBody)
+        .create(requestBody, this.idEvento)
         .subscribe((indicacao) => {
           this.toast.show({
             message: 'A Indicação foi salva com sucesso!',

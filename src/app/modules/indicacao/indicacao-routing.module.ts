@@ -14,7 +14,7 @@ export const INDICACAO_ROUTES: Routes = [
     data: { breadcrumb: null },
   },
   {
-    path: 'cadastro',
+    path: 'cadastro/:idEvento',
     data: {
       breadcrumb: 'cadastro',
     },
