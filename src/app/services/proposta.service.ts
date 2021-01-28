@@ -1,9 +1,11 @@
+import { PropostaSearchModel } from './../models/proposta-search.model';
 import { take } from 'rxjs/operators';
-import { Proposta } from './../models/proposta.model';
+import { Proposta, PropostaResponse } from './../models/proposta.model';
 import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Pageable } from '../core/models/pageable.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +29,15 @@ export class PropostaService {
 
   create(record: Proposta): Observable<Proposta> {
     return this.http.post(this.endpoint, record).pipe(take(1)) as Observable<Proposta>;
+  }
+
+  findAll(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {
+    this.removeEmptyFields(search);
+    const params = new HttpParams({fromObject: search});
+    return this.http.get<any>(this.endpoint, { params });
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.endpoint}/${id}`);
   }
 }

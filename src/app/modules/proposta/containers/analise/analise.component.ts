@@ -47,11 +47,9 @@ export class AnaliseComponent implements OnInit, OnDestroy {
         .subscribe(indicacoes => {
           this.indicacoes = indicacoes;
           const pessoas = indicacoes.map(ind => {
-            //console.log('indicacao', ind)
             const pessoaIndicada: PessoaIndicada = {
               indicacao: ind
             };
-            //console.log('pessoa indicada', pessoaIndicada)
             return pessoaIndicada;
           });
           this.indicados = pessoas;
@@ -71,7 +69,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       });
 
       const proposta: Proposta = {
-        id: undefined,
         dataInclusao: new Date(),
         eventoId: this.idEvento,
         observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',

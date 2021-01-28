@@ -1,3 +1,6 @@
+import { PropostaResponse } from './../../../models/proposta.model';
+import { Pageable } from './../../../core/models/pageable.model';
+import { PropostaSearchModel } from './../../../models/proposta-search.model';
 import { PropostaService } from './../../../services/proposta.service';
 import { IndicacaoResponse } from './../../../models/indicacao.model';
 import { IndicacaoService } from './../../../services/indicacao.service';
@@ -17,8 +20,16 @@ export class PropostaFacade {
         return this.indicacaoService.findAllIndicacoesByEvento(idEvento);
     }
 
+    findAllPropostas(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {
+      return this.propostaService.findAll(search);
+    }
+
     createProposta(record: Proposta): Observable<Proposta>{
       return this.propostaService.create(record);
+    }
+
+    delete(id: number): Observable<any>{
+      return this.propostaService.delete(id);
     }
 
 }

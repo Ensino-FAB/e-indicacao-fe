@@ -9,13 +9,10 @@ import {DetalheComponent} from './containers/detalhe/detalhe.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {
-  TooltipModule,
-  CardModule,
+   CardModule,
   ButtonModule,
   IconModule,
   TableModule,
-  ModalModule,
-  TagModule,
   LabelModule,
   FormModule,
   SelectModule,
