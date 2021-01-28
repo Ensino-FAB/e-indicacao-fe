@@ -2,6 +2,9 @@ import { Evento } from './evento.model';
 import { Organizacao } from './organizacao.model';
 import { Pessoa } from './pessoa.model';
 import {BaseModel} from '../core/models/base.model';
+import {Organizacao} from "./organizacao.model";
+import {Pessoa} from "./pessoa.model";
+import {Evento} from "./evento.model";
 
 
 
