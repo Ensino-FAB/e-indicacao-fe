@@ -21,10 +21,11 @@ import { AutocompletePessoasComponent } from './components/autocomplete-pessoas/
 import { CadastroStep1Component } from './components/cadastro-step1/cadastro-step1.component';
 import { CadastroStep2Component } from './components/cadastro-step2/cadastro-step2.component';
 import { StepperComponent } from './components/stepper/stepper.component';
+import { DetalheIndicacaoComponent } from './components/detalhe-indicacao/detalhe-indicacao.component';
 
 
 @NgModule({
-  declarations: [CadastroComponent, ConsultaComponent, DetalheComponent, EdicaoComponent, AutocompletePessoasComponent, CadastroStep1Component, CadastroStep2Component, StepperComponent],
+  declarations: [CadastroComponent, ConsultaComponent, DetalheComponent, EdicaoComponent, AutocompletePessoasComponent, CadastroStep1Component, CadastroStep2Component, StepperComponent, DetalheIndicacaoComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(INDICACAO_ROUTES),
