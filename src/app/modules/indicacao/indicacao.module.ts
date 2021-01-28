@@ -10,7 +10,7 @@ import {EdicaoComponent} from './containers/edicao/edicao.component';
 import {IndicacaoFacade} from './indicacao-facade';
 import {
   AutocompleteModule,
-  ButtonModule,
+  ButtonModule, CardModule,
   FormModule,
   IconModule,
   InputModule, LabelModule,
@@ -39,6 +39,7 @@ import { DetalheIndicacaoComponent } from './components/detalhe-indicacao/detalh
     LabelModule,
     AutocompleteModule,
     TextareaModule,
+    CardModule,
   ],
   providers: [IndicacaoFacade],
 })
