@@ -29,6 +29,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     nome: new FormControl(''),
     sigla: new FormControl(''),
     statusEvento: new FormControl(''),
+    categoria: new FormControl(''),
+
   });
 
   columns: TableColumn[] = [
