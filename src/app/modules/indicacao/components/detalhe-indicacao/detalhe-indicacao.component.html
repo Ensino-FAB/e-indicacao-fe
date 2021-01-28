@@ -1,0 +1,41 @@
+<com-card>
+  <div class="container">
+    <div class="wrapper">
+      <header>
+        <h2 [ngClass]="{ skeleton: loading }" *ngIf="header">
+        </h2>
+      </header>
+      <section>
+        <div class="flex-container">
+          <div class="flex-container col start" style="width: 50%">
+            <div class="flex-container col" style="margin-bottom: 3rem">
+              <com-label>Nome do evento</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ indicacao?.evento.nome }}
+              </span>
+            </div>
+
+            <div class="flex-container col" style="margin-bottom: 3rem">
+              <com-label>CPF</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ indicacao?.codOrganizacaoSolicitante}}
+              </span>
+            </div>
+
+            <div class="flex-container col" style="margin-bottom: 3rem">
+              <com-label>Sigla Organização</com-label>
+              <span [ngClass]="{ skeleton: loading }">
+                {{ indicacao?.codOrganizacaoBeneficiada }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="flex-container end">
+        <com-button fill  [routerLink]="['/indicacao', 'evento' ,  id]" >
+          <ng-container slot="text">voltar</ng-container>
+        </com-button>
+      </div>
+    </div>
+  </div>
+</com-card>
