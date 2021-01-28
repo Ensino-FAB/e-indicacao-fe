@@ -81,7 +81,7 @@
         (previousPage)="handlePreviousPage()"
         (firstPage)="onFirstPage()"
         (lastPage)="onLastPage()"
-        *ngIf="!_isLoading"
+        *ngIf="!isLoading"
       >
         <!-- Ações -->
         <ng-template let-content name="action">
@@ -144,7 +144,7 @@
         [pageIndex]="1"
         [totalPages]="1"
         [columns]="columns"
-        *ngIf="_isLoading"
+        *ngIf="isLoading"
       >
         <ng-template name="nome">
           <div class="table-field-skeleton"></div>

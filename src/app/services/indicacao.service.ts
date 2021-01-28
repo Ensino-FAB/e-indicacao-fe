@@ -1,3 +1,4 @@
+import { IndicacaoResponse } from './../models/indicacao.model';
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
@@ -42,7 +43,7 @@ export class IndicacaoService {
     });
   }
 
-  findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<Indicacao[]> {
+  findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<IndicacaoResponse[]> {
     this.removeEmptyFields(search);
     const params = new HttpParams({fromObject: search});
     return this.http.get<any[]>(`${environment.CURSOS_INDICACAO_API}/indicacao/evento/${idEvento}` , {params});

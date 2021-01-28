@@ -7,7 +7,7 @@ import { IndicacaoService } from './../../../services/indicacao.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Proposta } from 'src/app/models/proposta.model';
-import {IndicacaoSearchModel} from "../../../models/indicacao-search.model";
+import {IndicacaoSearchModel} from '../../../models/indicacao-search.model';
 
 @Injectable()
 export class PropostaFacade {
@@ -17,7 +17,7 @@ export class PropostaFacade {
       ) {
     }
 
-    findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<Indicacao[]> {
+    findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<IndicacaoResponse[]> {
         return this.indicacaoService.findAllIndicacoesByEvento(search, idEvento);
     }
 

@@ -6,9 +6,8 @@ import {EventoFacade} from '../../evento-facade';
 import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {fadeIn} from '../../../../shared/utils/animation';
-import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
-import {CategoriaService} from "../../../../services/categoria.service";
-import {Categoria} from "../../../../models/categoria.model";
+import {SelectOption} from '@cca-fab/cca-fab-components-common/types/select';
+import {CategoriaService} from '../../../../services/categoria.service';
 
 
 @Component({
@@ -21,8 +20,7 @@ import {Categoria} from "../../../../models/categoria.model";
 export class ConsultaComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
 
-  // tslint:disable-next-line:variable-name
-  _isLoading = false;
+  isLoading = false;
 
   eventoSearch = new FormGroup({
     q: new FormControl(''),
@@ -63,8 +61,11 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   data = [];
   loadindMockData = new Array(10).fill({
-    descricao: '',
-    status: '',
+    sigla: '',
+    nome: '',
+    categoriaTitulo: '',
+    organizacaoGestoraSigla: '',
+    statusEvento: '',
   });
 
   options: object[];
@@ -81,7 +82,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   constructor(
     private facade: EventoFacade,
     private toastService: ToastService,
-    private categoriaService: CategoriaService,
   ) {
   }
 
@@ -96,11 +96,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     ];
     this.refresh();
 
-    // @ts-ignore
-    this.findEvento();
-
-    // @ts-ignore
-    this.findCategoria()
+    this.findEvento({});
+    this.findCategoria({});
 
   }
 
@@ -120,7 +117,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     this.subs$.push(
       isLoading$.subscribe((status) => {
-        this._isLoading = status;
+        this.isLoading = status;
       }),
       getEvento$.subscribe((res) => {
         this.count = res.totalElements;
