@@ -12,15 +12,19 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {EVENTOS_ROUTES} from './evento-routing.module';
 import {
+  AutocompleteModule,
   ButtonModule,
   IconModule,
   TableModule,
   FormModule,
   SelectModule,
-  InputModule, CardModule, LabelModule, TextareaModule,
+  InputModule,
+  CardModule,
+  LabelModule,
+  TextareaModule,
 } from '@cca-fab/cca-fab-components-common';
 import {EventoFacade} from './evento-facade';
-import {DetalheEventoComponent} from "./components/detalhe-evento/detalhe-evento.component";
+import {DetalheEventoComponent} from './components/detalhe-evento/detalhe-evento.component';
 
 
 @NgModule({
@@ -45,7 +49,8 @@ import {DetalheEventoComponent} from "./components/detalhe-evento/detalhe-evento
     SelectModule,
     CardModule,
     LabelModule,
-    TextareaModule
+    TextareaModule,
+    AutocompleteModule,
   ],
   providers: [EventoFacade],
 })

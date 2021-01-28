@@ -4,8 +4,8 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {Pageable} from '../core/models/pageable.model';
 import {take} from 'rxjs/operators';
-import {Organizacao} from "../models/organizacao.model";
-import {OrganizacaoSearchModel} from "../models/organizacao-search.model";
+import {Organizacao} from '../models/organizacao.model';
+import {OrganizacaoSearchModel} from '../models/organizacao-search.model';
 
 @Injectable({
   providedIn: 'root'

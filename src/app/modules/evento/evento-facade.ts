@@ -4,17 +4,22 @@ import {Pageable} from '../../core/models/pageable.model';
 import {EventoService} from '../../services/evento.service';
 import {EventoSearchModel} from '../../models/evento-search.model';
 import {Evento} from '../../models/evento.model';
+import {OrganizacaoService} from '../../services/organizacao.service';
+
 
 
 @Injectable()
 export class EventoFacade {
   // tslint:disable-next-line:variable-name
   private _eventoService: EventoService;
+  // tslint:disable-next-line:variable-name
+  private _organizacaoService: OrganizacaoService;
+
 
   constructor(private injector: Injector) {
   }
 
-  private get service(): EventoService {
+  private get eventoService(): EventoService {
     if (!this._eventoService) {
       this._eventoService = this.injector.get(EventoService);
     }
@@ -24,18 +29,25 @@ export class EventoFacade {
   public getAllEvento(
     search: EventoSearchModel
   ): Observable<Pageable<Evento>> {
-    return this.service.findAll(search);
+    return this.eventoService.findAll(search);
   }
 
   public delete(id: number): Observable<any> {
-    return this.service.remove(id);
+    return this.eventoService.remove(id);
   }
 
   public save(record: Evento): any {
-    return this.service.save(record);
+    return this.eventoService.save(record);
   }
 
   public findEvento(id: number): Observable<Evento> {
-    return this.service.findById(id);
+    return this.eventoService.findById(id);
+  }
+
+  public get organizacaoService(): OrganizacaoService {
+    if (!this._organizacaoService) {
+      this._organizacaoService = this.injector.get(OrganizacaoService);
+    }
+    return this._organizacaoService;
   }
 }

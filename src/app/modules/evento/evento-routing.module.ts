@@ -8,7 +8,7 @@ import {DetalheComponent} from './containers/detalhe/detalhe.component';
 
 export const EVENTOS_ROUTES: Routes = [
   { path: '', component: ConsultaComponent, data: { breadcrumb: null } },
-  { path: 'criar', component: CadastroComponent, data: { breadcrumb: null } },
+  { path: 'cadastro', component: CadastroComponent, data: { breadcrumb: null } },
   { path: 'editar/:id', component: EdicaoComponent, data: { breadcrumb: null } },
   { path: 'detalhar/:id', component: DetalheComponent, data: { breadcrumb: null } },
 ];
