@@ -53,5 +53,4 @@ export class IndicacaoFacade {
     }
     return this._organizacaoService;
   }
-
 }

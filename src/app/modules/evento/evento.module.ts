@@ -17,10 +17,10 @@ import {
   TableModule,
   FormModule,
   SelectModule,
-  InputModule, CardModule, LabelModule,
+  InputModule, CardModule, LabelModule, TextareaModule,
 } from '@cca-fab/cca-fab-components-common';
 import {EventoFacade} from './evento-facade';
-import { DetalheEventoComponent } from './component/detalhe-evento/detalhe-evento.component';
+import {DetalheEventoComponent} from "./components/detalhe-evento/detalhe-evento.component";
 
 
 @NgModule({
@@ -44,7 +44,8 @@ import { DetalheEventoComponent } from './component/detalhe-evento/detalhe-event
     IconModule,
     SelectModule,
     CardModule,
-    LabelModule
+    LabelModule,
+    TextareaModule
   ],
   providers: [EventoFacade],
 })

@@ -9,6 +9,7 @@ import { PropostaFacade } from './../proposta-facade';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share, mapTo, takeUntil, mergeAll } from 'rxjs/operators';
+import {IndicacaoSearchModel} from "../../../../models/indicacao-search.model";
 
 
 @Component({
@@ -24,6 +25,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   indicacoes: Indicacao[] = [];
   selecionados: PessoaIndicada[] = [];
   pessoaSelecionada: PessoaIndicada;
+  search: IndicacaoSearchModel;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +35,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.idEvento = this.route.snapshot.params.id;
 
-    const getIndicacoes$ = this.propostaFacade.findAllIndicacoesByEvento(this.idEvento).pipe(share());
+    const getIndicacoes$ = this.propostaFacade.findAllIndicacoesByEvento(this.search ,this.idEvento).pipe(share());
     const isLoading$ = of(
       timer(150).pipe(mapTo(true), takeUntil(getIndicacoes$)),
       getIndicacoes$.pipe(mapTo(false))
@@ -43,17 +45,17 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       isLoading$.subscribe(status => {
         this.isLoading = status;
       }),
-      getIndicacoes$
-        .subscribe(indicacoes => {
-          this.indicacoes = indicacoes;
-          const pessoas = indicacoes.map(ind => {
-            const pessoaIndicada: PessoaIndicada = {
-              indicacao: ind
-            };
-            return pessoaIndicada;
-          });
-          this.indicados = pessoas;
-        })
+      // getIndicacoes$
+      //   .subscribe(indicacoes => {
+      //     this.indicacoes = indicacoes;
+      //     const pessoas = indicacoes.map(ind => {
+      //       const pessoaIndicada: PessoaIndicada = {
+      //         // indicacao: ind
+      //       };
+      //       return pessoaIndicada;
+      //     });
+      //     this.indicados = pessoas;
+      //   })
     );
   }
 

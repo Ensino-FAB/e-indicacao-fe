@@ -2,11 +2,12 @@ import { PropostaResponse } from './../../../models/proposta.model';
 import { Pageable } from './../../../core/models/pageable.model';
 import { PropostaSearchModel } from './../../../models/proposta-search.model';
 import { PropostaService } from './../../../services/proposta.service';
-import { IndicacaoResponse } from './../../../models/indicacao.model';
+import {Indicacao, IndicacaoResponse} from './../../../models/indicacao.model';
 import { IndicacaoService } from './../../../services/indicacao.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Proposta } from 'src/app/models/proposta.model';
+import {IndicacaoSearchModel} from "../../../models/indicacao-search.model";
 
 @Injectable()
 export class PropostaFacade {
@@ -16,8 +17,8 @@ export class PropostaFacade {
       ) {
     }
 
-    findAllIndicacoesByEvento(idEvento: number): Observable<IndicacaoResponse[]> {
-        return this.indicacaoService.findAllIndicacoesByEvento(idEvento);
+    findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<Indicacao[]> {
+        return this.indicacaoService.findAllIndicacoesByEvento(search, idEvento);
     }
 
     findAllPropostas(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {
