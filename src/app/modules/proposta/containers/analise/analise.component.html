@@ -25,6 +25,15 @@
             </ng-template>
         </p-pickList>
 
+      <div class="flex-container">
+        <a [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">
+          <com-button >
+            <com-icon slot="icon">person_add_alt_1</com-icon>
+          </com-button>
+        </a>
+      </div>
+
         <p-button (click)="salvarProposta()" label="Salvar" styleClass="p-button-lg p-mt-3"></p-button>
+
     </div>
 </section>

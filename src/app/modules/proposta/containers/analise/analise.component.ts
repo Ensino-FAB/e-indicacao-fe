@@ -19,7 +19,7 @@ import { IndicacaoSearchModel } from '../../../../models/indicacao-search.model'
 })
 export class AnaliseComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
-  private idEvento: number;
+  public idEvento: number;
   isLoading = false;
   indicados: PessoaIndicada[] = [];
   indicacoes: Indicacao[] = [];
