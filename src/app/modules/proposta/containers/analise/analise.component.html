@@ -1,52 +1,41 @@
 <section>
-    <div class="flex-container col wrapper">
-        <div class="aside-wrapper">
-            <h2 class="indicacao-page-title">Análise das indicações</h2>
-        </div>
-
-        <app-card-participant-detail *ngIf="pessoaSelecionada" [pessoaSelecionada]="pessoaSelecionada">
-        </app-card-participant-detail>
-
-        <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Indicados"
-            targetHeader="Selecionados" dragdrop="true" styleClass="test"
-            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [responsive]="true"
-            (onTargetReorder)="onTargetReorder($event)" (onMoveToTarget)="onMoveToTarget($event)"
-            (onMoveAllToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSource($event)"
-            (onMoveAllToSource)="onMoveAllToSource($event)" (onTargetSelect)="onTargetSelect($event)"
-            (onSourceSelect)="onSourceSelect($event)">
-            <ng-template let-pickListItem pTemplate="item">
-                <div class="p-mb-3">
-                    <div>
-                        <div class="texto-pessoa p-mb-1">{{pickListItem.prioridade ? pickListItem.prioridade + ' - ':''}}{{pickListItem.indicacao.pessoa.nome}}</div>
-                        <div class="texto-OM">solicitante: {{pickListItem.indicacao.organizacaoSolicitante.sigla}}</div>
-                        <div class="texto-OM">beneficiada: {{pickListItem.indicacao.organizacaoBeneficiada.sigla}}</div>
-                    </div>
-                </div>
-            </ng-template>
-        </p-pickList>
-
-<!--      <div class="flex-container">-->
-<!--        <a [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">-->
-<!--          <com-button >-->
-<!--            <com-icon slot="icon">person_add_alt_1</com-icon>-->
-<!--          </com-button>-->
-<!--        </a>-->
-<!--      </div>-->
-
-<!--      <p-button (click)="salvarProposta()" label="Salvar" styleClass="p-button-lg p-mt-3"></p-button>-->
-
-
-      <com-form-section >
-        <footer class="flex-container end">
-          <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">
-            <a slot="text">Nova Ficha</a>
-          </com-button>
-          <com-button   fill confirm>
-            <a slot="text">Salvar proposta</a>
-          </com-button>
-        </footer>
-      </com-form-section>
-
-
+  <div class="flex-container col wrapper">
+    <div class="aside-wrapper">
+      <h2 class="indicacao-page-title">Análise das indicações</h2>
     </div>
+
+    <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Indicados"
+      targetHeader="Selecionados" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
+      [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"
+      (onMoveToTarget)="onMoveToTarget($event)" (onMoveAllToTarget)="onMoveToTarget($event)"
+      (onMoveToSource)="onMoveToSource($event)" (onMoveAllToSource)="onMoveAllToSource($event)">
+      <ng-template let-pickListItem pTemplate="item">
+        <div class="p-mb-3">
+          <app-item-participante [pessoa]='pickListItem'></app-item-participante>
+        </div>
+      </ng-template>
+    </p-pickList>
+    
+    <!--      <div class="flex-container">-->
+    <!--        <a [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">-->
+    <!--          <com-button >-->
+    <!--            <com-icon slot="icon">person_add_alt_1</com-icon>-->
+    <!--          </com-button>-->
+    <!--        </a>-->
+    <!--      </div>-->
+
+    <!--      <p-button (click)="salvarProposta()" label="Salvar" styleClass="p-button-lg p-mt-3"></p-button>-->
+
+
+    <com-form-section>
+      <footer class="flex-container end">
+        <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">
+          <a slot="text">Nova Ficha</a>
+        </com-button>
+        <com-button fill confirm>
+          <a slot="text">Salvar proposta</a>
+        </com-button>
+      </footer>
+    </com-form-section>
+  </div>
 </section>

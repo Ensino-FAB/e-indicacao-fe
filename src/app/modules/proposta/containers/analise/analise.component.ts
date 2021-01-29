@@ -24,7 +24,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   indicados: PessoaIndicada[] = [];
   indicacoes: Indicacao[] = [];
   selecionados: PessoaIndicada[] = [];
-  pessoaSelecionada: PessoaIndicada;
 
   constructor(
     private route: ActivatedRoute,
@@ -110,18 +109,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   onMoveAllToSource(event: any): void {
     this.calcularOrdem();
     this.removeOrdem();
-  }
-
-  onSourceSelect(event: any): void {
-    if (event.items) {
-      this.pessoaSelecionada = event.items[0];
-    }
-  }
-
-  onTargetSelect(event: any): void {
-    if (event.items) {
-      this.pessoaSelecionada = event.items[0];
-    }
   }
 
   calcularOrdem(): void {

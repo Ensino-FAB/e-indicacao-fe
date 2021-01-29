@@ -1,3 +1,4 @@
+import { ItemParticipanteComponent } from './components/item-participante/item-participante.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropostaFacade } from './containers/proposta-facade';
 import { PROPOSTA_ROUTES } from './proposta-routing.module';
@@ -23,7 +24,7 @@ import {
 
 
 @NgModule({
-  declarations: [AnaliseComponent, ConsultaComponent, CardParticipantDetailComponent],
+  declarations: [AnaliseComponent, ConsultaComponent, CardParticipantDetailComponent, ItemParticipanteComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(PROPOSTA_ROUTES),
@@ -36,7 +37,6 @@ import {
     SelectModuleCCA,
     TextareaModuleCCA,
     InputModuleCCA,
-
   ],
   providers: [PropostaFacade]
 })

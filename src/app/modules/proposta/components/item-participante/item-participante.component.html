@@ -1,0 +1,18 @@
+<div class="p-shadow-2" *ngIf="pessoa">
+    <div class="flex-container" style="justify-content: space-between;">
+        <div class="flex-container" style="align-items: center;">
+            <div>
+                <i class="pi pi-file-o participante-icon"></i>
+            </div>
+            <div>
+                <h1 class="text-pessoa p-mb-1">
+                    {{pessoa.prioridade ? pessoa.prioridade + ' - ':''}}{{pessoa.indicacao.pessoa.nome}}
+                </h1>
+                <h1 class="text-om">solicitante: {{pessoa.indicacao.organizacaoSolicitante.sigla}}</h1>
+            </div>
+        </div>
+        <div style="margin: 1rem;">
+            <com-icon size="2.5" outlined >info</com-icon>
+        </div>
+    </div>
+</div>
