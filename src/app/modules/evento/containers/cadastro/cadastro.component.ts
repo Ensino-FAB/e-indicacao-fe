@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {fadeIn} from '../../../../shared/utils/animation';
 import {Subscription} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -35,6 +35,9 @@ export class CadastroComponent implements OnInit {
 
   organizacaoGestoraOption: SelectOption[] = [];
 
+  categoriaOption: SelectOption[] = [];
+
+
   constructor(
     private eventoFacade: EventoFacade,
     private toast: ToastService,
@@ -45,7 +48,7 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.reloadOrganizacaoGestora();
+    // this.reloadOrganizacaoGestora();
 
     this.eventoForm = this.fb.group({
       id: [''],
@@ -60,7 +63,7 @@ export class CadastroComponent implements OnInit {
       observacoes: [''],
       sigla: ['', Validators.required],
       statusEvento: ['', Validators.required],
-      ticket: ['', Validators.required],
+      ticket: [''],
     });
   }
 
@@ -78,6 +81,27 @@ export class CadastroComponent implements OnInit {
     );
   }
 
+  reloadCategoria(search): void {
+    this.categoriaOption = [];
+    this.subs$.push(
+      this.eventoFacade.categoriaService.findAll(search).subscribe((response) => {
+        response.content.map((categoria) => {
+          this.categoriaOption.push({
+            name: categoria.titulo + ' - ',
+            value: categoria.id,
+          });
+        });
+      })
+    );
+  }
+
+  filterCategoria(event): void {
+    const categoriaName: string = event;
+    if (categoriaName.length > 2) {
+      this.reloadCategoria({titulo: categoriaName});
+    }
+  }
+
   filterOrganizacaoGestora(event): void {
     const organizacaoGestoraName: string = event;
     if (organizacaoGestoraName.length > 2) {
@@ -89,7 +113,7 @@ export class CadastroComponent implements OnInit {
     void {
     if (this.eventoForm.valid
     ) {
-      const salvarEvento$ = this.eventoFacade.save( this.eventoForm.value );
+      const salvarEvento$ = this.eventoFacade.save(this.eventoForm.value);
       this.subs$.push(salvarEvento$);
 
       salvarEvento$.subscribe((resp) => {

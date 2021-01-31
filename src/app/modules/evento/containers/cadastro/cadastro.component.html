@@ -19,13 +19,16 @@
             </com-input>
           </div>
           <div class="flex-container row">
-            <com-input formControlName="categoriaId" label="Categoria" class="half-width"
-                       [invalid]="
-                            (eventoForm.get('categoriaId').invalid &&
-                              eventoForm.get('categoriaId').touched) ||
-                            eventoForm.errors?.categoriaId
-                          ">
-            </com-input>
+            <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption label="Categoria"
+                              (changed)="filterCategoria($event)"
+                              [options]="categoriaOption"
+                              [invalid]="
+                   eventoForm.get('categoriaId').invalid &&
+                   eventoForm.get('categoriaId').touched"
+                              formControlName="categoriaId"
+                              class="full-width"
+            >
+            </com-autocomplete>
             <com-input formControlName="sigla" label="Sigla" class="half-width"
                        [invalid]="
                             (eventoForm.get('sigla').invalid &&
@@ -35,13 +38,13 @@
             </com-input>
           </div>
           <div class="flex-container row">
-            <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption label="Filtrar por nome"
+            <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption label="Organização Gestora"
                               (changed)="filterOrganizacaoGestora($event)"
                               [options]="organizacaoGestoraOption"
                               [invalid]="
                    eventoForm.get('codOrganizacaoGestora').invalid &&
                    eventoForm.get('codOrganizacaoGestora').touched"
-                              formControlName="codOrganizacaoSolicitante"
+                              formControlName="codOrganizacaoGestora"
                               class="full-width"
             >
             </com-autocomplete>
@@ -54,8 +57,10 @@
                           ">
             </com-select>
           </div>
+          <br>
           <div class="flex-container row">
             <com-input formControlName="dataInicio" label="Data Início" class="half-width"
+                       type="date"
                        [invalid]="
                               (eventoForm.get('dataInicio').invalid &&
                                 eventoForm.get('dataInicio').touched) ||
@@ -63,6 +68,7 @@
                             ">
             </com-input>
             <com-input formControlName="dataTermino" label="Data Término" class="half-width"
+                       type="date"
                        [invalid]="
                               (eventoForm.get('dataTermino').invalid &&
                                 eventoForm.get('dataTermino').touched) ||
@@ -72,6 +78,7 @@
           </div>
           <div class="flex-container row">
             <com-input formControlName="dataInicioIndicacao" label="Data Início da Indicação" class="half-width"
+                       type="date"
                        [invalid]="
                               (eventoForm.get('dataInicioIndicacao').invalid &&
                                 eventoForm.get('dataInicioIndicacao').touched) ||
@@ -79,6 +86,7 @@
                             ">
             </com-input>
             <com-input formControlName="dataTerminoIndicacao" label="Data Término da Indicação" class="half-width"
+                       type="date"
                        [invalid]="
                               (eventoForm.get('dataTerminoIndicacao').invalid &&
                                 eventoForm.get('dataTerminoIndicacao').touched) ||

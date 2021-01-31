@@ -5,6 +5,7 @@ import {EventoService} from '../../services/evento.service';
 import {EventoSearchModel} from '../../models/evento-search.model';
 import {Evento} from '../../models/evento.model';
 import {OrganizacaoService} from '../../services/organizacao.service';
+import {CategoriaService} from '../../services/categoria.service';
 
 
 
@@ -14,6 +15,8 @@ export class EventoFacade {
   private _eventoService: EventoService;
   // tslint:disable-next-line:variable-name
   private _organizacaoService: OrganizacaoService;
+  // tslint:disable-next-line:variable-name
+  private _categoriaService: CategoriaService;
 
 
   constructor(private injector: Injector) {
@@ -50,4 +53,12 @@ export class EventoFacade {
     }
     return this._organizacaoService;
   }
+
+  public get categoriaService(): CategoriaService {
+    if (!this._categoriaService) {
+      this._categoriaService = this.injector.get(CategoriaService);
+    }
+    return this._categoriaService;
+  }
+
 }
