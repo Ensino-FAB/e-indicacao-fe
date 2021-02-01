@@ -17,6 +17,15 @@
                             eventoForm.errors?.nome
                           ">
             </com-input>
+
+            <com-input formControlName="sigla" label="Sigla" class="half-width"
+                       [invalid]="
+                            (eventoForm.get('sigla').invalid &&
+                              eventoForm.get('sigla').touched) ||
+                            eventoForm.errors?.sigla
+                          ">
+            </com-input>
+
           </div>
           <div class="flex-container row">
             <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption label="Categoria"
@@ -29,13 +38,16 @@
                               class="full-width"
             >
             </com-autocomplete>
-            <com-input formControlName="sigla" label="Sigla" class="half-width"
-                       [invalid]="
-                            (eventoForm.get('sigla').invalid &&
-                              eventoForm.get('sigla').touched) ||
-                            eventoForm.errors?.sigla
+
+            <com-select formControlName="statusEvento" label="Status do Evento" class="half-width"
+                        [options]="statusEvento"
+                        [invalid]="
+                            (eventoForm.get('statusEvento').invalid &&
+                              eventoForm.get('statusEvento').touched) ||
+                            eventoForm.errors?.statusEvento
                           ">
-            </com-input>
+            </com-select>
+
           </div>
           <div class="flex-container row">
             <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption label="Organização Gestora"
@@ -48,14 +60,6 @@
                               class="full-width"
             >
             </com-autocomplete>
-            <com-select formControlName="statusEvento" label="Status do Evento" class="half-width"
-                        [options]="statusEvento"
-                        [invalid]="
-                            (eventoForm.get('statusEvento').invalid &&
-                              eventoForm.get('statusEvento').touched) ||
-                            eventoForm.errors?.statusEvento
-                          ">
-            </com-select>
           </div>
           <br>
           <div class="flex-container row">

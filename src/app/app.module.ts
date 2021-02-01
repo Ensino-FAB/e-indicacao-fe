@@ -17,6 +17,7 @@ import {CommonModule, HashLocationStrategy, LocationStrategy} from '@angular/com
 import {ToastService} from './shared/services/toast.service';
 import {ToastModule} from './shared/components/toast/toast.module';
 import {HttpErrorInterceptor} from './http-error.interceptor';
+import {authProviderBuilder} from "../auth/lib/providers/auth.provider";
 
 function initializeKeycloak(keycloak: KeycloakService): any {
   return () =>
@@ -32,6 +33,12 @@ function initializeKeycloak(keycloak: KeycloakService): any {
       },
     });
 }
+
+const authProvider = authProviderBuilder({
+  url: environment.KEYCLOAK_URL,
+  realm: environment.KEYCLOAK_REALM,
+  clientId: environment.KEYCLOAK_CLIENT_ID,
+});
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,18 +56,12 @@ function initializeKeycloak(keycloak: KeycloakService): any {
     ToastModule
   ],
   providers: [
+    authProvider,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
     ToastService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService],
-    },
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,

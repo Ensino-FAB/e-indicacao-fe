@@ -24,11 +24,11 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.reloadEventoId();
-    // @ts-ignore
-    this.reloadPessoaId();
-    // @ts-ignore
-    this.reloadOrganizacaoId();
+    // this.reloadEventoId();
+    // // @ts-ignore
+    // this.reloadPessoaId();
+    // // @ts-ignore
+    // this.reloadOrganizacaoId();
   }
 
   reloadEventoId(search): void {
