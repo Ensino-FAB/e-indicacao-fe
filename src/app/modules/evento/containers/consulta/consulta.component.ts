@@ -27,7 +27,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     nome: new FormControl(''),
     sigla: new FormControl(''),
     statusEvento: new FormControl(''),
-    categoria: new FormControl(''),
+    categoriaId: new FormControl(''),
 
   });
 
@@ -96,8 +96,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     ];
     this.refresh();
 
-    this.findEvento({});
-    this.findCategoria({});
 
   }
 
@@ -207,33 +205,19 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     );
   }
 
-  findEvento(search): void {
-    this.eventoOptions = [];
-    this.subs$.push(
-      this.facade.getAllEvento(search).subscribe((response) => {
-        response.content.map((evento) => {
-          this.eventoOptions.push({
-            name: evento.nome,
-            value: evento.id,
-          });
-        });
-      })
-    );
-  }
-
-  findCategoria(search): void {
-    this.categoriaOptions = [];
-    this.subs$.push(
-      this.facade.getAllEvento(search).subscribe((response) => {
-        response.content.map((evento) => {
-          this.eventoOptions.push({
-            name: evento.categoria.titulo,
-            value: evento.id,
-          });
-        });
-      })
-    );
-  }
+  // findCategoria(search): void {
+  //   this.categoriaOptions = [];
+  //   this.subs$.push(
+  //     this.facade.getAllEvento(search).subscribe((response) => {
+  //       response.content.map((evento) => {
+  //         this.eventoOptions.push({
+  //           name: evento.categoria.titulo,
+  //           value: evento.id,
+  //         });
+  //       });
+  //     })
+  //   );
+  // }
 
 
   clean() {

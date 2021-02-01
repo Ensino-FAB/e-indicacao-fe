@@ -16,6 +16,10 @@ export class OrganizacaoService {
   private endpoint = `${environment.CURSOS_INDICACAO_API}/organizacao`;
 
   removeEmptyFields(data): void {
+    if(!data){
+      return;
+    }
+
     Object.keys(data).forEach(
       (key) =>
         (data[key] === null ||

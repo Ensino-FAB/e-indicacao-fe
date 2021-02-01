@@ -15,6 +15,10 @@ export class PessoaService {
   private endpoint = `${environment.CURSOS_INDICACAO_API}/pessoa`;
 
   removeEmptyFields(data): void {
+    if(!data){
+      return;
+    }
+
     Object.keys(data).forEach(
       (key) =>
         (data[key] === null ||

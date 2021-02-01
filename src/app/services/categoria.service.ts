@@ -18,6 +18,10 @@ export class CategoriaService {
   private endpoint = `${environment.CURSOS_INDICACAO_API}/categoria`;
 
   removeEmptyFields(data): void {
+    if(!data){
+      return;
+    }
+
     Object.keys(data).forEach(
       (key) =>
         (data[key] === null ||
@@ -27,7 +31,6 @@ export class CategoriaService {
         delete data[key]
     );
   }
-
   findById(id: number): Observable<Categoria> {
     return this.http.get<any>(
       `${environment.CURSOS_INDICACAO_API}/categoria/${id}`
