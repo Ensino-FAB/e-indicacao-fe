@@ -29,6 +29,12 @@
       }
     }
 
+    ::ng-deep  .p-inputtext {
+      font-size: 2rem;
+    }
+
+
+
     &.wrap {
       & > * {
         width: calc(50% - 0.5rem);

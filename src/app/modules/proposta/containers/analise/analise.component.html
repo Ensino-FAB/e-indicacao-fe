@@ -5,17 +5,18 @@
     </div>
 
     <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Indicados"
-      targetHeader="Selecionados" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
-      [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"
-      (onMoveToTarget)="onMoveToTarget($event)" (onMoveAllToTarget)="onMoveToTarget($event)"
-      (onMoveToSource)="onMoveToSource($event)" (onMoveAllToSource)="onMoveAllToSource($event)">
+                targetHeader="Selecionados" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
+                [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"
+                (onMoveToTarget)="onMoveToTarget($event)" (onMoveAllToTarget)="onMoveToTarget($event)"
+                (onMoveToSource)="onMoveToSource($event)" (onMoveAllToSource)="onMoveAllToSource($event)" filterBy="name"
+                sourceFilterPlaceholder="BUSCA" targetFilterPlaceholder="BUSCA">
       <ng-template let-pickListItem pTemplate="item">
         <div class="p-mb-3">
           <app-item-participante [pessoa]='pickListItem'></app-item-participante>
         </div>
       </ng-template>
     </p-pickList>
-    
+
     <!--      <div class="flex-container">-->
     <!--        <a [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">-->
     <!--          <com-button >-->
@@ -31,6 +32,9 @@
       <footer class="flex-container end">
         <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">
           <a slot="text">Nova Ficha</a>
+        </com-button>
+        <com-button fill secondary>
+          <a slot="text">Finalizar</a>
         </com-button>
         <com-button fill confirm>
           <a slot="text">Salvar proposta</a>
