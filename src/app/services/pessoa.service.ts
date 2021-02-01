@@ -15,6 +15,10 @@ export class PessoaService {
   private endpoint = `${environment.CURSOS_INDICACAO_API}/pessoa`;
 
   removeEmptyFields(data): void {
+    if(!data){
+      return;
+    }
+
     Object.keys(data).forEach(
       (key) =>
         (data[key] === null ||
@@ -27,6 +31,10 @@ export class PessoaService {
 
   findById(id: number): Observable<Pessoa> {
     return this.http.get<any>(`${this.endpoint}/${id}`);
+  }
+
+  findByCpf(nrCpf: string): Observable<Pessoa> {
+    return this.http.get<any>(`${this.endpoint}/cpf/${nrCpf}`);
   }
 
   findAll(search: PessoaSearch): Observable<Pageable<Pessoa>> {

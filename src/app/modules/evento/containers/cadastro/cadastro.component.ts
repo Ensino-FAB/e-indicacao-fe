@@ -48,7 +48,9 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    // this.reloadOrganizacaoGestora();
+    this.reloadOrganizacaoGestora();
+    // @ts-ignore
+    this.reloadCategoria();
 
     this.eventoForm = this.fb.group({
       id: [''],
@@ -87,7 +89,7 @@ export class CadastroComponent implements OnInit {
       this.eventoFacade.categoriaService.findAll(search).subscribe((response) => {
         response.content.map((categoria) => {
           this.categoriaOption.push({
-            name: categoria.titulo + ' - ',
+            name: categoria.id + ' - ' + categoria.titulo,
             value: categoria.id,
           });
         });
@@ -97,14 +99,14 @@ export class CadastroComponent implements OnInit {
 
   filterCategoria(event): void {
     const categoriaName: string = event;
-    if (categoriaName.length > 2) {
+    if (categoriaName.length > 1) {
       this.reloadCategoria({titulo: categoriaName});
     }
   }
 
   filterOrganizacaoGestora(event): void {
     const organizacaoGestoraName: string = event;
-    if (organizacaoGestoraName.length > 2) {
+    if (organizacaoGestoraName.length > 1) {
       this.reloadOrganizacaoGestora({nome: organizacaoGestoraName});
     }
   }

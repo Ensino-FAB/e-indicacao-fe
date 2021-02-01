@@ -5,9 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserService {
-  // tslint:disable-next-line:variable-name
   private _user: User;
-  // tslint:disable-next-line:variable-name
   private _userKey = 'sisplaer-current-user';
 
   get user(): User {

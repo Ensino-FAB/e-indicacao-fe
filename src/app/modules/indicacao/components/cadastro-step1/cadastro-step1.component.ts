@@ -24,29 +24,12 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.reloadEventoId();
-    // @ts-ignore
     this.reloadPessoaId();
     // @ts-ignore
     this.reloadOrganizacaoId();
   }
 
-  reloadEventoId(search): void {
-    this.eventoIdOptions = [];
-    this.subs$.push(
-      this.facade.eventoService.findAll(search).subscribe((response) => {
-        response.content.map((evento) => {
-          this.eventoIdOptions.push({
-            name: evento.nome + ' - ' + evento.statusEvento,
-            value: evento.id,
-          });
-        });
-      })
-    );
-  }
-
   reloadPessoaId(search): void {
-    this.pessoaIdOptions = [];
     this.subs$.push(
       this.facade.pessoaService.findAll(search).subscribe((response) => {
         response.content.map((pessoa) => {
@@ -60,7 +43,6 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
   }
 
   reloadOrganizacaoId(search): void {
-    this.organizacaoIdOptions = [];
     this.subs$.push(
       this.facade.organizacaoService.findAll(search).subscribe((response) => {
         response.content.map((organizacao) => {
@@ -77,13 +59,6 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
     const organizacaoName: string = event;
     if (organizacaoName.length > 2) {
       this.reloadOrganizacaoId({nome: organizacaoName});
-    }
-  }
-
-  filterEvento(event): void {
-    const eventoName: string = event;
-    if (eventoName.length > 3) {
-      this.reloadEventoId({nome: eventoName});
     }
   }
 
