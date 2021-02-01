@@ -1,3 +1,4 @@
+import { EventoService } from './../../../services/evento.service';
 import { PropostaResponse } from './../../../models/proposta.model';
 import { Pageable } from './../../../core/models/pageable.model';
 import { PropostaSearchModel } from './../../../models/proposta-search.model';
@@ -13,7 +14,8 @@ import {IndicacaoSearchModel} from '../../../models/indicacao-search.model';
 export class PropostaFacade {
     constructor(
       private indicacaoService: IndicacaoService,
-      private propostaService: PropostaService
+      private propostaService: PropostaService,
+      private eventoService: EventoService
       ) {
     }
 
@@ -29,8 +31,12 @@ export class PropostaFacade {
       return this.propostaService.create(record);
     }
 
-    delete(id: number): Observable<any>{
+    deleteProposta(id: number): Observable<any>{
       return this.propostaService.delete(id);
+    }
+
+    findPropostaByEventoId(eventoId: number){
+      
     }
 
 }

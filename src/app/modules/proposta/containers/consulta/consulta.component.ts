@@ -181,7 +181,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   onDelete(id: number): void {
     this.subs$.push(
-      this.facade.delete(id).subscribe(() => {
+      this.facade.deleteProposta(id).subscribe(() => {
         this.refresh();
         this.toastService.show({
           message: 'Categoria deletada com sucesso!',

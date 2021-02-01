@@ -32,7 +32,9 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.idEvento = this.route.snapshot.params.id;
 
-    const getIndicacoes$ = this.propostaFacade.findAllIndicacoesByEvento({}, this.idEvento).pipe(share());
+    const getIndicacoes$ = this.propostaFacade
+    .findAllIndicacoesByEvento({ eventoId: this.idEvento, codOrganizacaoSolicitante: '846' }, this.idEvento)
+    .pipe(share());
     const isLoading$ = of(
       timer(150).pipe(mapTo(true), takeUntil(getIndicacoes$)),
       getIndicacoes$.pipe(mapTo(false))
@@ -45,7 +47,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       getIndicacoes$
         .subscribe(indicacoes => {
           this.indicacoes = indicacoes;
-          console.log(indicacoes)
           const pessoas = indicacoes.map(ind => {
             const pessoaIndicada: PessoaIndicada = {
               indicacao: ind

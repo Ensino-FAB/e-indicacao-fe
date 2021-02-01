@@ -17,6 +17,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {ToastModule as ToastModuloPrime} from 'primeng/toast';
+import {TabViewModule} from 'primeng/tabview';
 
 
 import {MenubarModule} from 'primeng/menubar';
@@ -24,6 +25,7 @@ import {MenubarModule} from 'primeng/menubar';
 @NgModule({
   exports: [
     CommonModule,
+    TabViewModule,
     TableModule,
     ToastModuloPrime,
     ToolbarModule,
