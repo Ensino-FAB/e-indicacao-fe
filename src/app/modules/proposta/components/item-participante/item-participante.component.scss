@@ -16,3 +16,11 @@
   font-size: 1.7rem;
   font-weight: bold;
 }
+
+.table-actions {
+  display: flex;
+  & > *:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}
+

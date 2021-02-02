@@ -1,18 +1,30 @@
 <div class="p-shadow-2" *ngIf="item">
-    <div class="flex-container" style="justify-content: space-between;">
-        <div class="flex-container" style="align-items: center;">
-            <div>
-                <i class="pi pi-file-o participante-icon"></i>
-            </div>
-            <div>
-                <h1 class="text-pessoa p-mb-1">
-                    {{item.prioridade ? item.prioridade + ' - ':''}}{{item.indicacao.pessoa.nome}}
-                </h1>
-                <h1 class="text-om">solicitante: {{item.indicacao.organizacaoSolicitante.sigla}}</h1>
-            </div>
-        </div>
-        <div style="margin: 1rem;">
-            <com-icon size="2.5" outlined >info</com-icon>
-        </div>
+  <div class="flex-container" style="justify-content: space-between;">
+    <div class="flex-container" style="align-items: center;">
+      <div>
+        <i class="pi pi-file-o participante-icon"></i>
+      </div>
+      <div>
+        <h1 class="text-pessoa p-mb-1">
+          {{item.prioridade ? item.prioridade + ' - ' : ''}}{{item.indicacao.pessoa.nome}}
+        </h1>
+        <h1 class="text-om">solicitante: {{item.indicacao.organizacaoSolicitante.sigla}}</h1>
+      </div>
     </div>
+    <div class="table-actions">
+      <div>
+        <a routerLink="/indicacao/editar/{{ item.indicacao.id }}">
+          <com-icon size="2.5" style="margin-top: 0.1px" outlined slot="icon">edit</com-icon>
+        </a>
+      </div>
+      <div>
+        <a>
+          <com-icon size="2.5" outlined>info</com-icon>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+

@@ -22,8 +22,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   indicados: ItemPropostaResponse[] = [];
   indicacoes: Indicacao[] = [];
   selecionados: ItemPropostaResponse[] = [];
-  //private orgLogada = {cdOrg: '332053', idOrg: 846};
-  private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
+  private orgLogada = {cdOrg: '332053', idOrg: 846};
+  // private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
   //private orgLogada = {cdOrg: '032001', idOrg: 1323}; //RJ
   //private orgLogada = {cdOrg: '360702', idOrg: 1324}; //BR
 

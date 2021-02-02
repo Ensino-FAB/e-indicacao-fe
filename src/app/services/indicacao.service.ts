@@ -59,14 +59,13 @@ export class IndicacaoService {
   }
 
   // tslint:disable-next-line:typedef
-  update(id: number, record: Indicacao) {
-    return this.http.put(`${this.endpoint}/${id}`, record).pipe(take(1));
+  update(data: Indicacao) {
+    return this.http
+      .put<Indicacao>(`${this.endpoint}/${data.id}`, data)
+      .pipe(take(1));
   }
 
   save(record: Indicacao, idEvento: number): any {
-    if (record.id) {
-      return this.update(record.id, record);
-    }
     return this.create(record, idEvento);
   }
 
