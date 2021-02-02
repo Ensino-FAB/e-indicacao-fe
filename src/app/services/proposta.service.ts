@@ -1,6 +1,6 @@
 import { PropostaSearchModel } from './../models/proposta-search.model';
 import { take } from 'rxjs/operators';
-import { Proposta, PropostaResponse } from './../models/proposta.model';
+import { PropostaRequest, PropostaResponse } from './../models/proposta.model';
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -27,8 +27,8 @@ export class PropostaService {
     );
   }
 
-  create(record: Proposta): Observable<Proposta> {
-    return this.http.post(this.endpoint, record).pipe(take(1)) as Observable<Proposta>;
+  create(record: PropostaRequest): Observable<PropostaRequest> {
+    return this.http.post(this.endpoint, record).pipe(take(1)) as Observable<PropostaRequest>;
   }
 
   findAll(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {

@@ -1,3 +1,4 @@
+import { OrganizacaoService } from './../../../services/organizacao.service';
 import { EventoService } from './../../../services/evento.service';
 import { PropostaResponse } from './../../../models/proposta.model';
 import { Pageable } from './../../../core/models/pageable.model';
@@ -7,15 +8,16 @@ import {Indicacao, IndicacaoResponse} from './../../../models/indicacao.model';
 import { IndicacaoService } from './../../../services/indicacao.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Proposta } from 'src/app/models/proposta.model';
+import { PropostaRequest } from 'src/app/models/proposta.model';
 import {IndicacaoSearchModel} from '../../../models/indicacao-search.model';
+import { Organizacao } from 'src/app/models/organizacao.model';
 
 @Injectable()
 export class PropostaFacade {
     constructor(
       private indicacaoService: IndicacaoService,
       private propostaService: PropostaService,
-      private eventoService: EventoService
+      private organizacaoService: OrganizacaoService
       ) {
     }
 
@@ -27,7 +29,7 @@ export class PropostaFacade {
       return this.propostaService.findAll(search);
     }
 
-    createProposta(record: Proposta): Observable<Proposta>{
+    createProposta(record: PropostaRequest): Observable<PropostaRequest>{
       return this.propostaService.create(record);
     }
 
@@ -35,8 +37,7 @@ export class PropostaFacade {
       return this.propostaService.delete(id);
     }
 
-    findPropostaByEventoId(eventoId: number){
-      
+    findOrganizacoesDiretamenteSubordinadas(cdOrg: string): Observable<Organizacao[]>{
+      return this.organizacaoService.findOrganizacoesDiretamenteSubordinadas(cdOrg);
     }
-
 }

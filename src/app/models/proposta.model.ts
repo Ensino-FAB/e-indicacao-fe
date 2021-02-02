@@ -1,15 +1,15 @@
 import { Evento } from './evento.model';
 import { Organizacao } from './organizacao.model';
-import { ItemProposta } from './item-proposta.model';
-import { BaseModel } from "../core/models/base.model";
+import { ItemPropostaRequest } from './item-proposta.model';
+import { BaseModel } from '../core/models/base.model';
 
-export interface Proposta{
-    organizacaoMilitarId: string;
+export interface PropostaRequest{
+    codOrganizacao: number;
     eventoId: number;
     statusProposta: string;
     dataInclusao: Date;
     observacoes: string;
-    itensProposta: ItemProposta[];
+    itensProposta: ItemPropostaRequest[];
 }
 
 export interface PropostaResponse extends BaseModel {

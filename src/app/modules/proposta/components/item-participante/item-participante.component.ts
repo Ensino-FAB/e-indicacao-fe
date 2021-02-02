@@ -1,4 +1,4 @@
-import { PessoaIndicada } from 'src/app/models/pessoa.model';
+import { ItemPropostaResponse } from './../../../../models/item-proposta.model';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ItemParticipanteComponent implements OnInit {
 
-  @Input() pessoa: PessoaIndicada;
+  @Input() item: ItemPropostaResponse;
 
   constructor() { }
 

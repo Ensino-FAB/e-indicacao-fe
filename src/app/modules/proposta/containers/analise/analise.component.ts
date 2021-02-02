@@ -1,8 +1,7 @@
 import { Indicacao } from './../../../../models/indicacao.model';
-import { PessoaIndicada } from 'src/app/models/pessoa.model';
 import { ToastService } from './../../../../shared/services/toast.service';
-import { Proposta } from './../../../../models/proposta.model';
-import { ItemProposta } from './../../../../models/item-proposta.model';
+import { PropostaRequest } from './../../../../models/proposta.model';
+import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/item-proposta.model';
 import { Subscription, of, timer } from 'rxjs';
 
 import { PropostaFacade } from './../proposta-facade';
@@ -20,9 +19,13 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
   public idEvento: number;
   isLoading = false;
-  indicados: PessoaIndicada[] = [];
+  indicados: ItemPropostaResponse[] = [];
   indicacoes: Indicacao[] = [];
-  selecionados: PessoaIndicada[] = [];
+  selecionados: ItemPropostaResponse[] = [];
+  //private orgLogada = {cdOrg: '332053', idOrg: 846};
+  private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
+  //private orgLogada = {cdOrg: '032001', idOrg: 1323}; //RJ
+  //private orgLogada = {cdOrg: '360702', idOrg: 1324}; //BR
 
   constructor(
     private route: ActivatedRoute,
@@ -31,10 +34,13 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idEvento = this.route.snapshot.params.id;
+    this.buscarIndicacoes();
+  }
 
+  buscarIndicacoes(): void {
     const getIndicacoes$ = this.propostaFacade
-    .findAllIndicacoesByEvento({ eventoId: this.idEvento, codOrganizacaoSolicitante: '846' }, this.idEvento)
-    .pipe(share());
+      .findAllIndicacoesByEvento({ eventoId: this.idEvento, codOrganizacaoSolicitante: '' + this.orgLogada.idOrg }, this.idEvento)
+      .pipe(share());
     const isLoading$ = of(
       timer(150).pipe(mapTo(true), takeUntil(getIndicacoes$)),
       getIndicacoes$.pipe(mapTo(false))
@@ -48,7 +54,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
         .subscribe(indicacoes => {
           this.indicacoes = indicacoes;
           const pessoas = indicacoes.map(ind => {
-            const pessoaIndicada: PessoaIndicada = {
+            const pessoaIndicada: ItemPropostaResponse = {
               indicacao: ind
             };
             return pessoaIndicada;
@@ -59,25 +65,35 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   salvarProposta(): void {
-    if (this.selecionados.length) {
-      const itensProposta = this.selecionados.map(item => {
-        const itemProposta: ItemProposta = {
-          id: undefined,
-          prioridade: item.prioridade,
-          indicacao: item.indicacao
-        };
-        return itemProposta;
+    if (!this.selecionados.length) {
+      this.toast.show({
+        message: 'É necessário selecionar alguma ficha para salvar a proposta',
+        type: 'error',
       });
 
-      const proposta: Proposta = {
-        dataInclusao: new Date(),
-        eventoId: this.idEvento,
-        observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
-        organizacaoMilitarId: '1234567',
-        statusProposta: 'ABERTA',
-        itensProposta
+      return;
+    }
+
+    const itensProposta = this.selecionados.map(item => {
+      const itemPropostaRequest: ItemPropostaRequest = {
+        id: item.id,
+        prioridade: item.prioridade,
+        indicacaoId: item.indicacao.id
       };
 
+      return itemPropostaRequest;
+    });
+
+    const proposta: PropostaRequest = {
+      dataInclusao: new Date(),
+      eventoId: this.idEvento,
+      observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
+      codOrganizacao: this.orgLogada.idOrg,
+      statusProposta: 'ABERTA',
+      itensProposta
+    };
+
+    this.subs$.push(
       this.propostaFacade
         .createProposta(proposta).subscribe(response => {
           this.toast.show({
@@ -85,8 +101,9 @@ export class AnaliseComponent implements OnInit, OnDestroy {
             type: 'success',
           });
         }
-        );
-    }
+        )
+    );
+
   }
 
   onTargetReorder(event: any): void {

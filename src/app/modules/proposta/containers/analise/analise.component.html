@@ -6,18 +6,7 @@
 
     <p-tabView>
       <p-tabPanel header="Header 1">
-        <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Indicados"
-          targetHeader="Selecionados" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
-          [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"
-          (onMoveToTarget)="onMoveToTarget($event)" (onMoveAllToTarget)="onMoveToTarget($event)"
-          (onMoveToSource)="onMoveToSource($event)" (onMoveAllToSource)="onMoveAllToSource($event)" filterBy="pickListItem.nome"
-          sourceFilterPlaceholder="BUSCA" targetFilterPlaceholder="BUSCA">
-          <ng-template let-pickListItem pTemplate="item">
-            <div class="p-mb-3">
-              <app-item-participante [pessoa]='pickListItem'></app-item-participante>
-            </div>
-          </ng-template>
-        </p-pickList>
+
       </p-tabPanel>
       <p-tabPanel header="Header 2">
         <ng-template pTemplate="content">
@@ -31,17 +20,17 @@
       </p-tabPanel>
     </p-tabView>
 
-
-
-    <!--      <div class="flex-container">-->
-    <!--        <a [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">-->
-    <!--          <com-button >-->
-    <!--            <com-icon slot="icon">person_add_alt_1</com-icon>-->
-    <!--          </com-button>-->
-    <!--        </a>-->
-    <!--      </div>-->
-
-    <!--      <p-button (click)="salvarProposta()" label="Salvar" styleClass="p-button-lg p-mt-3"></p-button>-->
+    <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Fichas de indicação"
+      targetHeader="Fichas selecionadas" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
+      [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"
+      (onMoveToTarget)="onMoveToTarget($event)" (onMoveAllToTarget)="onMoveToTarget($event)"
+      (onMoveToSource)="onMoveToSource($event)" (onMoveAllToSource)="onMoveAllToSource($event)">
+      <ng-template let-pickListItem pTemplate="item">
+        <div class="p-mb-3">
+          <app-item-participante [item]='pickListItem'></app-item-participante>
+        </div>
+      </ng-template>
+    </p-pickList>
 
 
     <com-form-section>
@@ -49,10 +38,10 @@
         <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">
           <a slot="text">Nova Ficha</a>
         </com-button>
-        <com-button fill secondary>
+        <com-button fill secondary [routerLink]="['/evento']">
           <a slot="text">Finalizar</a>
         </com-button>
-        <com-button fill confirm>
+        <com-button fill confirm (click)="salvarProposta()">
           <a slot="text">Salvar proposta</a>
         </com-button>
       </footer>
