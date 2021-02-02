@@ -80,14 +80,14 @@
         <ng-template let-content name="action">
           <div class="table-actions">
             <div>
-              <a routerLink="/categoria/detalhar/{{ content.data.id }}">
+              <a routerLink="/categoria/detalhar/{{ content.data.id }}" pTooltip="Ver detalhes">
                 <com-button transparent>
                   <com-icon outlined slot="icon">launch</com-icon>
                 </com-button>
               </a>
             </div>
             <div>
-              <a routerLink="/categoria/editar/{{ content.data.id }}">
+              <a routerLink="/categoria/editar/{{ content.data.id }}" pTooltip="Editar">
                 <com-button
                   secondary
                   transparent
@@ -100,7 +100,7 @@
               </a>
             </div>
             <div>
-              <a>
+              <a  pTooltip="Excluir">
                 <com-button
                   warning
                   transparent

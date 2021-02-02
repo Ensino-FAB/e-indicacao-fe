@@ -22,6 +22,7 @@ import {
 import {CategoriaFacade} from './categoria-facade';
 import { CadastroComponent } from './containers/cadastro/cadastro.component';
 import { DetalheCategoriaComponent } from './components/detalhe-categoria/detalhe-categoria.component';
+import {TooltipModule} from "primeng/tooltip";
 
 @NgModule({
   declarations: [
@@ -31,22 +32,23 @@ import { DetalheCategoriaComponent } from './components/detalhe-categoria/detalh
     CadastroComponent,
     DetalheCategoriaComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(CATEGORIAS_ROUTES),
-    PrimengComponentsModule,
-    MultiSelectModule,
-    AutoCompleteModule,
-    FormModule,
-    InputModule,
-    ButtonModule,
-    TableModule,
-    IconModule,
-    SelectModule,
-    TextareaModule,
-    LabelModule,
-    CardModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(CATEGORIAS_ROUTES),
+        PrimengComponentsModule,
+        MultiSelectModule,
+        AutoCompleteModule,
+        FormModule,
+        InputModule,
+        ButtonModule,
+        TableModule,
+        IconModule,
+        SelectModule,
+        TextareaModule,
+        LabelModule,
+        CardModule,
+        TooltipModule
+    ],
   providers: [CategoriaFacade],
 })
 export class CategoriasModule {
