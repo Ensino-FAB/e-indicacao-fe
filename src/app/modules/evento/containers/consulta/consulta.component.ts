@@ -7,7 +7,6 @@ import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {fadeIn} from '../../../../shared/utils/animation';
 import {SelectOption} from '@cca-fab/cca-fab-components-common/types/select';
-import {CategoriaService} from '../../../../services/categoria.service';
 
 
 @Component({
@@ -92,10 +91,9 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       {name: 'Nome', value: 'nome'},
       {name: 'Sigla', value: 'sigla'},
       {name: 'Status', value: 'statusEvento'},
-      {name: 'Descrição', value: 'descricao'},
+      // {name: 'Descrição', value: 'descricao'},
     ];
     this.refresh();
-
 
   }
 
@@ -129,7 +127,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
           dataInicioIndicacao: `${item?.dataInicioIndicacao}`,
           dataTermino: `${item.dataTermino}`,
           dataTerminoIndicacao: `${item.dataTerminoIndicacao}`,
-          descricao: `${item.descricao}`,
+          // descricao: `${item.descricao}`,
           nome: `${item?.nome}`,
           observacoes: `${item.observacoes}`,
           sigla: `${item.sigla}`,
@@ -204,21 +202,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       })
     );
   }
-
-  // findCategoria(search): void {
-  //   this.categoriaOptions = [];
-  //   this.subs$.push(
-  //     this.facade.getAllEvento(search).subscribe((response) => {
-  //       response.content.map((evento) => {
-  //         this.eventoOptions.push({
-  //           name: evento.categoria.titulo,
-  //           value: evento.id,
-  //         });
-  //       });
-  //     })
-  //   );
-  // }
-
 
   clean() {
     this.eventoSearch.reset();

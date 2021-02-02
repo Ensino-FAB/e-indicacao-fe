@@ -25,6 +25,7 @@ import {
 } from '@cca-fab/cca-fab-components-common';
 import {EventoFacade} from './evento-facade';
 import {DetalheEventoComponent} from './components/detalhe-evento/detalhe-evento.component';
+import {TooltipModule} from "primeng/tooltip";
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {DetalheEventoComponent} from './components/detalhe-evento/detalhe-evento
     LabelModule,
     TextareaModule,
     AutocompleteModule,
+    TooltipModule,
   ],
   providers: [EventoFacade],
 })
