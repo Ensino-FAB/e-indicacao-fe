@@ -51,6 +51,6 @@ export class PropostaService {
   }
 
   encerrarProposta(id: number): Observable<any> {
-    return this.http.put<any>(`${environment.CURSOS_INDICACAO_API}/${id}/encerrar-proposta`, {});
+    return this.http.put<any>(`${this.endpoint}/${id}/encerrar-proposta`, {});
   }
 }

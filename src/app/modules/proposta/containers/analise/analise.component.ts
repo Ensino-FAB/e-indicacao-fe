@@ -5,7 +5,7 @@ import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/
 import { Subscription, of, timer, Observable } from 'rxjs';
 
 import { PropostaFacade } from './../proposta-facade';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share, mapTo, takeUntil, mergeAll, concatAll, tap } from 'rxjs/operators';
 
@@ -18,21 +18,23 @@ import { share, mapTo, takeUntil, mergeAll, concatAll, tap } from 'rxjs/operator
 })
 export class AnaliseComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
+  public proposta: PropostaResponse;
   public idEvento: number;
-  private proposta: PropostaResponse;
+
   isLoading = false;
   indicados: ItemPropostaResponse[] = [];
   indicacoes: Indicacao[] = [];
   selecionados: ItemPropostaResponse[] = [];
   private orgLogada = {cdOrg: '332053', idOrg: 846};
-  //private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
+  // private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
   //private orgLogada = {cdOrg: '032001', idOrg: 1323}; //RJ
   //private orgLogada = {cdOrg: '360702', idOrg: 1324}; //BR
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private propostaFacade: PropostaFacade,
-    private toast: ToastService) { }
+    private toast: ToastService,     private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
@@ -137,6 +139,17 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   onMoveToTarget(event: any): void {
     this.calcularOrdem();
+  }
+
+  encerrarProposta(): void{
+    this.propostaFacade.finishProposta(this.proposta.id).subscribe( response =>{
+      this.buscarIndicacoes();
+      this.toast.show({
+        message: 'A proposta foi finalizada com sucesso' ,
+        type: 'success',
+      })
+    });
+
   }
 
   onMoveAllToTarget(event: any): void {
