@@ -15,8 +15,14 @@ export interface PropostaRequest{
 export interface PropostaResponse extends BaseModel {
     organizacao: Organizacao;
     evento: Evento;
-    status: string;
+    status: StatusProposta;
     dataInclusao: Date;
     observacoes: string;
     itensProposta: ItemPropostaResponse[];
+}
+
+export interface StatusProposta {
+  status: [
+    'ABERTA', 'FINALIZADA'
+  ]
 }

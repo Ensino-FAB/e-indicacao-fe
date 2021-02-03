@@ -38,10 +38,10 @@
         <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">
           <a slot="text">Nova Ficha</a>
         </com-button>
-        <com-button fill secondary [routerLink]="['/evento']">
+        <com-button fill secondary (click)="encerrarProposta()"  [disabled]="proposta?.status == 'FINALIZADA' ? true : false">
           <a slot="text">Finalizar</a>
         </com-button>
-        <com-button fill confirm (click)="salvarProposta()">
+        <com-button fill confirm (click)="salvarProposta()"     [disabled]="proposta?.status == 'FINALIZADA' ? true : false">
           <a slot="text">Salvar proposta</a>
         </com-button>
       </footer>
