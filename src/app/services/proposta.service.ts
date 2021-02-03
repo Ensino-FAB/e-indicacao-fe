@@ -1,18 +1,19 @@
-import { PropostaSearchModel } from './../models/proposta-search.model';
-import { take } from 'rxjs/operators';
-import { PropostaRequest, PropostaResponse } from './../models/proposta.model';
-import { environment } from './../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Pageable } from '../core/models/pageable.model';
+import {PropostaSearchModel} from './../models/proposta-search.model';
+import {take} from 'rxjs/operators';
+import {PropostaRequest, PropostaResponse} from './../models/proposta.model';
+import {environment} from './../../environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Pageable} from '../core/models/pageable.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropostaService {
 
-  constructor(protected http: HttpClient) { }
+  constructor(protected http: HttpClient) {
+  }
 
   private endpoint = `${environment.CURSOS_INDICACAO_API}/proposta`;
 
@@ -34,7 +35,7 @@ export class PropostaService {
   findAll(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {
     this.removeEmptyFields(search);
     const params = new HttpParams({fromObject: search});
-    return this.http.get<any>(this.endpoint, { params });
+    return this.http.get<any>(this.endpoint, {params});
   }
 
   findPropostaByEventoId(idEvento: number, cdOrg: string): Observable<PropostaResponse>{
@@ -43,5 +44,9 @@ export class PropostaService {
 
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.endpoint}/${id}`);
+  }
+
+  encerrarProposta(id: number): Observable<any> {
+    return this.http.put<any>(`${environment.CURSOS_INDICACAO_API}/${id}/encerrar-proposta`, {});
   }
 }

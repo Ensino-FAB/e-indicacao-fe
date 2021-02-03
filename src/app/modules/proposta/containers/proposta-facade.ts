@@ -4,44 +4,48 @@ import { PropostaResponse } from './../../../models/proposta.model';
 import { Pageable } from './../../../core/models/pageable.model';
 import { PropostaSearchModel } from './../../../models/proposta-search.model';
 import { PropostaService } from './../../../services/proposta.service';
-import {Indicacao, IndicacaoResponse} from './../../../models/indicacao.model';
+import { Indicacao, IndicacaoResponse } from './../../../models/indicacao.model';
 import { IndicacaoService } from './../../../services/indicacao.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PropostaRequest } from 'src/app/models/proposta.model';
-import {IndicacaoSearchModel} from '../../../models/indicacao-search.model';
+import { IndicacaoSearchModel } from '../../../models/indicacao-search.model';
 import { Organizacao } from 'src/app/models/organizacao.model';
 
 @Injectable()
 export class PropostaFacade {
-    constructor(
-      private indicacaoService: IndicacaoService,
-      private propostaService: PropostaService,
-      private organizacaoService: OrganizacaoService
-      ) {
-    }
+  constructor(
+    private indicacaoService: IndicacaoService,
+    private propostaService: PropostaService,
+    private organizacaoService: OrganizacaoService
+  ) {
+  }
 
-    findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<IndicacaoResponse[]> {
-        return this.indicacaoService.findAllIndicacoesByEvento(search, idEvento);
-    }
+  findAllIndicacoesByEvento(search: IndicacaoSearchModel, idEvento: number): Observable<IndicacaoResponse[]> {
+    return this.indicacaoService.findAllIndicacoesByEvento(search, idEvento);
+  }
 
-    findAllPropostas(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {
-      return this.propostaService.findAll(search);
-    }
+  findAllPropostas(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {
+    return this.propostaService.findAll(search);
+  }
 
-    createProposta(record: PropostaRequest): Observable<PropostaRequest>{
-      return this.propostaService.create(record);
-    }
+  createProposta(record: PropostaRequest): Observable<PropostaRequest> {
+    return this.propostaService.create(record);
+  }
 
-    deleteProposta(id: number): Observable<any>{
-      return this.propostaService.delete(id);
-    }
+  deleteProposta(id: number): Observable<any> {
+    return this.propostaService.delete(id);
+  }
 
-    findOrganizacoesDiretamenteSubordinadas(cdOrg: string): Observable<Organizacao[]>{
-      return this.organizacaoService.findOrganizacoesDiretamenteSubordinadas(cdOrg);
-    }
+  findOrganizacoesDiretamenteSubordinadas(cdOrg: string): Observable<Organizacao[]> {
+    return this.organizacaoService.findOrganizacoesDiretamenteSubordinadas(cdOrg);
+  }
 
-    findPropostaByEventoId(idEvento: number, cdOrg: string):  Observable<PropostaResponse>{
-      return this.propostaService.findPropostaByEventoId(idEvento, cdOrg);
-    }
+  findPropostaByEventoId(idEvento: number, cdOrg: string): Observable<PropostaResponse> {
+    return this.propostaService.findPropostaByEventoId(idEvento, cdOrg);
+  }
+
+  finishProposta(id: number): Observable<any> {
+    return this.propostaService.encerrarProposta(id);
+  }
 }

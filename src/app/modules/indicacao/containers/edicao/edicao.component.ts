@@ -16,7 +16,7 @@ import {IndicacaoFacade} from "../../indicacao-facade";
 export class EdicaoComponent implements OnInit, OnDestroy {
   indicacaoForm: FormGroup;
   private subs$: Subscription[] = [];
-  private id: number;
+  public id: number;
   formId: 'indicacao-form';
 
   constructor(
