@@ -37,6 +37,10 @@ export class PropostaService {
     return this.http.get<any>(this.endpoint, { params });
   }
 
+  findPropostaByEventoId(idEvento: number, cdOrg: string): Observable<PropostaResponse>{
+    return this.http.get<PropostaResponse>(`${this.endpoint}/organizacao/${cdOrg}/evento/${idEvento}`);
+  }
+
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.endpoint}/${id}`);
   }

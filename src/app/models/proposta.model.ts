@@ -1,6 +1,6 @@
 import { Evento } from './evento.model';
 import { Organizacao } from './organizacao.model';
-import { ItemPropostaRequest } from './item-proposta.model';
+import { ItemPropostaRequest, ItemPropostaResponse } from './item-proposta.model';
 import { BaseModel } from '../core/models/base.model';
 
 export interface PropostaRequest{
@@ -18,4 +18,5 @@ export interface PropostaResponse extends BaseModel {
     status: string;
     dataInclusao: Date;
     observacoes: string;
+    itensProposta: ItemPropostaResponse[];
 }

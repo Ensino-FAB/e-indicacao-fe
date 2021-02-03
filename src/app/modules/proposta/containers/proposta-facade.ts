@@ -40,4 +40,8 @@ export class PropostaFacade {
     findOrganizacoesDiretamenteSubordinadas(cdOrg: string): Observable<Organizacao[]>{
       return this.organizacaoService.findOrganizacoesDiretamenteSubordinadas(cdOrg);
     }
+
+    findPropostaByEventoId(idEvento: number, cdOrg: string):  Observable<PropostaResponse>{
+      return this.propostaService.findPropostaByEventoId(idEvento, cdOrg);
+    }
 }
