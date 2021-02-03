@@ -4,6 +4,7 @@ import { ItemPropostaRequest, ItemPropostaResponse } from './item-proposta.model
 import { BaseModel } from '../core/models/base.model';
 
 export interface PropostaRequest{
+    id: number;
     codOrganizacao: number;
     eventoId: number;
     statusProposta: string;

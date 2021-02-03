@@ -29,8 +29,12 @@ export class PropostaFacade {
     return this.propostaService.findAll(search);
   }
 
-  createProposta(record: PropostaRequest): Observable<PropostaRequest> {
-    return this.propostaService.create(record);
+  createProposta(record: PropostaRequest): Observable<PropostaResponse> {
+    if (!record.id){
+      return this.propostaService.create(record);
+    }else{
+      return this.propostaService.update(record);
+    }
   }
 
   deleteProposta(id: number): Observable<any> {

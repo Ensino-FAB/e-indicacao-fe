@@ -28,8 +28,12 @@ export class PropostaService {
     );
   }
 
-  create(record: PropostaRequest): Observable<PropostaRequest> {
-    return this.http.post(this.endpoint, record).pipe(take(1)) as Observable<PropostaRequest>;
+  create(record: PropostaRequest): Observable<PropostaResponse> {
+    return this.http.post(this.endpoint, record).pipe(take(1)) as Observable<PropostaResponse>;
+  }
+
+  update(proposta: PropostaRequest): Observable<any>{
+    return this.http.put(this.endpoint, proposta);
   }
 
   findAll(search: PropostaSearchModel): Observable<Pageable<PropostaResponse>> {

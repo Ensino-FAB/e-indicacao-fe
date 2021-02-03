@@ -8,7 +8,7 @@ import { PropostaFacade } from './../proposta-facade';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share, mapTo, takeUntil, mergeAll, concatAll, tap } from 'rxjs/operators';
-import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
+
 
 
 @Component({
@@ -19,13 +19,13 @@ import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
 export class AnaliseComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
   public idEvento: number;
-  private idProposta: number;
+  private proposta: PropostaResponse;
   isLoading = false;
   indicados: ItemPropostaResponse[] = [];
   indicacoes: Indicacao[] = [];
   selecionados: ItemPropostaResponse[] = [];
-  //private orgLogada = {cdOrg: '332053', idOrg: 846};
-  private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
+  private orgLogada = {cdOrg: '332053', idOrg: 846};
+  //private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
   //private orgLogada = {cdOrg: '032001', idOrg: 1323}; //RJ
   //private orgLogada = {cdOrg: '360702', idOrg: 1324}; //BR
 
@@ -53,8 +53,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     const isLoading$ = of(
       timer(150).pipe(
         mapTo(true),
-        takeUntil(getIndicacoes$),
-        takeUntil(getProposta$)),
+        takeUntil(getIndicacoes$)),
       getIndicacoes$.pipe(mapTo(false)),
     ).pipe(mergeAll());
 
@@ -75,12 +74,13 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
           this.subs$.push(
             getProposta$.subscribe(resp => {
-              this.idProposta = resp.id;
+              this.proposta = resp;
               const idsIndicacao = resp.itensProposta.map(item => item.indicacao.id);
               const fichasNaoSelecionadas = this.indicados.filter(ind => !idsIndicacao.includes(ind.indicacao.id));
               const fichasSelecionadas = this.indicados.filter(ind => idsIndicacao.includes(ind.indicacao.id));
               this.selecionados = fichasSelecionadas;
               this.indicados = fichasNaoSelecionadas;
+              this.calcularOrdem();
             })
           );
         })
@@ -88,7 +88,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   salvarProposta(): void {
-    if (!this.selecionados.length) {
+    if (!this.selecionados.length && !this.proposta) {
       this.toast.show({
         message: 'É necessário selecionar alguma ficha para salvar a proposta',
         type: 'error',
@@ -99,7 +99,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
     const itensProposta = this.selecionados.map(item => {
       const itemPropostaRequest: ItemPropostaRequest = {
-        id: item.id,
+        id: null,
         prioridade: item.prioridade,
         indicacaoId: item.indicacao.id
       };
@@ -108,7 +108,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     });
 
     const proposta: PropostaRequest = {
-      dataInclusao: new Date(),
+      id: this.proposta ? this.proposta.id : null,
+      dataInclusao: this.proposta ? this.proposta.dataInclusao : new Date(),
       eventoId: this.idEvento,
       observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
       codOrganizacao: this.orgLogada.idOrg,
@@ -119,6 +120,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     this.subs$.push(
       this.propostaFacade
         .createProposta(proposta).subscribe(response => {
+          this.proposta = response;
           this.toast.show({
             message: 'A proposta foi salva com sucesso!',
             type: 'success',
