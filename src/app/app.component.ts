@@ -1,6 +1,6 @@
 import { NavToggleMenu } from './core/models/nav-toggle-menu.model';
 import { UserService } from './shared/services/user.service';
-import { Component, OnDestroy, HostListener } from '@angular/core';
+import {Component, OnDestroy, HostListener, OnInit} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { KeycloakService } from 'keycloak-angular';
@@ -16,6 +16,8 @@ import {
 
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+import {PessoaService} from "./services/pessoa.service";
+import {Pessoa} from "./models/pessoa.model";
 
 
 @Component({
@@ -60,6 +62,7 @@ export class AppComponent implements OnDestroy {
   // tslint:disable-next-line:variable-name
   private _sessionInterval: any;
   tokenDuration: moment.Duration;
+  pessoa: Pessoa;
   title = 'E-Ingresso';
   subs$: Subscription[] = [];
   module: string;
