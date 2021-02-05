@@ -16,6 +16,8 @@ import {
 
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+import {PessoaService} from "./services/pessoa.service";
+import {Pessoa} from "./models/pessoa.model";
 
 
 @Component({
@@ -60,6 +62,7 @@ export class AppComponent implements OnDestroy, OnInit {
   // tslint:disable-next-line:variable-name
   private _sessionInterval: any;
   tokenDuration: moment.Duration;
+  pessoa: Pessoa;
   title = 'E-Ingresso';
   subs$: Subscription[] = [];
   module: string;

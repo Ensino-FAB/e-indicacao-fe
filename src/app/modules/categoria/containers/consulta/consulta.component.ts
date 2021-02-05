@@ -6,6 +6,8 @@ import {CategoriaFacade} from '../../categoria-facade';
 import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {fadeIn} from '../../../../shared/utils/animation';
+import {PessoaService} from "../../../../services/pessoa.service";
+import {Pessoa} from "../../../../models/pessoa.model";
 
 
 @Component({
@@ -20,7 +22,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line:variable-name
   _isLoading = false;
-
+  pessoa: Pessoa;
   categoriaSearch = new FormGroup({
     q: new FormControl(''),
     descricao: new FormControl(''),
@@ -68,11 +70,13 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: CategoriaFacade,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private pessoaService: PessoaService,
   ) {
   }
 
   ngOnInit(): void {
+    this.findLogado();
     this.options = [
       {name: 'Codigo', value: 'id'},
       {name: 'Titulo', value: 'titulo'},
@@ -132,6 +136,13 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   handlePageIndexChange(page: number) {
     this.page = page;
     this.refresh();
+  }
+
+  findLogado() {
+    this.pessoaService.findLogado(this.pessoa).subscribe((res) => {
+      this.pessoa = res;
+      console.log(res);
+    })
   }
 
   handleNextPage() {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -10,12 +10,16 @@ import {take} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PessoaService {
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) {
+  }
 
   private endpoint = `${environment.CURSOS_INDICACAO_API}/pessoa`;
 
+  private endpointUser = `${environment.CURSOS_INDICACAO_API}/user`;
+
+
   removeEmptyFields(data): void {
-    if(!data){
+    if (!data) {
       return;
     }
 
@@ -39,11 +43,16 @@ export class PessoaService {
 
   findAll(search: PessoaSearch): Observable<Pageable<Pessoa>> {
     this.removeEmptyFields(search);
-    const params = new HttpParams({ fromObject: search });
+    const params = new HttpParams({fromObject: search});
     return this.http.get<any>(this.endpoint, {
       params,
     });
   }
+
+  findLogado (pessoa: any): Observable<any> {
+    return this.http.get<any>(`${this.endpointUser}`);
+  }
+
 
   find(id: number) {
     return this.http.get<Pessoa>(`${this.endpoint}/${id}`).pipe(take(1));
