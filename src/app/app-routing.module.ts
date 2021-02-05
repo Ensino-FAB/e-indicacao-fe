@@ -1,3 +1,4 @@
+import { AuthGuard } from './../auth/lib/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'categoria',
     },
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/categoria/categoria.module').then((m) => m.CategoriasModule),
   },
@@ -46,6 +48,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

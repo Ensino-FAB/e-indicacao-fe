@@ -9,10 +9,10 @@ import {
 } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import {PessoaService} from "../../../app/services/pessoa.service";
-import {UserService} from "../../../app/shared/services/user.service";
-import {Pessoa} from "../../../app/models/pessoa.model";
-import {User} from "../../../app/core/models/user.model";
+import { PessoaService } from '../../../app/services/pessoa.service';
+import { UserService } from '../../../app/shared/services/user.service';
+import { Pessoa } from '../../../app/models/pessoa.model';
+import { User } from '../../../app/core/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +46,7 @@ export class AuthGuard extends KeycloakAuthGuard implements CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
+    console.log('teste')
     // Force the user to log in if currently unauthenticated.
     if (!this.authenticated) {
       await this.keycloak.login({

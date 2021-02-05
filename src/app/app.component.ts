@@ -1,6 +1,6 @@
 import { NavToggleMenu } from './core/models/nav-toggle-menu.model';
 import { UserService } from './shared/services/user.service';
-import { Component, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnDestroy, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { KeycloakService } from 'keycloak-angular';
@@ -56,7 +56,7 @@ import * as moment from 'moment';
     ]),
   ],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, OnInit {
   // tslint:disable-next-line:variable-name
   private _sessionInterval: any;
   tokenDuration: moment.Duration;
@@ -87,6 +87,14 @@ export class AppComponent implements OnDestroy {
     );
 
     this.refreshTokenTime();
+  }
+  ngOnInit(): void {
+    try {
+      let userDetails = this.keycloak.getKeycloakInstance().tokenParsed;
+      console.log('detalhes', userDetails)
+    } catch (e){
+      console.log('Failed to load user details', e);
+    }
   }
 
   handleLogout(): void {

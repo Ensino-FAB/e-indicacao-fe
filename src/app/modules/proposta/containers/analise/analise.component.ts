@@ -25,10 +25,11 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   indicados: ItemPropostaResponse[] = [];
   indicacoes: Indicacao[] = [];
   selecionados: ItemPropostaResponse[] = [];
-  private orgLogada = {cdOrg: '332053', idOrg: 846};
-  // private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
+  private orgLogada = {cdOrg: '332053', idOrg: 846}; //DTI
+  //private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
   //private orgLogada = {cdOrg: '032001', idOrg: 1323}; //RJ
   //private orgLogada = {cdOrg: '360702', idOrg: 1324}; //BR
+  //private orgLogada = {cdOrg: '332050', idOrg: 848}; //DIRMAB
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,6 +39,9 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
+    this.propostaFacade.findOrganizacoesDiretamenteSubordinadas(this.orgLogada.cdOrg)
+    .subscribe(resp =>
+      console.log(resp));
     this.buscarIndicacoes();
   }
 
@@ -118,6 +122,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       statusProposta: 'ABERTA',
       itensProposta
     };
+
 
     this.subs$.push(
       this.propostaFacade
