@@ -76,8 +76,6 @@ export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   onSubmit(): void {
-
-    console.log(this.eventoForm.value)
     if (this.eventoForm.valid) {
       this.subs$.push(
         this.facade.save(this.eventoForm.value).subscribe((resp) => {

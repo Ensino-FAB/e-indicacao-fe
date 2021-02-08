@@ -93,8 +93,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
   ngOnInit(): void {
     try {
-      let userDetails = this.keycloak.getKeycloakInstance().tokenParsed;
-      console.log('detalhes', userDetails)
+      let userDetails = this.keycloak.getKeycloakInstance();
     } catch (e){
       console.log('Failed to load user details', e);
     }

@@ -39,9 +39,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
-    this.propostaFacade.findOrganizacoesDiretamenteSubordinadas(this.orgLogada.cdOrg)
-    .subscribe(resp =>
-      console.log(resp));
+    // this.propostaFacade.findOrganizacoesDiretamenteSubordinadas(this.orgLogada.cdOrg)
+    // .subscribe(resp => console.log(resp));
     this.buscarIndicacoes();
   }
 

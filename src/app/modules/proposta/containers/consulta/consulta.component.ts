@@ -113,7 +113,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         this.isLoading = status;
       }),
       getProposta$.subscribe((res) => {
-        console.log(res);
         this.count = res.totalElements;
         this.data = res.content.map((item) => ({
           id: `${item?.id}`,

@@ -42,11 +42,7 @@ export class AuthGuard extends KeycloakAuthGuard implements CanActivateChild {
     return true;
   }
 
-  public async isAccessAllowed(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ) {
-    console.log('teste')
+  public async isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     // Force the user to log in if currently unauthenticated.
     if (!this.authenticated) {
       await this.keycloak.login({

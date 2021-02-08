@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
   private _user: User;
-  private _userKey = 'sisplaer-current-user';
+  private _userKey = 'ensino-current-user';
 
   get user(): User {
     return this._user;
@@ -14,14 +14,14 @@ export class UserService {
 
   set user(user: User) {
     this._user = user;
-    localStorage.setItem(this._userKey, JSON.stringify(user));
     localStorage.clear();
+    localStorage.setItem(this._userKey, JSON.stringify(user));
   }
 
   constructor() {
     try {
-      this._user = JSON.parse(localStorage.getItem(this._userKey)) as User;
       localStorage.clear();
+      this._user = JSON.parse(localStorage.getItem(this._userKey)) as User;
     } catch {
       this._user = null;
     }
