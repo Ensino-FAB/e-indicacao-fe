@@ -3,7 +3,6 @@ import {Subscription} from "rxjs";
 import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
 import {FormGroup} from "@angular/forms";
 import {IndicacaoFacade} from "../../indicacao-facade";
-import {EventoSearchModel} from "../../../../models/evento-search.model";
 
 @Component({
   selector: 'app-cadastro-step1',
@@ -30,6 +29,7 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
   }
 
   reloadPessoaId(search): void {
+    this.pessoaIdOptions = [];
     this.subs$.push(
       this.facade.pessoaService.findAll(search).subscribe((response) => {
         response.content.map((pessoa) => {
@@ -43,6 +43,7 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
   }
 
   reloadOrganizacaoId(search): void {
+    this.organizacaoIdOptions = [];
     this.subs$.push(
       this.facade.organizacaoService.findAll(search).subscribe((response) => {
         response.content.map((organizacao) => {
@@ -57,7 +58,7 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
 
   filterOrganizacao(event): void {
     const organizacaoName: string = event;
-    if (organizacaoName.length > 2) {
+    if (organizacaoName.length > 3) {
       this.reloadOrganizacaoId({nome: organizacaoName});
     }
   }
