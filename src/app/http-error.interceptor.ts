@@ -14,23 +14,27 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(private injector: Injector) {}
 
   intercept(
-    resquest: HttpRequest<any>,
+    request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return next.handle(resquest).pipe(
+    return next.handle(request).pipe(
       retry(1),
-      catchError((error: HttpErrorResponse) => {
+      catchError((e: HttpErrorResponse) => {
         let errorMessage = '';
-        if (error.error instanceof ErrorEvent) {
+        if (e.error instanceof ErrorEvent) {
           // client-side error
-          errorMessage = `Mensagem: ${error.error.message}`;
+          errorMessage = `Mensagem: ${e.error.message}`;
           this.injector.get(ToastService).show({
             message: errorMessage,
             type: 'error',
           });
         } else {
           // server-side error
-          errorMessage = `${error.error.message}`;
+          errorMessage = `${e.error.message}`;
+          if (e.status === 401 || e.status === 403) {
+            errorMessage = 'Acesso não autorizado'
+          }
+
           this.injector.get(ToastService).show({
             message: errorMessage,
             type: 'error',

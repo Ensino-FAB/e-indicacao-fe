@@ -26,7 +26,6 @@ export class DetalheIndicacaoComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params.idEvento;
     this.buscarEvento();
- console.log(this.id)
   }
 
 

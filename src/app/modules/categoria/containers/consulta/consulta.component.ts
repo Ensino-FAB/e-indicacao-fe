@@ -6,8 +6,8 @@ import {CategoriaFacade} from '../../categoria-facade';
 import {mapTo, mergeAll, share, takeUntil} from 'rxjs/operators';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {fadeIn} from '../../../../shared/utils/animation';
-import {PessoaService} from "../../../../services/pessoa.service";
-import {Pessoa} from "../../../../models/pessoa.model";
+import {PessoaService} from '../../../../services/pessoa.service';
+import {Pessoa} from '../../../../models/pessoa.model';
 
 
 @Component({
@@ -135,6 +135,12 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   handlePageIndexChange(page: number) {
     this.page = page;
     this.refresh();
+  }
+
+  findLogado() {
+    this.pessoaService.findLogado(this.pessoa).subscribe((res) => {
+      this.pessoa = res;
+    });
   }
 
   handleNextPage() {

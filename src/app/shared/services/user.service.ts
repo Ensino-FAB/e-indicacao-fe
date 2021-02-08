@@ -13,8 +13,8 @@ export class UserService {
   }
 
   set user(user: User) {
-    localStorage.clear();
     this._user = user;
+    localStorage.clear();
     localStorage.setItem(this._userKey, JSON.stringify(user));
   }
 

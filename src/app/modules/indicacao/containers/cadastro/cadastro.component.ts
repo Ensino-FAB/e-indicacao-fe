@@ -37,8 +37,6 @@ export class CadastroComponent implements OnInit {
     this.idEvento = this.activatedRoute.snapshot.params.idEvento;
     this.buscarEvento();
 
-    console.log(this.idEvento)
-
     this.form = this.fb.group({
       codOrganizacaoBeneficiada: ['', Validators.required],
       codOrganizacaoSolicitante: ['', Validators.required],
