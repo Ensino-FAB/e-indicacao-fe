@@ -30,6 +30,8 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import('./modules/evento/evento.module').then((m) => m.EventoModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
   },
   {
     path: 'indicacao',
