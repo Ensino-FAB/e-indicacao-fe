@@ -102,7 +102,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   handleLogout(): void {
     this.keycloak.logout().then((res) => {
-      console.log(res);
     });
   }
 

@@ -15,12 +15,13 @@ export class UserService {
   set user(user: User) {
     this._user = user;
     localStorage.setItem(this._userKey, JSON.stringify(user));
-    console.log(localStorage);
+    localStorage.clear();
   }
 
   constructor() {
     try {
       this._user = JSON.parse(localStorage.getItem(this._userKey)) as User;
+      localStorage.clear();
     } catch {
       this._user = null;
     }

@@ -76,7 +76,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.findLogado();
     this.options = [
       {name: 'Codigo', value: 'id'},
       {name: 'Titulo', value: 'titulo'},
@@ -136,13 +135,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   handlePageIndexChange(page: number) {
     this.page = page;
     this.refresh();
-  }
-
-  findLogado() {
-    this.pessoaService.findLogado(this.pessoa).subscribe((res) => {
-      this.pessoa = res;
-      console.log(res);
-    })
   }
 
   handleNextPage() {

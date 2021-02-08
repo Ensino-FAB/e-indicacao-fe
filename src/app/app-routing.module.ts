@@ -10,15 +10,18 @@ const routes: Routes = [
       import('./dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
   },
   {
     path: 'categoria',
     data: {
       breadcrumb: 'categoria',
     },
-    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/categoria/categoria.module').then((m) => m.CategoriasModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
   },
   {
     path: 'evento',
@@ -35,6 +38,8 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import('./modules/indicacao/indicacao.module').then((m) => m.IndicacaoModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
   },
   {
     path: 'proposta',
@@ -43,12 +48,13 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import('./modules/proposta/proposta.module').then((m) => m.PropostaModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
