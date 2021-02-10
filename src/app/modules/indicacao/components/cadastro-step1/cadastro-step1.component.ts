@@ -1,8 +1,10 @@
+import { UserService } from './../../../../shared/services/user.service';
 import {Component, Input, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
-import {Subscription} from "rxjs";
-import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
-import {FormGroup} from "@angular/forms";
-import {IndicacaoFacade} from "../../indicacao-facade";
+import {Subscription} from 'rxjs';
+import {SelectOption} from '@cca-fab/cca-fab-components-common/types/select';
+import {FormGroup} from '@angular/forms';
+import {IndicacaoFacade} from '../../indicacao-facade';
+import { Organizacao } from 'src/app/models/organizacao.model';
 
 @Component({
   selector: 'app-cadastro-step1',
@@ -22,10 +24,8 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // @ts-ignore
-    this.reloadPessoaId();
-    // @ts-ignore
-    this.reloadOrganizacaoId();
+    this.reloadPessoaId({});
+    this.reloadOrganizacaoId({});
   }
 
   reloadPessoaId(search): void {

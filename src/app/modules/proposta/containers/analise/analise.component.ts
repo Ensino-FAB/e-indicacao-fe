@@ -5,7 +5,7 @@ import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/
 import { Subscription, of, timer, Observable } from 'rxjs';
 
 import { PropostaFacade } from './../proposta-facade';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share, mapTo, takeUntil, mergeAll, concatAll, tap } from 'rxjs/operators';
 
@@ -25,7 +25,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   indicados: ItemPropostaResponse[] = [];
   indicacoes: Indicacao[] = [];
   selecionados: ItemPropostaResponse[] = [];
-  private orgLogada = {cdOrg: '332053', idOrg: 846}; //DTI
+  private orgLogada = { cdOrg: '332053', idOrg: 846 }; //DTI
   //private orgLogada = { cdOrg: '442509', idOrg: 1322 }; //SJ
   //private orgLogada = {cdOrg: '032001', idOrg: 1323}; //RJ
   //private orgLogada = {cdOrg: '360702', idOrg: 1324}; //BR
@@ -34,7 +34,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private propostaFacade: PropostaFacade,
-    private toast: ToastService,     private router: Router,
+    private toast: ToastService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -93,7 +94,19 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   salvarProposta(): void {
-    if (!this.selecionados.length && !this.proposta) {
+    if (this.selecionados.length === 0) {
+      if (this.proposta) {
+        this.propostaFacade.deleteProposta(this.proposta.id)
+          .subscribe(() => {
+            this.toast.show({
+              message: 'Proposta cancelada',
+              type: 'success',
+            });
+            this.proposta = null;
+          });
+        return;
+      }
+
       this.toast.show({
         message: 'É necessário selecionar alguma ficha para salvar a proposta',
         type: 'error',
@@ -112,16 +125,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       return itemPropostaRequest;
     });
 
-    const proposta: PropostaRequest = {
-      id: this.proposta ? this.proposta.id : null,
-      dataInclusao: this.proposta ? this.proposta.dataInclusao : new Date(),
-      eventoId: this.idEvento,
-      observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
-      codOrganizacao: this.orgLogada.idOrg,
-      statusProposta: 'ABERTA',
-      itensProposta
-    };
-
+    const proposta = this.gerarProposta(itensProposta);
 
     this.subs$.push(
       this.propostaFacade
@@ -134,7 +138,21 @@ export class AnaliseComponent implements OnInit, OnDestroy {
         }
         )
     );
+  }
 
+  gerarProposta(itensProposta: ItemPropostaRequest[]): PropostaRequest{
+    const proposta: PropostaRequest = {
+      id: this.proposta ? this.proposta.id : null,
+      dataInclusao: this.proposta ? this.proposta.dataInclusao : new Date(),
+      eventoId: this.idEvento,
+      observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
+      codOrganizacao: this.orgLogada.idOrg,
+      statusProposta: 'ABERTA',
+      itensProposta
+    };
+
+
+    return proposta;
   }
 
   onTargetReorder(event: any): void {
@@ -145,11 +163,11 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     this.calcularOrdem();
   }
 
-  encerrarProposta(): void{
-    this.propostaFacade.finishProposta(this.proposta.id).subscribe( response =>{
+  encerrarProposta(): void {
+    this.propostaFacade.finishProposta(this.proposta.id).subscribe(response => {
       this.buscarIndicacoes();
       this.toast.show({
-        message: 'A proposta foi finalizada com sucesso' ,
+        message: 'A proposta foi finalizada com sucesso',
         type: 'success',
       })
     });

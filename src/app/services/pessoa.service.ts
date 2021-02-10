@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Pessoa, PessoaSearch} from '../models/pessoa.model';
-import {Pageable} from '../core/models/pageable.model';
-import {take} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Pessoa, PessoaLogada, PessoaSearch } from '../models/pessoa.model';
+import { Pageable } from '../core/models/pageable.model';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -43,14 +43,14 @@ export class PessoaService {
 
   findAll(search: PessoaSearch): Observable<Pageable<Pessoa>> {
     this.removeEmptyFields(search);
-    const params = new HttpParams({fromObject: search});
+    const params = new HttpParams({ fromObject: search });
     return this.http.get<any>(this.endpoint, {
       params,
     });
   }
 
-  findLogado (pessoa: any): Observable<any> {
-    return this.http.get<any>(`${this.endpointUser}`);
+  findLogado(): Observable<PessoaLogada> {
+    return this.http.get<PessoaLogada>(`${this.endpointUser}`);
   }
 
 

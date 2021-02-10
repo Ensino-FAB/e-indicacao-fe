@@ -22,7 +22,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line:variable-name
   _isLoading = false;
-  pessoa: Pessoa;
+  pessoa: any;
   categoriaSearch = new FormGroup({
     q: new FormControl(''),
     descricao: new FormControl(''),
@@ -138,7 +138,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   }
 
   findLogado() {
-    this.pessoaService.findLogado(this.pessoa).subscribe((res) => {
+    this.pessoaService.findLogado().subscribe((res) => {
       this.pessoa = res;
     });
   }

@@ -1,56 +1,21 @@
 <com-form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <com-form-section partly formTitle="Organização Solicitante" step="2">
+  <com-form-section formTitle="Organização Beneficiada" step="3">
 
-    <com-autocomplete
-      enableConfirmOnInexistentValue
-      autoActiveFirstOption
-      (changed)="filterOrganizacao($event)"
-      label="Filtrar por nome"
-      [options]="organizacaoIdOptions"
-      [invalid]="
-        form.get('codOrganizacaoSolicitante').invalid && form.get('codOrganizacaoSolicitante').touched
-      "
-      formControlName="codOrganizacaoSolicitante"
-      class="full-width"
-    >
-    </com-autocomplete>
-
-  </com-form-section>
-
-
-    <com-form-section partly formTitle="Organização Beneficiada" step="3">
-
-    <com-autocomplete
-      enableConfirmOnInexistentValue
-      autoActiveFirstOption
-      (changed)="filterOrganizacao($event)"
-      label="Filtrar por nome"
-      [options]="organizacaoIdOptions"
-      [invalid]="
+    <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption (changed)="filterOrganizacao($event)"
+      label="Filtrar por nome" [options]="organizacaoIdOptions" [invalid]="
         form.get('codOrganizacaoBeneficiada').invalid && form.get('codOrganizacaoBeneficiada').touched
-      "
-      formControlName="codOrganizacaoBeneficiada"
-      class="full-width"
-    >
+      " formControlName="codOrganizacaoBeneficiada" class="full-width">
     </com-autocomplete>
 
   </com-form-section>
 
 
-  <com-form-section partly formTitle="Dados da Pessoa" step="4">
+  <com-form-section formTitle="Dados da Pessoa" step="4">
 
-    <com-autocomplete
-      enableConfirmOnInexistentValue
-      autoActiveFirstOption
-      (changed)="filterPessoa($event)"
-      label="Filtrar por nome"
-      [options]="pessoaIdOptions"
-      [invalid]="
+    <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption (changed)="filterPessoa($event)"
+      label="Filtrar por nome" [options]="pessoaIdOptions" [invalid]="
         form.get('codPessoa').invalid && form.get('codPessoa').touched
-      "
-      formControlName="codPessoa"
-      class="full-width"
-    >
+      " formControlName="codPessoa" class="full-width">
     </com-autocomplete>
     <br />
   </com-form-section>

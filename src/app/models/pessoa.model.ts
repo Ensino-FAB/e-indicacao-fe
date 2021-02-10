@@ -16,3 +16,8 @@ export interface Pessoa extends BaseModel {
 export interface PessoaSearch extends BaseSearch {
   nome?: string;
 }
+
+export interface PessoaLogada{
+  pessoa: Pessoa;
+  roles: string[];
+}
