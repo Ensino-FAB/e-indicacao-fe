@@ -10,7 +10,7 @@
     </a>
     <div class="flex-container row middle">
       <a class="main-header-subtitle"> Cursos Indicação </a>
-      <img class="main-header-jet" src="assets/images/icon-jet.png" />
+      <img class="main-header-jet" src="assets/images/icon-jet.png"/>
     </div>
   </div>
   <div class="flex-container row middle">
@@ -41,8 +41,10 @@
 </header>
 <div class="main-content">
   <ensino-nav [configNav]="configNav">
-    <ensino-nav-item [routerLink]="'categoria'"> Categorias </ensino-nav-item>
-    <ensino-nav-item [routerLink]="'evento'"> Eventos </ensino-nav-item>
+    <ensino-nav-item *ngIf="this.userService?.user?.roles.includes('desenvolvedor')"
+                     [routerLink]="'categoria'"> Categorias
+    </ensino-nav-item>
+    <ensino-nav-item [routerLink]="'evento'"> Eventos</ensino-nav-item>
   </ensino-nav>
   <ensino-sub-nav root="/organizacional"></ensino-sub-nav>
   <router-outlet></router-outlet>

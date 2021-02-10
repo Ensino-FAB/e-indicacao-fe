@@ -13,8 +13,15 @@ export class ItemParticipanteComponent implements OnInit {
 
   @Input() item: ItemPropostaResponse;
 
-  constructor( private service: IndicacaoService, private route: ActivatedRoute) { }
+  displayBasic: boolean;
+
+
+  constructor(private service: IndicacaoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+  }
+
+  showBasicDialog() {
+    this.displayBasic = true;
   }
 }

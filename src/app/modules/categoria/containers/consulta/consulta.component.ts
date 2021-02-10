@@ -8,6 +8,7 @@ import {ToastService} from '../../../../shared/services/toast.service';
 import {fadeIn} from '../../../../shared/utils/animation';
 import {PessoaService} from '../../../../services/pessoa.service';
 import {Pessoa} from '../../../../models/pessoa.model';
+import {UserService} from "../../../../shared/services/user.service";
 
 
 @Component({
@@ -72,6 +73,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     private facade: CategoriaFacade,
     private toastService: ToastService,
     private pessoaService: PessoaService,
+    public user: UserService,
   ) {
   }
 

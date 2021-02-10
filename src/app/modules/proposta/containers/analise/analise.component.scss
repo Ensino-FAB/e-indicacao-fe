@@ -14,6 +14,11 @@
     font-size: large;
   }
 
+  ::ng-deep .p-tabview-nav-link {
+    font-size: 17px;
+  }
+
+
   ::ng-deep .p-button.p-button-icon-only {
     color: white;
     background-color: #234b90;
