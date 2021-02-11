@@ -5,3 +5,7 @@ export interface Organizacao extends BaseModel {
     sigla: string;
     cdOrg?: string;
 }
+
+export interface SelectButtonOrganizacao extends Organizacao{
+    inativo: boolean;
+}

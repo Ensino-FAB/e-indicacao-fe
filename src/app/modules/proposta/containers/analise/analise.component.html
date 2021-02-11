@@ -3,33 +3,22 @@
     <div class="aside-wrapper">
       <h2 class="indicacao-page-title">Análise das indicações</h2>
     </div>
+    <div class="div-botoes-om">
+      <p-selectButton class="texto-btn-om" [options]="organizacoes" [(ngModel)]="organizacaoSelecionada" optionLabel="sigla"
+        optionDisabled="inativo"></p-selectButton>
+    </div>
 
-    <p-tabView>
-      <p-tabPanel header="Header 1">
-        <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading"
-          sourceHeader="Fichas de indicação" targetHeader="Fichas selecionadas" dragdrop="true" styleClass="test"
-          [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [responsive]="true"
-          (onTargetReorder)="onTargetReorder($event)" (onMoveToTarget)="onMoveToTarget($event)"
-          (onMoveAllToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSource($event)"
-          (onMoveAllToSource)="onMoveAllToSource($event)">
-          <ng-template let-pickListItem pTemplate="item">
-            <div class="p-mb-3">
-              <app-item-participante [item]='pickListItem'></app-item-participante>
-            </div>
-          </ng-template>
-        </p-pickList>
-      </p-tabPanel>
-      <p-tabPanel header="Header 2">
-        <ng-template pTemplate="content">
-          Complex Content to Lazy Load
-        </ng-template>
-      </p-tabPanel>
-      <p-tabPanel header="Header 3">
-        <ng-template pTemplate="content">
-          Complex Content to Lazy Load
-        </ng-template>
-      </p-tabPanel>
-    </p-tabView>
+    <p-pickList [source]="indicados" [target]="selecionados" [disabled]="isLoading" sourceHeader="Fichas de indicação"
+      targetHeader="Fichas selecionadas" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
+      [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"
+      (onMoveToTarget)="onMoveToTarget($event)" (onMoveAllToTarget)="onMoveToTarget($event)"
+      (onMoveToSource)="onMoveToSource($event)" (onMoveAllToSource)="onMoveAllToSource($event)">
+      <ng-template let-pickListItem pTemplate="item">
+        <div class="p-mb-3">
+          <app-item-participante [item]='pickListItem'></app-item-participante>
+        </div>
+      </ng-template>
+    </p-pickList>
 
 
 

@@ -42,8 +42,12 @@ export class PropostaService {
     return this.http.get<any>(this.endpoint, {params});
   }
 
-  findPropostaByEventoId(idEvento: number, cdOrg: string): Observable<PropostaResponse>{
-    return this.http.get<PropostaResponse>(`${this.endpoint}/organizacao/${cdOrg}/evento/${idEvento}`);
+  findPropostaByEventoId(idEvento: number, idOrg: number): Observable<PropostaResponse>{
+    return this.http.get<PropostaResponse>(`${this.endpoint}/organizacao/${idOrg}/evento/${idEvento}`);
+  }
+
+  existsProposta(idEvento: number, idOrg: number): Observable<boolean>{
+    return this.http.get<boolean>(`${this.endpoint}/existe/organizacao/${idOrg}/evento/${idEvento}`);
   }
 
   delete(id: number): Observable<any> {
