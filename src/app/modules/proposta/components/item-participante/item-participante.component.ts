@@ -13,7 +13,7 @@ export class ItemParticipanteComponent implements OnInit {
 
   @Input() item: ItemPropostaResponse;
 
-  displayBasic: boolean;
+  displayModal: boolean;
 
 
   constructor(private service: IndicacaoService, private route: ActivatedRoute) { }
@@ -22,6 +22,6 @@ export class ItemParticipanteComponent implements OnInit {
   }
 
   showBasicDialog() {
-    this.displayBasic = true;
+    this.displayModal = true;
   }
 }

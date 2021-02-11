@@ -10,6 +10,23 @@
   width: 50vw;
 }
 
+::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  font-size: 2.00rem;
+}
+
+::ng-deep .pi {
+  font-family: 'primeicons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+}
+
 @media screen and (max-width: 40em) {
   .mydialog {
     width: 155vw;
