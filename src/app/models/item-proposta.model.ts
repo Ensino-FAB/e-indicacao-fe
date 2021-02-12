@@ -1,4 +1,4 @@
-import { Indicacao, IndicacaoResponse } from './indicacao.model';
+import { IndicacaoResponse } from './indicacao.model';
 import { BaseModel } from './../core/models/base.model';
 
 export interface ItemPropostaRequest extends BaseModel {

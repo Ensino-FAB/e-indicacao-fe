@@ -22,17 +22,15 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   organizacoes: SelectButtonOrganizacao[];
   organizacaoSelecionada: SelectButtonOrganizacao;
 
-
   private subs$: Subscription[] = [];
   public proposta: PropostaResponse;
   public idEvento: number;
 
   isLoading = false;
-  indicados: ItemPropostaResponse[] = [];
-  indicacoes: Indicacao[] = [];
-  selecionados: ItemPropostaResponse[] = [];
+  fichas: ItemPropostaResponse[] = [];
+  fichasSelecionadas: ItemPropostaResponse[] = [];
   private orgLogada = { nome: 'diretoria', sigla: 'DTI', cdOrg: '332053', id: 846 }; //DTI
-  //private orgLogada = {nome: 'diretoria', sigla: 'CCA SJ', cdOrg: '442509', id: 1322 }; //SJ RAMON
+  //private orgLogada = { nome: 'diretoria', sigla: 'CCA SJ', cdOrg: '442509', id: 1322 }; //SJ RAMON
   //private orgLogada = {cdOrg: '032001', id: 1323}; //RJ Julilana
   //private orgLogada = {cdOrg: '360702', id: 1324}; //BR Plinio
   //private orgLogada = {cdOrg: '332050', id: 848}; //DIRMAB
@@ -46,13 +44,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
 
-    this.buscarProposta(this.orgLogada.id)
-      .subscribe(response => {
-        this.selecionados = response.itensProposta;
-      });
+    this.buscarProposta(this.orgLogada.id);
+    this.buscarFichas(this.orgLogada.id);
+    this.buscarOrgSubordinadas();
+  }
 
-    this.buscarIndicacoes();
-
+  buscarOrgSubordinadas(): void {
     this.propostaFacade
       .findOrganizacoesDiretamenteSubordinadas(this.orgLogada.cdOrg)
       .subscribe(orgs => {
@@ -63,7 +60,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
             nome: org.nome,
             cdOrg: org.cdOrg,
             inativo: false
-          }
+          };
         });
 
         temp.forEach(org => {
@@ -71,27 +68,46 @@ export class AnaliseComponent implements OnInit, OnDestroy {
             .subscribe(response => org.inativo = !response);
         });
 
-        temp.unshift({
-          id: this.orgLogada.id,
-          sigla: this.orgLogada.sigla,
-          nome: this.orgLogada.nome,
-          cdOrg: this.orgLogada.cdOrg,
-          inativo: false
-        });
+        if (temp.length > 0) {
+          temp.unshift({
+            id: this.orgLogada.id,
+            sigla: this.orgLogada.sigla,
+            nome: this.orgLogada.nome,
+            cdOrg: this.orgLogada.cdOrg,
+            inativo: false
+          });
 
-        this.organizacoes = temp;
-        this.organizacaoSelecionada = this.organizacoes[0];
+          this.organizacoes = temp;
+          this.organizacaoSelecionada = this.organizacoes[0];
+        }
       });
-
   }
 
-  buscarProposta(cdOrg: number): Observable<PropostaResponse> {
-    return this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrg);
+  buscarProposta(cdOrg: number): void {
+    this.subs$.push(
+      this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrg)
+        .subscribe(response => {
+          this.fichasSelecionadas = response.itensProposta;
+        })
+    );
   }
 
-  buscarIndicacoes(): void {
+  buscarPropostaOrgSubordinada(cdOrgSubordinada: number): void {
+    this.subs$.push(
+      this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrgSubordinada)
+        .subscribe(response => {
+          this.fichas = response.itensProposta;
+        })
+    );
+  }
+
+  buscarFichas(idOrganizacao: number): void {
     const getIndicacoes$ = this.propostaFacade
-      .findAllIndicacoesByEvento({ eventoId: this.idEvento, codOrganizacaoSolicitante: '' + this.orgLogada.id }, this.idEvento)
+      .findAllIndicacoesByEvento(
+        {
+          eventoId: this.idEvento,
+          codOrganizacaoSolicitante: idOrganizacao.toString()
+        }, this.idEvento)
       .pipe(share());
 
     const isLoading$ = of(
@@ -107,14 +123,13 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       }),
       getIndicacoes$
         .subscribe(indicacoes => {
-          this.indicacoes = indicacoes;
           const pessoas = indicacoes.map(ind => {
             const pessoaIndicada: ItemPropostaResponse = {
               indicacao: ind
             };
             return pessoaIndicada;
           });
-          this.indicados = pessoas;
+          this.fichas = pessoas;
         })
     );
   }
@@ -122,7 +137,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   salvarProposta(): void {
     this.validarProposta();
 
-    const itensProposta = this.selecionados.map(item => {
+    const itensProposta = this.fichasSelecionadas.map(item => {
       const itemPropostaRequest: ItemPropostaRequest = {
         id: null,
         prioridade: item.prioridade,
@@ -148,7 +163,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   validarProposta(): void {
-    if (this.selecionados.length === 0) {
+    if (this.fichasSelecionadas.length === 0) {
       if (this.proposta) {
         this.propostaFacade.deleteProposta(this.proposta.id)
           .subscribe(() => {
@@ -195,13 +210,23 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   encerrarProposta(): void {
     this.propostaFacade.finishProposta(this.proposta.id).subscribe(response => {
-      this.buscarIndicacoes();
+      this.buscarFichas(this.orgLogada.id);
       this.toast.show({
         message: 'A proposta foi finalizada com sucesso',
         type: 'success',
       })
     });
 
+  }
+
+  onOptionClick(event) {
+    const { option } = event;
+    if (this.orgLogada.id === option.id) {
+      this.buscarProposta(option.cdOrg);
+      this.buscarFichas(option.id);
+    }else{
+      this.buscarPropostaOrgSubordinada(option.id);
+    }
   }
 
   onMoveAllToTarget(event: any): void {
@@ -219,13 +244,13 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   calcularOrdem(): void {
-    this.selecionados.forEach((ind, i) => {
+    this.fichasSelecionadas.forEach((ind, i) => {
       ind.prioridade = i + 1;
     });
   }
 
   removeOrdem(): void {
-    this.indicados.forEach(ind => ind.prioridade = undefined);
+    this.fichas.forEach(ind => ind.prioridade = undefined);
   }
 
   ngOnDestroy(): void {
