@@ -42,6 +42,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    console.log('init')
     this.idEvento = this.activatedRoute.snapshot.params.id;
 
     this.buscarProposta(this.orgLogada.id);
@@ -87,6 +88,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     this.subs$.push(
       this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrg)
         .subscribe(response => {
+          this.proposta = response;
           this.fichasSelecionadas = response.itensProposta;
         })
     );
