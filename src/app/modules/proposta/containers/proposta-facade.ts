@@ -30,11 +30,11 @@ export class PropostaFacade {
   }
 
   createProposta(record: PropostaRequest): Observable<PropostaResponse> {
-    if (!record.id){
-      return this.propostaService.create(record);
-    }else{
-      return this.propostaService.update(record);
-    }
+    return this.propostaService.create(record);
+  }
+
+  updateProposta(record: PropostaRequest): Observable<PropostaResponse> {
+    return this.propostaService.update(record);
   }
 
   deleteProposta(id: number): Observable<any> {

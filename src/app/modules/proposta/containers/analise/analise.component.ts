@@ -149,16 +149,18 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
     const proposta = this.gerarProposta(itensProposta);
 
+    const salvarProposta$ =
+      proposta.id ? this.propostaFacade.updateProposta(proposta) : this.propostaFacade.createProposta(proposta);
+
     this.subs$.push(
-      this.propostaFacade
-        .createProposta(proposta).subscribe(response => {
-          this.proposta = response;
-          this.toast.show({
-            message: 'A proposta foi salva com sucesso!',
-            type: 'success',
-          });
-        }
-        )
+      salvarProposta$.subscribe(response => {
+        this.proposta = response;
+        this.toast.show({
+          message: 'A proposta foi salva com sucesso!',
+          type: 'success',
+        });
+      }
+      )
     );
   }
 
@@ -187,7 +189,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   gerarProposta(itensProposta: ItemPropostaRequest[]): PropostaRequest {
     const proposta: PropostaRequest = {
-      id: this.proposta ? this.proposta.id : null,
+      id: this.proposta?.id ? this.proposta.id : undefined,
       dataInclusao: this.proposta ? this.proposta.dataInclusao : new Date(),
       eventoId: this.idEvento,
       observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
@@ -195,7 +197,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       statusProposta: 'ABERTA',
       itensProposta
     };
-
 
     return proposta;
   }
@@ -219,12 +220,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   }
 
-  onOptionClick(event) {
+  onOptionClick(event: any): void {
     const { option } = event;
     if (this.orgLogada.id === option.id) {
-      this.buscarProposta(option.cdOrg);
+      this.buscarProposta(option.id);
       this.buscarFichas(option.id);
-    }else{
+    } else {
       this.buscarPropostaOrgSubordinada(option.id);
     }
   }
