@@ -11,7 +11,6 @@ import {IndicacaoFacade} from "../../indicacao-facade";
   templateUrl: './edicao.component.html',
   styleUrls: ['./edicao.component.scss'],
   animations: [fadeIn()],
-
 })
 export class EdicaoComponent implements OnInit, OnDestroy {
   indicacaoForm: FormGroup;
@@ -31,11 +30,17 @@ export class EdicaoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-
     this.indicacaoForm = this.formBuilder.group({
       id: ['', Validators.required],
       justificativa: ['', Validators.required],
       observacoes: ['', Validators.required],
+      evento: ['',] ,
+      codPessoa: ['',] ,
+      pessoa: ['',] ,
+      codOrganizacaoSolicitante: ['',] ,
+      organizacaoSolicitante: ['',] ,
+      codOrganizacaoBeneficiada: ['',] ,
+      organizacaoBeneficiada: ['',] ,
     });
 
     this.subs$.push(
@@ -53,7 +58,7 @@ export class EdicaoComponent implements OnInit, OnDestroy {
           .update(this.indicacaoForm.value)
           .subscribe(() => {
             this.toast.show({
-              message: 'A conclusão foi editada com sucesso!',
+              message: 'A ficha indicação foi editada com sucesso!',
               type: 'success',
             });
             this.router.navigate(['evento']);
@@ -61,7 +66,7 @@ export class EdicaoComponent implements OnInit, OnDestroy {
       );
     } else {
       this.toast.show({
-        message: 'Erro ao tentar editar a Conclusão!',
+        message: 'Erro ao tentar editar a ficha de indicação!',
         type: 'alert',
       });
     }
