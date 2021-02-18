@@ -42,7 +42,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log('init')
     this.idEvento = this.activatedRoute.snapshot.params.id;
 
     this.buscarProposta(this.orgLogada.id);
@@ -107,8 +106,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     const getIndicacoes$ = this.propostaFacade
       .findAllIndicacoesByEvento(
         {
-          eventoId: this.idEvento,
-          codOrganizacaoSolicitante: idOrganizacao.toString()
+          size: 500,
+          codOrganizacaoSolicitante: idOrganizacao.toString(),
         }, this.idEvento)
       .pipe(share());
 
@@ -125,14 +124,25 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       }),
       getIndicacoes$
         .subscribe(indicacoes => {
-          const pessoas = indicacoes.map(ind => {
+          let fichasTemp = indicacoes.map(ind => {
             const pessoaIndicada: ItemPropostaResponse = {
               indicacao: ind
             };
             return pessoaIndicada;
           });
-          this.fichas = pessoas;
+
+          // fichasTemp = fichasTemp.filter(
+          //   p => !this.fichasSelecionadas.map(el => el.indicacao.id).includes(p.indicacao.id)
+          // );
+          this.fichas = this.filtrarFichas(fichasTemp, this.fichasSelecionadas);
         })
+    );
+  }
+
+  filtrarFichas(fichas: ItemPropostaResponse[],
+    fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
+    return fichas.filter(
+      ficha => !fichasSelecionadas.map(el => el.indicacao.id).includes(ficha.indicacao.id)
     );
   }
 
@@ -203,23 +213,14 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     return proposta;
   }
 
-  onTargetReorder(event: any): void {
-    this.calcularOrdem();
-  }
-
-  onMoveToTarget(event: any): void {
-    this.calcularOrdem();
-  }
-
   encerrarProposta(): void {
     this.propostaFacade.finishProposta(this.proposta.id).subscribe(response => {
       this.buscarFichas(this.orgLogada.id);
       this.toast.show({
         message: 'A proposta foi finalizada com sucesso',
         type: 'success',
-      })
+      });
     });
-
   }
 
   onOptionClick(event: any): void {
@@ -232,28 +233,32 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     }
   }
 
+  onTargetReorder(event: any): void {
+    this.calcularOrdem();
+  }
+
+  onMoveToTarget(event: any): void {
+    this.calcularOrdem();
+  }
+
   onMoveAllToTarget(event: any): void {
     this.calcularOrdem();
   }
 
   onMoveToSource(event: any): void {
     this.calcularOrdem();
-    this.removeOrdem();
+    this.buscarFichas(this.organizacaoSelecionada.id);
   }
 
   onMoveAllToSource(event: any): void {
     this.calcularOrdem();
-    this.removeOrdem();
+    this.buscarFichas(this.organizacaoSelecionada.id);
   }
 
   calcularOrdem(): void {
     this.fichasSelecionadas.forEach((ind, i) => {
       ind.prioridade = i + 1;
     });
-  }
-
-  removeOrdem(): void {
-    this.fichas.forEach(ind => ind.prioridade = undefined);
   }
 
   ngOnDestroy(): void {
