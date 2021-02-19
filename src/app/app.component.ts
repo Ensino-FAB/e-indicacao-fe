@@ -110,10 +110,11 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   handleUserName(): string {
+    const siglaOrg = this.userService.user?.organizacao.sigla;
     return this.userService.user?.nome
       .split(' ')
       .map((name) => `${name[0].toUpperCase()}${name.slice(1).toLowerCase()}`)
-      .join(' ');
+      .join(' ').concat(' - ' + siglaOrg);
   }
 
   @HostListener('document:click')
