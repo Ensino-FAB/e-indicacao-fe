@@ -1,15 +1,14 @@
 import { SelectButtonOrganizacao } from './../../../../models/organizacao.model';
-import { Indicacao } from './../../../../models/indicacao.model';
 import { ToastService } from './../../../../shared/services/toast.service';
 import { PropostaRequest, PropostaResponse } from './../../../../models/proposta.model';
 import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/item-proposta.model';
-import { Subscription, of, timer, Observable } from 'rxjs';
+import { Subscription, of, timer } from 'rxjs';
 
 import { PropostaFacade } from './../proposta-facade';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { share, mapTo, takeUntil, mergeAll, map, switchMap } from 'rxjs/operators';
-import {UserService} from "../../../../shared/services/user.service";
+import { share, mapTo, takeUntil, mergeAll, switchMap, tap, map } from 'rxjs/operators';
+import { UserService } from '../../../../shared/services/user.service';
 
 
 
@@ -41,10 +40,41 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
-
-    this.buscarProposta(this.orgLogada.id);
-    this.buscarFichas(this.orgLogada.id);
+    this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     this.buscarOrgSubordinadas();
+  }
+
+  buscarFichasEPropostaOrgLogada(idOrg: number): void {
+    const getProposta$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, idOrg);
+    const getIndicacoes$ = this.propostaFacade
+      .findAllIndicacoesByEvento(
+        {
+          size: 500,
+          codOrganizacaoSolicitante: idOrg.toString(),
+        }, this.idEvento
+      );
+
+    this.subs$.push(
+      getProposta$.pipe(
+        switchMap(proposta => {
+          this.proposta = proposta;
+          this.fichasSelecionadas = proposta.itensProposta;
+          return getIndicacoes$.pipe(
+            map(indicacoes => indicacoes.filter(
+              indicacao => !proposta.itensProposta.map(item => item.indicacao.id)
+                .includes(indicacao.id)
+            ))
+          );
+        })
+      ).subscribe(indicacoes => {
+        this.fichas = indicacoes.map(ind => {
+          const pessoaIndicada: ItemPropostaResponse = {
+            indicacao: ind
+          };
+          return pessoaIndicada;
+        });
+      })
+    );
   }
 
   buscarOrgSubordinadas(): void {
@@ -92,11 +122,18 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   buscarPropostaOrgSubordinada(cdOrgSubordinada: number): void {
+    const getProposta$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, this.orgLogada.id);
+    const getPropostaOrgSubordinada$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrgSubordinada);
     this.subs$.push(
-      this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrgSubordinada)
-        .subscribe(response => {
-          this.fichas = this.filtrarFichas(response.itensProposta, this.fichasSelecionadas);
+      getProposta$.pipe(
+        switchMap(proposta => {
+          this.proposta = proposta;
+          this.fichasSelecionadas = proposta.itensProposta;
+          return getPropostaOrgSubordinada$;
         })
+      ).subscribe(propostaSubordinada => {
+        this.fichas = this.filtrarFichas(propostaSubordinada.itensProposta, this.fichasSelecionadas);
+      })
     );
   }
 
@@ -122,23 +159,18 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       }),
       getIndicacoes$
         .subscribe(indicacoes => {
-          let fichasTemp = indicacoes.map(ind => {
+          const fichasTemp = indicacoes.map(ind => {
             const pessoaIndicada: ItemPropostaResponse = {
               indicacao: ind
             };
             return pessoaIndicada;
           });
-
-          // fichasTemp = fichasTemp.filter(
-          //   p => !this.fichasSelecionadas.map(el => el.indicacao.id).includes(p.indicacao.id)
-          // );
           this.fichas = this.filtrarFichas(fichasTemp, this.fichasSelecionadas);
         })
     );
   }
 
-  filtrarFichas(fichas: ItemPropostaResponse[],
-    fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
+  filtrarFichas(fichas: ItemPropostaResponse[], fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
     return fichas.filter(
       ficha => !fichasSelecionadas.map(el => el.indicacao.id).includes(ficha.indicacao.id)
     );
@@ -224,8 +256,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   onOptionClick(event: any): void {
     const { option } = event;
     if (this.orgLogada.id === option.id) {
-      this.buscarProposta(option.id);
-      this.buscarFichas(option.id);
+      this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     } else {
       this.buscarPropostaOrgSubordinada(option.id);
     }
@@ -265,4 +296,3 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     });
   }
 }
-
