@@ -9,6 +9,7 @@ import { PropostaFacade } from './../proposta-facade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share, mapTo, takeUntil, mergeAll, map, switchMap } from 'rxjs/operators';
+import {UserService} from "../../../../shared/services/user.service";
 
 
 
@@ -29,16 +30,13 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   isLoading = false;
   fichas: ItemPropostaResponse[] = [];
   fichasSelecionadas: ItemPropostaResponse[] = [];
-  private orgLogada = { nome: 'diretoria', sigla: 'DTI', cdOrg: '332053', id: 846 }; //DTI
-  //private orgLogada = { nome: 'diretoria', sigla: 'CCA SJ', cdOrg: '442509', id: 1322 }; //SJ RAMON
-  //private orgLogada = {cdOrg: '032001', id: 1323}; //RJ Julilana
-  //private orgLogada = {cdOrg: '360702', id: 1324}; //BR Plinio
-  //private orgLogada = {cdOrg: '332050', id: 848}; //DIRMAB
+  private orgLogada = this.userService.user.organizacao;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private propostaFacade: PropostaFacade,
     private toast: ToastService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
@@ -97,7 +95,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     this.subs$.push(
       this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrgSubordinada)
         .subscribe(response => {
-          this.fichas = response.itensProposta;
+          this.fichas = this.filtrarFichas(response.itensProposta, this.fichasSelecionadas);
         })
     );
   }

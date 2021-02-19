@@ -46,7 +46,7 @@ export class OrganizacaoService {
     return this.http.get<Organizacao>(`${this.endpoint}/${id}`).pipe(take(1));
   }
 
-  findOrganizacoesDiretamenteSubordinadas(cdOrg: string): Observable<Organizacao[]>{
+  findOrganizacoesDiretamenteSubordinadas(cdOrg: number): Observable<Organizacao[]>{
     return this.http.get<Organizacao[]>(`${this.endpoint}/${cdOrg}/subordinadas`);
   }
 

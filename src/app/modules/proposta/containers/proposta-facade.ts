@@ -41,7 +41,7 @@ export class PropostaFacade {
     return this.propostaService.delete(id);
   }
 
-  findOrganizacoesDiretamenteSubordinadas(cdOrg: string): Observable<Organizacao[]> {
+  findOrganizacoesDiretamenteSubordinadas(cdOrg: number): Observable<Organizacao[]> {
     return this.organizacaoService.findOrganizacoesDiretamenteSubordinadas(cdOrg);
   }
 

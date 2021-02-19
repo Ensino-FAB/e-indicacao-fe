@@ -61,6 +61,7 @@ export class AuthGuard extends KeycloakAuthGuard implements CanActivateChild {
             id: person.id,
             nome: person.nome,
             nrCpf: person.nrCpf,
+            organizacao: person.organizacao,
             roles: this.keycloak.getUserRoles(true),
           };
 
@@ -71,6 +72,7 @@ export class AuthGuard extends KeycloakAuthGuard implements CanActivateChild {
           id: null,
           nome: 'Usuário não identificado',
           nrCpf: null,
+          organizacao: null,
           roles: this.keycloak.getUserRoles(true),
         };
       }
