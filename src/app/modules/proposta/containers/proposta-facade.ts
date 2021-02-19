@@ -1,16 +1,16 @@
-import { OrganizacaoService } from './../../../services/organizacao.service';
-import { EventoService } from './../../../services/evento.service';
-import { PropostaResponse } from './../../../models/proposta.model';
-import { Pageable } from './../../../core/models/pageable.model';
-import { PropostaSearchModel } from './../../../models/proposta-search.model';
-import { PropostaService } from './../../../services/proposta.service';
-import { Indicacao, IndicacaoResponse } from './../../../models/indicacao.model';
-import { IndicacaoService } from './../../../services/indicacao.service';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PropostaRequest } from 'src/app/models/proposta.model';
-import { IndicacaoSearchModel } from '../../../models/indicacao-search.model';
-import { Organizacao } from 'src/app/models/organizacao.model';
+import {OrganizacaoService} from './../../../services/organizacao.service';
+import {EventoService} from './../../../services/evento.service';
+import {PropostaResponse} from './../../../models/proposta.model';
+import {Pageable} from './../../../core/models/pageable.model';
+import {PropostaSearchModel} from './../../../models/proposta-search.model';
+import {PropostaService} from './../../../services/proposta.service';
+import {Indicacao, IndicacaoResponse} from './../../../models/indicacao.model';
+import {IndicacaoService} from './../../../services/indicacao.service';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {PropostaRequest} from 'src/app/models/proposta.model';
+import {IndicacaoSearchModel} from '../../../models/indicacao-search.model';
+import {Organizacao} from 'src/app/models/organizacao.model';
 
 @Injectable()
 export class PropostaFacade {
@@ -43,6 +43,10 @@ export class PropostaFacade {
 
   findOrganizacoesDiretamenteSubordinadas(cdOrg: number): Observable<Organizacao[]> {
     return this.organizacaoService.findOrganizacoesDiretamenteSubordinadas(cdOrg);
+  }
+
+  findOrgSuperior(): Observable<Organizacao[]> {
+    return this.organizacaoService.findOrganizacoesSuperiores();
   }
 
   existProposta(idEvento: number, idOrg: number): Observable<boolean> {
