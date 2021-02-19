@@ -3,13 +3,13 @@ import { ToastService } from './../../../../shared/services/toast.service';
 import { PropostaRequest, PropostaResponse } from './../../../../models/proposta.model';
 import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/item-proposta.model';
 import { Subscription, of, timer } from 'rxjs';
-
 import { PropostaFacade } from './../proposta-facade';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { share, mapTo, takeUntil, mergeAll, switchMap, tap, map } from 'rxjs/operators';
+import { share, mapTo, takeUntil, mergeAll, switchMap, map } from 'rxjs/operators';
 import { UserService } from '../../../../shared/services/user.service';
-
+import { Evento } from '../../../../models/evento.model';
+import { EventoService } from '../../../../services/evento.service';
 
 
 @Component({
@@ -25,6 +25,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   private subs$: Subscription[] = [];
   public proposta: PropostaResponse;
   public idEvento: number;
+  public evento: Evento;
 
   isLoading = false;
   fichas: ItemPropostaResponse[] = [];
@@ -36,12 +37,43 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     private propostaFacade: PropostaFacade,
     private toast: ToastService,
     private userService: UserService,
-  ) { }
+    private eventoService: EventoService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
     this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     this.buscarOrgSubordinadas();
+    this.buscarEvento();
+  }
+
+  buscarEvento(): void {
+    this.eventoService.findById(this.idEvento).subscribe((response) => {
+      this.evento = response;
+    });
+  }
+
+  buscarOrgSuperiores(): void {
+    this.propostaFacade.findOrgSuperior()
+      .subscribe(orgs => {
+        const temp = orgs.map(org => {
+          return {
+            id: org.id,
+            sigla: org.sigla,
+            nome: org.nome,
+            cdOrg: org.cdOrg,
+            inativo: false,
+          };
+        });
+
+        temp.forEach(org => {
+          this.propostaFacade.existProposta(this.idEvento, org.id)
+            .subscribe(response => org.inativo = !response);
+        });
+        this.organizacoes = this.organizacoes.concat(temp);
+      });
+
   }
 
   buscarFichasEPropostaOrgLogada(idOrg: number): void {
@@ -87,7 +119,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
             sigla: org.sigla,
             nome: org.nome,
             cdOrg: org.cdOrg,
-            inativo: false
+            inativo: false,
           };
         });
 
@@ -107,6 +139,10 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
           this.organizacoes = temp;
           this.organizacaoSelecionada = this.organizacoes[0];
+
+          if (this.orgLogada.id === this.evento.codOrganizacaoGestora) {
+            this.buscarOrgSuperiores();
+          }
         }
       });
   }
@@ -170,7 +206,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     );
   }
 
-  filtrarFichas(fichas: ItemPropostaResponse[], fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
+  filtrarFichas(fichas: ItemPropostaResponse[],
+                fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
     return fichas.filter(
       ficha => !fichasSelecionadas.map(el => el.indicacao.id).includes(ficha.indicacao.id)
     );
