@@ -16,8 +16,7 @@ import {
 
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
-import {PessoaService} from "./services/pessoa.service";
-import {Pessoa} from "./models/pessoa.model";
+import {Pessoa} from './models/pessoa.model';
 
 
 @Component({

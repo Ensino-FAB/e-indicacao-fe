@@ -6,7 +6,7 @@ import { Subscription, of, timer } from 'rxjs';
 import { PropostaFacade } from './../proposta-facade';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { share, mapTo, takeUntil, mergeAll, switchMap, map } from 'rxjs/operators';
+import { share, mapTo, takeUntil, mergeAll, switchMap, map, catchError, tap } from 'rxjs/operators';
 import { UserService } from '../../../../shared/services/user.service';
 import { Evento } from '../../../../models/evento.model';
 import { EventoService } from '../../../../services/evento.service';
@@ -43,9 +43,9 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
+    this.buscarEvento();
     this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     this.buscarOrgSubordinadas();
-    this.buscarEvento();
   }
 
   buscarEvento(): void {
@@ -88,12 +88,18 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
     this.subs$.push(
       getProposta$.pipe(
+        catchError(_ => of(null)),
         switchMap(proposta => {
-          this.proposta = proposta;
-          this.fichasSelecionadas = proposta.itensProposta;
+          if (proposta) {
+            this.proposta = proposta;
+            this.fichasSelecionadas = proposta.itensProposta;
+          }else{
+            this.proposta = null;
+            this.fichasSelecionadas = [];
+          }
           return getIndicacoes$.pipe(
             map(indicacoes => indicacoes.filter(
-              indicacao => !proposta.itensProposta.map(item => item.indicacao.id)
+              indicacao => !proposta?.itensProposta.map(item => item.indicacao.id)
                 .includes(indicacao.id)
             ))
           );
@@ -207,7 +213,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   filtrarFichas(fichas: ItemPropostaResponse[],
-                fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
+    fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
     return fichas.filter(
       ficha => !fichasSelecionadas.map(el => el.indicacao.id).includes(ficha.indicacao.id)
     );
