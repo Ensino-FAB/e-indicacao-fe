@@ -23,16 +23,27 @@
 
     <com-form-section>
       <footer class="flex-container end">
-        <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]">
+
+        <com-button fill confirm (click)="sendProposta()"
+                    *ngIf="this.proposta?.status == 'FINALIZADA'  && this.proposta?.status">
+          <a slot="text">Enviar</a>
+        </com-button>
+
+        <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]"
+                    *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta"
+                    [disabled]="proposta?.status == 'FINALIZADA'"
+        >
           <a slot="text">Nova Ficha</a>
         </com-button>
         <com-button fill secondary (click)="encerrarProposta()"
-          [disabled]="proposta?.status == 'FINALIZADA' ? true : false">
-          <a slot="text">Finalizar</a>
+                    *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta"
+                    [disabled]="proposta?.status == 'FINALIZADA'">
+          <a slot="text">Encerra Análise</a>
         </com-button>
         <com-button fill confirm (click)="salvarProposta()"
-          [disabled]="proposta?.status == 'FINALIZADA' ? true : false">
-          <a slot="text">Salvar proposta</a>
+                    *ngIf="this.proposta?.status == 'ABERTA' || !this.proposta"
+          [disabled]="proposta?.status == 'FINALIZADA'">
+          <a slot="text">Salvar</a>
         </com-button>
       </footer>
     </com-form-section>

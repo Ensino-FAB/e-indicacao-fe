@@ -61,4 +61,8 @@ export class PropostaFacade {
   finishProposta(id: number): Observable<any> {
     return this.propostaService.encerrarProposta(id);
   }
+
+  sendProposta(id: number): Observable<any> {
+    return this.propostaService.sendProposta(id);
+  }
 }
