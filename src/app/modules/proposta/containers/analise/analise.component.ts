@@ -1,18 +1,15 @@
-import { OrganizacaoSearchModel } from './../../../../models/organizacao-search.model';
 import { SelectButtonOrganizacao } from './../../../../models/organizacao.model';
 import { ToastService } from './../../../../shared/services/toast.service';
 import { PropostaRequest, PropostaResponse } from './../../../../models/proposta.model';
 import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/item-proposta.model';
-import { Subscription, of, timer, observable } from 'rxjs';
+import { Subscription, of, timer } from 'rxjs';
 import { PropostaFacade } from './../proposta-facade';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { share, mapTo, takeUntil, mergeAll, switchMap, map, catchError, tap } from 'rxjs/operators';
+import { share, mapTo, takeUntil, mergeAll, switchMap, map, catchError } from 'rxjs/operators';
 import { UserService } from '../../../../shared/services/user.service';
 import { Evento } from '../../../../models/evento.model';
 import { EventoService } from '../../../../services/evento.service';
-import {getErrorMessage} from "codelyzer/templateAccessibilityElementsContentRule";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 
 @Component({
@@ -188,9 +185,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     const getPropostaOrgSubordinada$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrgSubordinada);
     this.subs$.push(
       getProposta$.pipe(
+        catchError(_ => of(null)),
         switchMap(proposta => {
+          if(proposta){
           this.proposta = proposta;
           this.fichasSelecionadas = proposta.itensProposta;
+          }
           return getPropostaOrgSubordinada$;
         })
       ).subscribe(propostaSubordinada => {

@@ -45,6 +45,8 @@
 }
 
 .table-actions {
+  margin-top: 1rem;
+  margin-right: 1rem;
   display: flex;
   & > *:not(:last-child) {
     margin-right: 0.5rem;

@@ -18,10 +18,9 @@
         </a>
       </div>
       <div>
-        <com-icon (click)="showBasicDialog()" icon="pi pi-external-link" label="Show">info</com-icon>
+        <com-icon style="cursor: pointer" (click)="showBasicDialog()" icon="pi pi-external-link" label="Show">info</com-icon>
         <p-dialog  [(visible)]="displayModal" [modal]="true"
-                  header="{{item.indicacao.pessoa.nome}} - {{item.indicacao?.pessoa?.organizacao?.sigla}}
-"
+                  header="{{item.indicacao.pessoa.nome}} - {{item.indicacao?.pessoa?.organizacao?.sigla}}"
                   [style]="{width: '30vw'}" [baseZIndex]="10000">
           <h1 style="font-size: 20px; font-weight: bold;">Justificativa
             <div>
