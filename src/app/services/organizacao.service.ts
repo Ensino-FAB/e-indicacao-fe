@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
-import {Pageable} from '../core/models/pageable.model';
-import {take} from 'rxjs/operators';
-import {Organizacao} from '../models/organizacao.model';
-import {OrganizacaoSearchModel} from '../models/organizacao-search.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { Pageable } from '../core/models/pageable.model';
+import { take } from 'rxjs/operators';
+import { Organizacao } from '../models/organizacao.model';
+import { OrganizacaoSearchModel } from '../models/organizacao-search.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizacaoService {
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) { }
 
   private endpoint = `${environment.CURSOS_INDICACAO_API}/organizacao`;
 
   removeEmptyFields(data): void {
-    if(!data){
+    if (!data) {
       return;
     }
 
@@ -46,11 +46,11 @@ export class OrganizacaoService {
     return this.http.get<Organizacao>(`${this.endpoint}/${id}`).pipe(take(1));
   }
 
-  findOrganizacoesDiretamenteSubordinadas(cdOrg: number): Observable<Organizacao[]>{
+  findOrganizacoesDiretamenteSubordinadas(cdOrg: number): Observable<Organizacao[]> {
     return this.http.get<Organizacao[]>(`${this.endpoint}/${cdOrg}/subordinadas`);
   }
 
-  findOrganizacoesSuperiores (): Observable<Organizacao[]>{
+  findOrganizacoesSuperiores(): Observable<Organizacao[]> {
     return this.http.get<Organizacao[]>(`${this.endpoint}/org-superior`);
   }
 
@@ -59,7 +59,7 @@ export class OrganizacaoService {
     return this.http.post<Organizacao>(this.endpoint, data).pipe(take(1));
   }
 
-  update(data: Organizacao) {
+  update(data: Organizacao): Observable<Organizacao> {
     return this.http
       .put<Organizacao>(`${this.endpoint}/${data.id}`, data)
       .pipe(take(1));

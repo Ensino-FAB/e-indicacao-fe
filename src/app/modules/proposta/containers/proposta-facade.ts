@@ -1,3 +1,4 @@
+import { OrganizacaoSearchModel } from './../../../models/organizacao-search.model';
 import {OrganizacaoService} from './../../../services/organizacao.service';
 import {EventoService} from './../../../services/evento.service';
 import {PropostaResponse} from './../../../models/proposta.model';
@@ -49,8 +50,8 @@ export class PropostaFacade {
     return this.organizacaoService.findOrganizacoesSuperiores();
   }
 
-  existProposta(idEvento: number, idOrg: number): Observable<boolean> {
-    return this.propostaService.existsProposta(idEvento, idOrg);
+  existProposta(idEvento: number, idsOrg: OrganizacaoSearchModel): Observable<Organizacao[]> {
+    return this.propostaService.existsProposta(idEvento, idsOrg);
   }
 
   findPropostaByEventoId(idEvento: number, idOrg: number): Observable<PropostaResponse> {

@@ -1,8 +1,9 @@
+import { OrganizacaoSearchModel } from './../../../../models/organizacao-search.model';
 import { SelectButtonOrganizacao } from './../../../../models/organizacao.model';
 import { ToastService } from './../../../../shared/services/toast.service';
 import { PropostaRequest, PropostaResponse } from './../../../../models/proposta.model';
 import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/item-proposta.model';
-import { Subscription, of, timer } from 'rxjs';
+import { Subscription, of, timer, observable } from 'rxjs';
 import { PropostaFacade } from './../proposta-facade';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -20,6 +21,7 @@ import { EventoService } from '../../../../services/evento.service';
 export class AnaliseComponent implements OnInit, OnDestroy {
 
   organizacoes: SelectButtonOrganizacao[];
+  organizacoesTemp: SelectButtonOrganizacao[];
   organizacaoSelecionada: SelectButtonOrganizacao;
 
   private subs$: Subscription[] = [];
@@ -54,28 +56,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     });
   }
 
-  buscarOrgSuperiores(): void {
-    this.propostaFacade.findOrgSuperior()
-      .subscribe(orgs => {
-        const temp = orgs.map(org => {
-          return {
-            id: org.id,
-            sigla: org.sigla,
-            nome: org.nome,
-            cdOrg: org.cdOrg,
-            inativo: false,
-          };
-        });
-
-        temp.forEach(org => {
-          this.propostaFacade.existProposta(this.idEvento, org.id)
-            .subscribe(response => org.inativo = !response);
-        });
-        this.organizacoes = this.organizacoes.concat(temp);
-      });
-
-  }
-
   buscarFichasEPropostaOrgLogada(idOrg: number): void {
     const getProposta$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, idOrg);
     const getIndicacoes$ = this.propostaFacade
@@ -93,7 +73,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
           if (proposta) {
             this.proposta = proposta;
             this.fichasSelecionadas = proposta.itensProposta;
-          }else{
+          } else {
             this.proposta = null;
             this.fichasSelecionadas = [];
           }
@@ -115,23 +95,24 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     );
   }
 
-  buscarOrgSubordinadas(): void {
-    this.propostaFacade
-      .findOrganizacoesDiretamenteSubordinadas(this.orgLogada.cdOrg)
-      .subscribe(orgs => {
-        const temp = orgs.map(org => {
+  buscarOrgSuperiores(): void {
+    const getOrgsSuperior$ = this.propostaFacade.findOrgSuperior();
+
+    this.subs$.push(
+      getOrgsSuperior$.pipe(
+        switchMap(organizacoes => {
+          const idsOrg = organizacoes.map(org => org.id);
+          return this.propostaFacade.existProposta(this.idEvento, { idsOrg });
+        })
+      ).subscribe(response => {
+        const temp = response.map(org => {
           return {
             id: org.id,
             sigla: org.sigla,
             nome: org.nome,
             cdOrg: org.cdOrg,
-            inativo: false,
+            inativo: !org.existeProposta,
           };
-        });
-
-        temp.forEach(org => {
-          this.propostaFacade.existProposta(this.idEvento, org.id)
-            .subscribe(response => org.inativo = !response);
         });
 
         if (temp.length > 0) {
@@ -142,15 +123,52 @@ export class AnaliseComponent implements OnInit, OnDestroy {
             cdOrg: this.orgLogada.cdOrg,
             inativo: false
           });
+          this.organizacoes = this.organizacoes.concat(
+            temp.filter(org => org.id !== this.orgLogada.id)
+          );
+        }
+      })
+    );
+  }
 
+  buscarOrgSubordinadas(): void {
+    const getDiretamenteSubordinadas$ = this.propostaFacade
+      .findOrganizacoesDiretamenteSubordinadas(this.orgLogada.cdOrg);
+
+    this.subs$.push(
+      getDiretamenteSubordinadas$.pipe(
+        switchMap(organizacoes => {
+          const idsOrg = organizacoes.map(org => org.id);
+          return this.propostaFacade.existProposta(this.idEvento, { idsOrg });
+        })
+      ).subscribe(response => {
+        const temp = response.map(org => {
+          return {
+            id: org.id,
+            sigla: org.sigla,
+            nome: org.nome,
+            cdOrg: org.cdOrg,
+            inativo: !org.existeProposta,
+          };
+        });
+
+        if (temp.length > 0) {
+          temp.unshift({
+            id: this.orgLogada.id,
+            sigla: this.orgLogada.sigla,
+            nome: this.orgLogada.nome,
+            cdOrg: this.orgLogada.cdOrg,
+            inativo: false
+          });
           this.organizacoes = temp;
           this.organizacaoSelecionada = this.organizacoes[0];
-
-          if (this.orgLogada.id === this.evento.codOrganizacaoGestora) {
-            this.buscarOrgSuperiores();
-          }
         }
-      });
+
+        if (this.orgLogada.id === this.evento.codOrganizacaoGestora) {
+          this.buscarOrgSuperiores();
+        }
+      })
+    );
   }
 
   buscarProposta(cdOrg: number): void {

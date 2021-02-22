@@ -1,3 +1,5 @@
+import { Organizacao } from 'src/app/models/organizacao.model';
+import { OrganizacaoSearchModel } from './../models/organizacao-search.model';
 import {PropostaSearchModel} from './../models/proposta-search.model';
 import {take} from 'rxjs/operators';
 import {PropostaRequest, PropostaResponse} from './../models/proposta.model';
@@ -46,8 +48,9 @@ export class PropostaService {
     return this.http.get<PropostaResponse>(`${this.endpoint}/organizacao/${idOrg}/evento/${idEvento}`);
   }
 
-  existsProposta(idEvento: number, idOrg: number): Observable<boolean>{
-    return this.http.get<boolean>(`${this.endpoint}/existe/organizacao/${idOrg}/evento/${idEvento}`);
+  existsProposta(idEvento: number, idsOrg: OrganizacaoSearchModel): Observable<Organizacao[]>{
+    const params = new HttpParams({fromObject: idsOrg});
+    return this.http.get<Organizacao[]>(`${this.endpoint}/existe/evento/${idEvento}/organizacao`, {params});
   }
 
   delete(id: number): Observable<any> {
