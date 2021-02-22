@@ -4,12 +4,14 @@ import { PropostaRequest, PropostaResponse } from './../../../../models/proposta
 import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/item-proposta.model';
 import { Subscription, of, timer } from 'rxjs';
 import { PropostaFacade } from './../proposta-facade';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share, mapTo, takeUntil, mergeAll, switchMap, map, catchError, tap } from 'rxjs/operators';
 import { UserService } from '../../../../shared/services/user.service';
 import { Evento } from '../../../../models/evento.model';
 import { EventoService } from '../../../../services/evento.service';
+import {getErrorMessage} from "codelyzer/templateAccessibilityElementsContentRule";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 
 @Component({
@@ -30,7 +32,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   isLoading = false;
   fichas: ItemPropostaResponse[] = [];
   fichasSelecionadas: ItemPropostaResponse[] = [];
-  private orgLogada = this.userService.user.organizacao;
+  public orgLogada = this.userService.user.organizacao;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -43,8 +45,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
-    this.buscarEvento();
     this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
+    this.buscarEvento();
     this.buscarOrgSubordinadas();
   }
 
@@ -239,12 +241,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
     this.subs$.push(
       salvarProposta$.subscribe(response => {
-        this.proposta = response;
-        this.toast.show({
-          message: 'A proposta foi salva com sucesso!',
-          type: 'success',
-        });
-      }
+          this.proposta = response;
+          this.toast.show({
+            message: 'A proposta foi salva com sucesso!',
+            type: 'success',
+          });
+        }
       )
     );
   }
@@ -293,11 +295,23 @@ export class AnaliseComponent implements OnInit, OnDestroy {
         message: 'A proposta foi finalizada com sucesso',
         type: 'success',
       });
+      this.refresh();;
     });
   }
 
+  sendProposta(): void {
+    this.propostaFacade.sendProposta(this.proposta.id).subscribe(response => {
+      this.buscarFichas(this.orgLogada.id);
+      this.toast.show({
+        message: 'A proposta foi enviada com sucesso',
+        type: 'success',
+      });
+    });
+  }
+
+
   onOptionClick(event: any): void {
-    const { option } = event;
+    const {option} = event;
     if (this.orgLogada.id === option.id) {
       this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     } else {
@@ -331,6 +345,10 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     this.fichasSelecionadas.forEach((ind, i) => {
       ind.prioridade = i + 1;
     });
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
   ngOnDestroy(): void {

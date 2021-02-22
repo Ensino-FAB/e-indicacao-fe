@@ -32,7 +32,7 @@ export class PropostaService {
     return this.http.post(this.endpoint, record).pipe(take(1)) as Observable<PropostaResponse>;
   }
 
-  update(proposta: PropostaRequest): Observable<any>{
+  update(proposta: PropostaRequest): Observable<any> {
     return this.http.put(this.endpoint, proposta);
   }
 
@@ -42,11 +42,11 @@ export class PropostaService {
     return this.http.get<any>(this.endpoint, {params});
   }
 
-  findPropostaByEventoId(idEvento: number, idOrg: number): Observable<PropostaResponse>{
+  findPropostaByEventoId(idEvento: number, idOrg: number): Observable<PropostaResponse> {
     return this.http.get<PropostaResponse>(`${this.endpoint}/organizacao/${idOrg}/evento/${idEvento}`);
   }
 
-  existsProposta(idEvento: number, idOrg: number): Observable<boolean>{
+  existsProposta(idEvento: number, idOrg: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.endpoint}/existe/organizacao/${idOrg}/evento/${idEvento}`);
   }
 
@@ -56,5 +56,9 @@ export class PropostaService {
 
   encerrarProposta(id: number): Observable<any> {
     return this.http.put<any>(`${this.endpoint}/${id}/encerrar-proposta`, {});
+  }
+
+  sendProposta(id: number): Observable<any> {
+    return this.http.patch<any>(`${this.endpoint}/${id}/enviar`, {});
   }
 }
