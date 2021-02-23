@@ -165,7 +165,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
           temp.unshift(orgPrincipal);
           this.organizacoes = temp;
           this.organizacaoSelecionada = this.organizacoes[0];
-        }else{
+        } else {
           this.organizacaoSelecionada = orgPrincipal;
         }
 
@@ -236,36 +236,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   salvarProposta(): void {
-    this.validarProposta();
-
-    const itensProposta = this.fichasSelecionadas.map(item => {
-      const itemPropostaRequest: ItemPropostaRequest = {
-        id: null,
-        prioridade: item.prioridade,
-        indicacaoId: item.indicacao.id
-      };
-
-      return itemPropostaRequest;
-    });
-
-    const proposta = this.gerarProposta(itensProposta);
-
-    const salvarProposta$ =
-      proposta.id ? this.propostaFacade.updateProposta(proposta) : this.propostaFacade.createProposta(proposta);
-
-    this.subs$.push(
-      salvarProposta$.subscribe(response => {
-        this.proposta = response;
-        this.toast.show({
-          message: 'A proposta foi salva com sucesso!',
-          type: 'success',
-        });
-      }
-      )
-    );
-  }
-
-  validarProposta(): void {
     if (this.fichasSelecionadas.length === 0) {
       if (this.proposta) {
         this.propostaFacade.deleteProposta(this.proposta.id)
@@ -283,8 +253,32 @@ export class AnaliseComponent implements OnInit, OnDestroy {
         message: 'É necessário selecionar alguma ficha para salvar a proposta',
         type: 'error',
       });
+    } else {
+      const itensProposta = this.fichasSelecionadas.map(item => {
+        const itemPropostaRequest: ItemPropostaRequest = {
+          id: null,
+          prioridade: item.prioridade,
+          indicacaoId: item.indicacao.id
+        };
 
-      return;
+        return itemPropostaRequest;
+      });
+
+      const proposta = this.gerarProposta(itensProposta);
+
+      const salvarProposta$ =
+        proposta.id ? this.propostaFacade.updateProposta(proposta) : this.propostaFacade.createProposta(proposta);
+
+      this.subs$.push(
+        salvarProposta$.subscribe(response => {
+          this.proposta = response;
+          this.toast.show({
+            message: 'A proposta foi salva com sucesso!',
+            type: 'success',
+          });
+        }
+        )
+      );
     }
   }
 
