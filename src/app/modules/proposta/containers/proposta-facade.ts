@@ -54,8 +54,8 @@ export class PropostaFacade {
     return this.propostaService.existsProposta(idEvento, idsOrg);
   }
 
-  findPropostaByEventoId(idEvento: number, idOrg: number): Observable<PropostaResponse> {
-    return this.propostaService.findPropostaByEventoId(idEvento, idOrg);
+  findPropostaByEventoId(idEvento: number, idOrg: number, statusProposta: string): Observable<PropostaResponse> {
+    return this.propostaService.findPropostaByEventoId(idEvento, idOrg, statusProposta);
   }
 
   finishProposta(id: number): Observable<any> {

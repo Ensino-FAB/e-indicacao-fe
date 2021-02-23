@@ -44,8 +44,8 @@ export class PropostaService {
     return this.http.get<any>(this.endpoint, {params});
   }
 
-  findPropostaByEventoId(idEvento: number, idOrg: number): Observable<PropostaResponse> {
-    return this.http.get<PropostaResponse>(`${this.endpoint}/organizacao/${idOrg}/evento/${idEvento}`);
+  findPropostaByEventoId(idEvento: number, idOrg: number, status: string): Observable<PropostaResponse> {
+    return this.http.get<PropostaResponse>(`${this.endpoint}/status/${status}/organizacao/${idOrg}/evento/${idEvento}`);
   }
 
   existsProposta(idEvento: number, idsOrg: OrganizacaoSearchModel): Observable<Organizacao[]>{

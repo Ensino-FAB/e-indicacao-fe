@@ -4,7 +4,7 @@ import { PropostaRequest, PropostaResponse } from './../../../../models/proposta
 import { ItemPropostaRequest, ItemPropostaResponse } from './../../../../models/item-proposta.model';
 import { Subscription, of, timer } from 'rxjs';
 import { PropostaFacade } from './../proposta-facade';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share, mapTo, takeUntil, mergeAll, switchMap, map, catchError } from 'rxjs/operators';
 import { UserService } from '../../../../shared/services/user.service';
@@ -56,7 +56,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   buscarFichasEPropostaOrgLogada(idOrg: number): void {
-    const getProposta$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, idOrg);
+    const getProposta$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, idOrg, 'ABERTA');
     const getIndicacoes$ = this.propostaFacade
       .findAllIndicacoesByEvento(
         {
@@ -170,26 +170,16 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     );
   }
 
-  buscarProposta(cdOrg: number): void {
-    this.subs$.push(
-      this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrg)
-        .subscribe(response => {
-          this.proposta = response;
-          this.fichasSelecionadas = response.itensProposta;
-        })
-    );
-  }
-
   buscarPropostaOrgSubordinada(cdOrgSubordinada: number): void {
-    const getProposta$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, this.orgLogada.id);
-    const getPropostaOrgSubordinada$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrgSubordinada);
+    const getProposta$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, this.orgLogada.id, 'ABERTA');
+    const getPropostaOrgSubordinada$ = this.propostaFacade.findPropostaByEventoId(this.idEvento, cdOrgSubordinada, 'FINALIZADA');
     this.subs$.push(
       getProposta$.pipe(
         catchError(_ => of(null)),
         switchMap(proposta => {
-          if(proposta){
-          this.proposta = proposta;
-          this.fichasSelecionadas = proposta.itensProposta;
+          if (proposta) {
+            this.proposta = proposta;
+            this.fichasSelecionadas = proposta.itensProposta;
           }
           return getPropostaOrgSubordinada$;
         })
@@ -259,12 +249,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
     this.subs$.push(
       salvarProposta$.subscribe(response => {
-          this.proposta = response;
-          this.toast.show({
-            message: 'A proposta foi salva com sucesso!',
-            type: 'success',
-          });
-        }
+        this.proposta = response;
+        this.toast.show({
+          message: 'A proposta foi salva com sucesso!',
+          type: 'success',
+        });
+      }
       )
     );
   }
@@ -297,7 +287,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       id: this.proposta?.id ? this.proposta.id : undefined,
       dataInclusao: this.proposta ? this.proposta.dataInclusao : new Date(),
       eventoId: this.idEvento,
-      observacoes: 'criar textArea para observações e como buscar a organização do usuário logado',
+      observacoes: 'criar textArea para observações',
       codOrganizacao: this.orgLogada.id,
       statusProposta: 'ABERTA',
       itensProposta
@@ -329,7 +319,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
 
   onOptionClick(event: any): void {
-    const {option} = event;
+    const { option } = event;
     if (this.orgLogada.id === option.id) {
       this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     } else {
