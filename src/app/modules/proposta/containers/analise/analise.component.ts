@@ -44,8 +44,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
-    this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     this.buscarEvento();
+    this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     this.buscarOrgSubordinadas();
   }
 
@@ -114,14 +114,16 @@ export class AnaliseComponent implements OnInit, OnDestroy {
           };
         });
 
+        const orgPrincipal = {
+          id: this.orgLogada.id,
+          sigla: this.orgLogada.sigla,
+          nome: this.orgLogada.nome,
+          cdOrg: this.orgLogada.cdOrg,
+          inativo: false
+        };
+
         if (temp.length > 0) {
-          temp.unshift({
-            id: this.orgLogada.id,
-            sigla: this.orgLogada.sigla,
-            nome: this.orgLogada.nome,
-            cdOrg: this.orgLogada.cdOrg,
-            inativo: false
-          });
+          temp.unshift(orgPrincipal);
           this.organizacoes = this.organizacoes.concat(
             temp.filter(org => org.id !== this.orgLogada.id)
           );
@@ -151,16 +153,20 @@ export class AnaliseComponent implements OnInit, OnDestroy {
           };
         });
 
+        const orgPrincipal = {
+          id: this.orgLogada.id,
+          sigla: this.orgLogada.sigla,
+          nome: this.orgLogada.nome,
+          cdOrg: this.orgLogada.cdOrg,
+          inativo: false
+        };
+
         if (temp.length > 0) {
-          temp.unshift({
-            id: this.orgLogada.id,
-            sigla: this.orgLogada.sigla,
-            nome: this.orgLogada.nome,
-            cdOrg: this.orgLogada.cdOrg,
-            inativo: false
-          });
+          temp.unshift(orgPrincipal);
           this.organizacoes = temp;
           this.organizacaoSelecionada = this.organizacoes[0];
+        }else{
+          this.organizacaoSelecionada = orgPrincipal;
         }
 
         if (this.orgLogada.id === this.evento.codOrganizacaoGestora) {
