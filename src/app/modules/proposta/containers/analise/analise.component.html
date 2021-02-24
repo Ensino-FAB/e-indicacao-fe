@@ -1,14 +1,15 @@
 <section>
   <div class="flex-container col wrapper">
     <div class="aside-wrapper">
-      <h2 class="indicacao-page-title">Análise das indicações</h2>
+      <h2 class="indicacao-page-title">Análise das indicações </h2>
+      <br>
+      <p-message  severity="info" text="Período de Indicação &nbsp; {{ evento?.dataInicioIndicacao  | date:'dd/MM/yyyy' }} a {{ evento?.dataTerminoIndicacao | date:'dd/MM/yyyy' }}"></p-message>
     </div>
     <div class="div-botoes-om">
       <p-selectButton class="texto-btn-om" [options]="organizacoes" [(ngModel)]="organizacaoSelecionada" optionLabel="sigla"
         optionDisabled="inativo" (onOptionClick)="onOptionClick($event)">
       </p-selectButton>
     </div>
-
     <p-pickList [source]="fichas" [target]="fichasSelecionadas" [disabled]="isLoading" sourceHeader="Fichas de indicação"
       targetHeader="Fichas selecionadas" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
       [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"

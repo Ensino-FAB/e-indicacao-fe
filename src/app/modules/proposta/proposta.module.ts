@@ -20,24 +20,26 @@ import {
   TextareaModule as TextareaModuleCCA,
   InputModule as InputModuleCCA,
 } from '@cca-fab/cca-fab-components-common';
+import {MessageModule} from 'primeng/message';
 
 
 
 @NgModule({
   declarations: [AnaliseComponent, ConsultaComponent, CardParticipantDetailComponent, ItemParticipanteComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(PROPOSTA_ROUTES),
-    PrimengComponentsModule,
-    ButtonModuleCCA,
-    IconModuleCCA,
-    TableModuleCCA,
-    LabelModuleCCA,
-    FormModuleCCA,
-    SelectModuleCCA,
-    TextareaModuleCCA,
-    InputModuleCCA,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(PROPOSTA_ROUTES),
+        PrimengComponentsModule,
+        ButtonModuleCCA,
+        IconModuleCCA,
+        TableModuleCCA,
+        LabelModuleCCA,
+        FormModuleCCA,
+        SelectModuleCCA,
+        TextareaModuleCCA,
+        InputModuleCCA,
+        MessageModule,
+    ],
   providers: [PropostaFacade]
 })
 export class PropostaModule { }
