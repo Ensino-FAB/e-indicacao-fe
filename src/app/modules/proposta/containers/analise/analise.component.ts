@@ -298,12 +298,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
   encerrarProposta(): void {
     this.propostaFacade.finishProposta(this.proposta.id).subscribe(response => {
+      this.proposta = response;
       this.buscarFichas(this.orgLogada.id);
       this.toast.show({
         message: 'A proposta foi finalizada com sucesso',
         type: 'success',
       });
-      this.refresh();;
     });
   }
 
@@ -353,10 +353,6 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     this.fichasSelecionadas.forEach((ind, i) => {
       ind.prioridade = i + 1;
     });
-  }
-
-  refresh(): void {
-    window.location.reload();
   }
 
   ngOnDestroy(): void {
