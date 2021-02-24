@@ -1,5 +1,5 @@
 <com-form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <com-form-section formTitle="Organização Beneficiada" step="3">
+  <com-form-section formTitle="Organização Beneficiada" step="1">
 
     <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption (changed)="filterOrganizacao($event)"
       label="Filtrar por nome" [options]="organizacaoIdOptions" [invalid]="
@@ -10,7 +10,7 @@
   </com-form-section>
 
 
-  <com-form-section formTitle="Dados da Pessoa" step="4">
+  <com-form-section formTitle="Dados da Pessoa" step="2">
 
     <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption (changed)="filterPessoa($event)"
       label="Filtrar por nome" [options]="pessoaIdOptions" [invalid]="
