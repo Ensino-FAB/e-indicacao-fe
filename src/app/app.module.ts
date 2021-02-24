@@ -1,7 +1,7 @@
 import { SubNavModule } from './shared/components/sub-nav/sub-nav.module';
 import { NavModule } from './shared/components/nav/nav.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
@@ -13,7 +13,7 @@ import {
   DropmenuModule,
 } from '@cca-fab/cca-fab-components-common';
 import { environment } from '../environments/environment';
-import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ToastService } from './shared/services/toast.service';
 import { ToastModule } from './shared/components/toast/toast.module';
 import { HttpErrorInterceptor } from './http-error.interceptor';
@@ -67,7 +67,6 @@ const authProvider = authProviderBuilder({
       useClass: HttpErrorInterceptor,
       multi: true,
     },
-
   ],
   bootstrap: [AppComponent]
 })

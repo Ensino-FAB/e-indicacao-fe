@@ -32,7 +32,7 @@
       <com-button (click)="back.emit()">
         <ng-container slot="text">anterior</ng-container>
       </com-button>
-      <com-button fill routerLink="'indicacao'">
+      <com-button fill (click)="voltarAnalise.emit()">
         <ng-container slot="text">voltar para a lista</ng-container>
       </com-button>
       <com-button (click)="next.emit()"  fill confirm>

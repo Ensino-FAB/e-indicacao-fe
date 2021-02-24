@@ -4,91 +4,87 @@
       <section>
         <div class="grid-container">
           <div style="display: flex">
-            <div
-              style="
+            <div style="
               display: flex;
               align-items: flex-start;
               width: 50%;
               flex-direction: column;
-            "
-            >
+            ">
               <br>
               <div class="flex-container col" style="margin-bottom: 3rem">
                 <com-label>Sigla</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.sigla }}
-              </span>
+                  {{ evento?.sigla }}
+                </span>
                 <br>
 
                 <com-label>Descrição</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.descricao }}
-              </span>
+                  {{ evento?.descricao }}
+                </span>
                 <br>
                 <com-label>Categoria</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                              {{ evento?.categoria.titulo }}
-                            </span>
+                  {{ evento?.categoria.titulo }}
+                </span>
                 <br>
                 <com-label>Data Início</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataInicio | date}}
-              </span>
+                  {{ evento?.dataInicio | date}}
+                </span>
                 <br>
                 <com-label>Início da Indicação</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataInicioIndicacao | date}}
-              </span>
+                  {{ evento?.dataInicioIndicacao | date}}
+                </span>
                 <br>
                 <com-label>Status</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.statusEvento }}
-              </span>
+                  {{ evento?.statusEvento }}
+                </span>
               </div>
             </div>
           </div>
 
           <div style="display: flex">
-            <div
-              style="
+            <div style="
               display: flex;
               align-items: flex-start;
               width: 50%;
               flex-direction: column;
-            "
-            >
+            ">
               <br>
               <div class="flex-container col" style="margin-bottom: 3rem">
                 <com-label>Nome</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.nome }}
-              </span>
+                  {{ evento?.nome }}
+                </span>
                 <br>
                 <com-label>Observações</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.observacoes }}
-              </span>
+                  {{ evento?.observacoes }}
+                </span>
                 <br>
                 <com-label>Organização Gestora</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.organizacaoResponse.nome }}
-              </span>
+                  {{ evento?.organizacaoResponse.nome }}
+                </span>
                 <br>
 
                 <com-label>Data Término</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataTermino | date}}
-              </span>
+                  {{ evento?.dataTermino | date}}
+                </span>
                 <br>
                 <com-label>Término da Indicação</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.dataTerminoIndicacao | date}}
-              </span>
+                  {{ evento?.dataTerminoIndicacao | date}}
+                </span>
                 <br>
                 <com-label>Ticket</com-label>
                 <span [ngClass]="{ skeleton: loading }">
-                {{ evento?.ticket }}
-              </span>
+                  {{ evento?.ticket }}
+                </span>
               </div>
             </div>
           </div>

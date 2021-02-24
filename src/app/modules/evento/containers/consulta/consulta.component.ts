@@ -34,22 +34,22 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     {
       field: 'sigla',
       title: 'Sigla',
-      width: '15%',
+      width: '10%',
     },
     {
       field: 'nome',
       title: 'Nome',
-      width: '15%',
+      width: '25%',
     },
     {
       field: 'categoriaTitulo',
       title: 'Categoria',
-      width: '20%',
+      width: '15%',
     },
     {
       field: 'organizacaoGestoraSigla',
       title: 'Organização Gestora',
-      width: '20%',
+      width: '15%',
     },
     {
       field: 'statusEvento',
@@ -140,38 +140,38 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     );
   }
 
-  handlePageSizeChange(newSize: number) {
+  handlePageSizeChange(newSize: number): void {
     this.pageSize = newSize;
     this.page = 1;
     this.refresh();
   }
 
-  onFirstPage() {
+  onFirstPage(): void {
     this.page = 1;
     this.refresh();
   }
 
-  onLastPage() {
+  onLastPage(): void {
     this.page = this.totalPages;
     this.refresh();
   }
 
-  handlePageIndexChange(page: number) {
+  handlePageIndexChange(page: number): void {
     this.page = page;
     this.refresh();
   }
 
-  handleNextPage() {
+  handleNextPage(): void {
     this.page = Math.min(this.page + 1, this.totalPages);
     this.refresh();
   }
 
-  handlePreviousPage() {
+  handlePreviousPage(): void {
     this.page = Math.max(this.page - 1, 1);
     this.refresh();
   }
 
-  handleSortChange(a) {
+  handleSortChange(a): void {
     this.page = 1;
     if (a === null) {
       this.orderBy = ['id'];
@@ -181,12 +181,12 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     this.refresh();
   }
 
-  handleInvertSort() {
+  handleInvertSort(): void {
     this.asc = !this.asc;
     this.refresh();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.page = 1;
     this.refresh();
   }
@@ -203,7 +203,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     );
   }
 
-  clean() {
+  clean(): void {
     this.eventoSearch.reset();
     this.refresh();
   }

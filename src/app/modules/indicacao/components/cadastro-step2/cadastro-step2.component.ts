@@ -1,11 +1,11 @@
 import {Component, OnInit, Output, EventEmitter, Input, OnDestroy} from '@angular/core';
-import {fadeInOut} from "../../../../shared/utils/animation";
-import {Subscription} from "rxjs";
-import {SelectOption} from "@cca-fab/cca-fab-components-common/types/select";
-import {FormArray, FormBuilder, Validators} from "@angular/forms";
-import {ToastService} from "../../../../shared/services/toast.service";
-import {Router} from "@angular/router";
-import {IndicacaoService} from "../../../../services/indicacao.service";
+import {fadeInOut} from '../../../../shared/utils/animation';
+import {Subscription} from 'rxjs';
+import {SelectOption} from '@cca-fab/cca-fab-components-common/types/select';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {ToastService} from '../../../../shared/services/toast.service';
+import {Router} from '@angular/router';
+import {IndicacaoService} from '../../../../services/indicacao.service';
 
 @Component({
   selector: 'app-cadastro-step2',
@@ -19,6 +19,7 @@ export class CadastroStep2Component implements OnInit, OnDestroy {
 
   @Output() next = new EventEmitter();
   @Output() back = new EventEmitter();
+  @Output() voltarAnalise = new EventEmitter();
 
   itensOptions: SelectOption[] = [];
 

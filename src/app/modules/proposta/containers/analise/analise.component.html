@@ -1,19 +1,36 @@
 <section>
   <div class="flex-container col wrapper">
     <div class="aside-wrapper">
-      <h2 class="indicacao-page-title">Análise das indicações</h2>
+      <div class="flex-container between">
+        <div>
+          <h2 class="indicacao-page-title">Análise das indicações ({{this.evento.nome}})</h2>
+          <h2 class="indicacao-page-evento-info">
+            Período de indicação: {{this.evento.dataInicioIndicacao | date:'dd/MM/yyy'}} a
+            {{this.evento.dataTerminoIndicacao | date:'dd/MM/yyy'}}
+          </h2>
+        </div>
+        <div style="align-self: center;">
+          <a [routerLink]="['/evento']">
+            <com-button fill primary>
+              <com-icon slot="icon">keyboard_backspace</com-icon>
+            </com-button>
+          </a>
+        </div>
+      </div>
     </div>
+
     <div class="div-botoes-om">
-      <p-selectButton class="texto-btn-om" [options]="organizacoes" [(ngModel)]="organizacaoSelecionada" optionLabel="sigla"
-        optionDisabled="inativo" (onOptionClick)="onOptionClick($event)">
+      <p-selectButton class="texto-btn-om" [options]="organizacoes" [(ngModel)]="organizacaoSelecionada"
+        optionLabel="sigla" optionDisabled="inativo" (onOptionClick)="onOptionClick($event)">
       </p-selectButton>
     </div>
 
-    <p-pickList [source]="fichas" [target]="fichasSelecionadas" [disabled]="isLoading" sourceHeader="Fichas de indicação"
-      targetHeader="Fichas selecionadas" dragdrop="true" styleClass="test" [sourceStyle]="{'height':'300px'}"
-      [targetStyle]="{'height':'300px'}" [responsive]="true" (onTargetReorder)="onTargetReorder($event)"
-      (onMoveToTarget)="onMoveToTarget($event)" (onMoveAllToTarget)="onMoveToTarget($event)"
-      (onMoveToSource)="onMoveToSource($event)" (onMoveAllToSource)="onMoveAllToSource($event)">
+    <p-pickList [source]="fichas" [target]="fichasSelecionadas" [disabled]="isLoading"
+      sourceHeader="Fichas de indicação" targetHeader="Fichas selecionadas" dragdrop="true" styleClass="test"
+      [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [responsive]="true"
+      (onTargetReorder)="onTargetReorder($event)" (onMoveToTarget)="onMoveToTarget($event)"
+      (onMoveAllToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSource($event)"
+      (onMoveAllToSource)="onMoveAllToSource($event)">
       <ng-template let-pickListItem pTemplate="item">
         <div class="p-mb-3">
           <app-item-participante [item]='pickListItem'></app-item-participante>
@@ -25,23 +42,19 @@
       <footer class="flex-container end">
 
         <com-button fill confirm (click)="sendProposta()"
-                    *ngIf="this.proposta?.status == 'FINALIZADA'  && this.proposta?.status && this.orgLogada.id === this.evento.codOrganizacaoGestora">
+          *ngIf="this.proposta?.status == 'FINALIZADA'  && this.proposta?.status && this.orgLogada.id === this.evento.codOrganizacaoGestora">
           <a slot="text">Enviar</a>
         </com-button>
 
         <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]"
-                    *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta"
-                    [disabled]="proposta?.status == 'FINALIZADA'"
-        >
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA'">
           <a slot="text">Nova Ficha</a>
         </com-button>
         <com-button fill secondary (click)="encerrarProposta()"
-                    *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta"
-                    [disabled]="proposta?.status == 'FINALIZADA'">
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA'">
           <a slot="text">Encerra Análise</a>
         </com-button>
-        <com-button fill confirm (click)="salvarProposta()"
-                    *ngIf="this.proposta?.status == 'ABERTA' || !this.proposta"
+        <com-button fill confirm (click)="salvarProposta()" *ngIf="this.proposta?.status == 'ABERTA' || !this.proposta"
           [disabled]="proposta?.status == 'FINALIZADA'">
           <a slot="text">Salvar</a>
         </com-button>

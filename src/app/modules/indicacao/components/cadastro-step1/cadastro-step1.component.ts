@@ -73,7 +73,7 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
   onSubmit(): void {
   }
 
-  onNext() {
+  onNext(): void {
     this.next.emit(this.form.value);
   }
 

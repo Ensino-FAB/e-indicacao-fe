@@ -65,6 +65,10 @@ export class CadastroComponent implements OnInit {
     }
   }
 
+  voltarParaAnalise(): void {
+    this.router.navigate(['proposta', 'evento', this.idEvento]);
+  }
+
   nextStep(): void {
     window.scroll({
       behavior: 'smooth',
@@ -105,5 +109,10 @@ export class CadastroComponent implements OnInit {
     });
 
     --this.currentStep;
+  }
+
+  cleanForm(): void {
+    // this.form.reset();
+    // this.currentStep = 1;
   }
 }

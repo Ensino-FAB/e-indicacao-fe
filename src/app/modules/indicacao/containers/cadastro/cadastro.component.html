@@ -1,7 +1,7 @@
 <div>
   <header>
     <div class="flex-container between">
-      <h1>cadastro de indicação</h1>
+      <h1>cadastro de fichas</h1>
       <div class="flex-container middle">
         <com-button
           *ngIf="currentStep < 3"
@@ -10,16 +10,6 @@
           outline
         >
           <span slot="text">limpar formulário</span>
-        </com-button>
-
-        <com-button
-          *ngIf="currentStep === 3"
-          (click)="newFin()"
-          primary
-          outline
-        >
-          <com-icon slot="icon">add</com-icon>
-          <span slot="text">cadastrar nova</span>
         </com-button>
       </div>
     </div>
@@ -44,6 +34,7 @@
         *ngIf="currentStep === 2"
         (back)="previousStep()"
         (next)="nextStep()"
+        (voltarAnalise)="voltarParaAnalise()"
         [formInvalid]="form.invalid"
       ></app-cadastro-step2>
     </div>
