@@ -29,6 +29,13 @@
     font-size: 17px;
   }
 
+  ::ng-deep .p-inline-message .p-inline-message-text{
+    font-size: 1.5rem;
+  }
+
+  ::ng-deep .pi-info-circle:before {
+    font-size: 15px;
+  }
 
   ::ng-deep .p-button.p-button-icon-only {
     color: white;

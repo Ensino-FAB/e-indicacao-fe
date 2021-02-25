@@ -4,10 +4,10 @@
       <div class="flex-container between">
         <div>
           <h2 class="indicacao-page-title">Análise das indicações ({{this.evento.nome}})</h2>
-          <h2 class="indicacao-page-evento-info">
-            Período de indicação: {{this.evento.dataInicioIndicacao | date:'dd/MM/yyy'}} a
-            {{this.evento.dataTerminoIndicacao | date:'dd/MM/yyy'}}
-          </h2>
+          <br>
+          <p-message severity="info"
+            text="Período de Indicação &nbsp; {{ evento?.dataInicioIndicacao  | date:'dd/MM/yyyy' }} a {{ evento?.dataTerminoIndicacao | date:'dd/MM/yyyy' }}">
+          </p-message>
         </div>
         <div style="align-self: center;">
           <a [routerLink]="['/evento']">
@@ -17,6 +17,7 @@
           </a>
         </div>
       </div>
+
     </div>
 
     <div class="div-botoes-om">
