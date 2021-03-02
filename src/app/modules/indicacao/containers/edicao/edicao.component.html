@@ -17,22 +17,12 @@
             formControlName="justificativa"
             label="Justificativa"
             class="full-width"
-            [invalid]="
-              (indicacaoForm.get('justificativa').invalid &&
-                indicacaoForm.get('justificativa').touched) ||
-              indicacaoForm.errors?.justificativa
-            "
           ></com-textarea>
 
           <com-textarea
             formControlName="observacoes"
             label="Observações"
             class="full-width"
-            [invalid]="
-              (indicacaoForm.get('observacoes').invalid &&
-                indicacaoForm.get('observacoes').touched) ||
-              indicacaoForm.errors?.observacoes
-            "
           ></com-textarea>
 
         </com-form-section>
@@ -52,7 +42,6 @@
                 confirm
                 type="submit"
                 [form]="formId"
-                [disabled]="indicacaoForm.invalid"
               >
                 <ng-container slot="text">confirmar edição</ng-container>
               </com-button>
