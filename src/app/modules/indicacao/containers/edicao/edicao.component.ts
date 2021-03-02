@@ -61,7 +61,7 @@ export class EdicaoComponent implements OnInit, OnDestroy {
               message: 'A ficha indicação foi editada com sucesso!',
               type: 'success',
             });
-            this.router.navigate(['evento']);
+            this.router.navigate(['proposta/evento/'+this.indicacaoForm.value.evento.id]);
           })
       );
     } else {
