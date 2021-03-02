@@ -32,8 +32,8 @@ export class EdicaoComponent implements OnInit, OnDestroy {
 
     this.indicacaoForm = this.formBuilder.group({
       id: ['', Validators.required],
-      justificativa: ['', Validators.required],
-      observacoes: ['', Validators.required],
+      justificativa: [''],
+      observacoes: [''],
       evento: ['',] ,
       codPessoa: ['',] ,
       pessoa: ['',] ,

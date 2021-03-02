@@ -45,7 +45,8 @@ export class CadastroComponent implements OnInit {
 
     this.form = this.fb.group({
       codOrganizacaoBeneficiada: ['', Validators.required],
-      justificativa: ['', Validators.required],
+      codOrganizacaoSolicitante: ['', Validators.required],
+      justificativa: [''],
       observacoes: [''],
       codPessoa: [''],
     });
