@@ -18,6 +18,7 @@ export class CadastroStep1Component implements OnInit, OnDestroy {
   organizacaoIdOptions: SelectOption[] = [];
 
   @Output() next = new EventEmitter();
+  @Output() voltarAnalise = new EventEmitter();
   @Input() form: FormGroup;
 
   constructor(private facade: IndicacaoFacade) {

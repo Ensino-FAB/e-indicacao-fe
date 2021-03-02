@@ -26,6 +26,7 @@
         [form]="form"
         *ngIf="currentStep === 1"
         (next)="nextStep()"
+        (voltarAnalise)="voltarParaAnalise()"
       ></app-cadastro-step1>
     </div>
     <div class="wrapper">

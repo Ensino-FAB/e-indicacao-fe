@@ -22,6 +22,9 @@
 
   <com-form-section block>
     <footer class="flex-container end">
+      <com-button fill (click)="voltarAnalise.emit()">
+        <ng-container slot="text">voltar para a lista</ng-container>
+      </com-button>
       <com-button primary (click)="onNext()">
         <span slot="text">próximo</span>
       </com-button>
