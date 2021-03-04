@@ -48,6 +48,8 @@ export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
       categoria: new FormControl({disabled:true}, Validators.required),
       categoriaId: new FormControl('', Validators.required),
       codOrganizacaoGestora: new FormControl('', Validators.required),
+      siglaOrganizacaoGestora: new FormControl('', Validators.required),
+      nomeOrganizacaoGestora: new FormControl('', Validators.required),
       descricao: new FormControl(''),
       nome: new FormControl('', Validators.required),
       dataInicio: new FormControl(''),

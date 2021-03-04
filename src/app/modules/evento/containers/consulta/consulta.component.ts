@@ -47,7 +47,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       width: '15%',
     },
     {
-      field: 'organizacaoGestoraSigla',
+      field: 'siglaOrganizacaoGestora',
       title: 'Organização Gestora',
       width: '15%',
     },
@@ -63,7 +63,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     sigla: '',
     nome: '',
     categoriaTitulo: '',
-    organizacaoGestoraSigla: '',
+    siglaOrganizacaoGestora: '',
     statusEvento: '',
   });
 
@@ -87,7 +87,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.options = [
       {name: 'Categoria', value: 'categoriaTitulo'},
-      {name: 'Organização Gestora', value: 'organizacaoGestoraSigla'},
+      {name: 'Organização Gestora', value: 'siglaOrganizacaoGestora'},
       {name: 'Nome', value: 'nome'},
       {name: 'Sigla', value: 'sigla'},
       {name: 'Status', value: 'statusEvento'},
@@ -122,7 +122,9 @@ export class ConsultaComponent implements OnInit, OnDestroy {
           categoriaId: `${item.categoriaId}`,
           categoriaTitulo: `${item.categoria.titulo}`,
           codOrganizacaoGestora: `${item.codOrganizacaoGestora}`,
-          organizacaoGestoraSigla: `${item.organizacaoResponse.sigla}`,
+          siglaOrganizacaoGestora: `${item.siglaOrganizacaoGestora}`,
+          nomeOrganizacaoGestora: `${item.nomeOrganizacaoGestora}`,
+          // organizacaoGestoraSigla: `${item.organizacaoResponse.sigla}`,
           dataInicio: `${item.dataInicio}`,
           dataInicioIndicacao: `${item?.dataInicioIndicacao}`,
           dataTermino: `${item.dataTermino}`,

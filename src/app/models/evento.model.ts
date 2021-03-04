@@ -7,6 +7,8 @@ export interface Evento extends BaseModel {
   categoriaId: number;
   categoria?: Categoria;
   codOrganizacaoGestora: number;
+  siglaOrganizacaoGestora: string;
+  nomeOrganizacaoGestora: string;
   organizacaoResponse: Organizacao;
   dataInicio: Date;
   dataInicioIndicacao: Date;

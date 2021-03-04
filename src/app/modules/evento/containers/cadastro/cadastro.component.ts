@@ -56,6 +56,8 @@ export class CadastroComponent implements OnInit {
       id: [''],
       categoriaId: ['', Validators.required],
       codOrganizacaoGestora: ['', Validators.required],
+      siglaOrganizacaoGestora: new FormControl('', Validators.required),
+      nomeOrganizacaoGestora: new FormControl('', Validators.required),
       descricao: [''],
       nome: ['', Validators.required],
       dataInicio: ['', Validators.required],
