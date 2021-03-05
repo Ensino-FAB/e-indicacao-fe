@@ -37,8 +37,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
           this.injector.get(ToastService).show({
             message: errorMessage,
-            type: 'error',
-          });
+              type: e.status === 428? 'alert': 'error',
+        });
         }
         return throwError(errorMessage);
       })
