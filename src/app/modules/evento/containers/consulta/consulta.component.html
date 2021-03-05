@@ -44,6 +44,22 @@
               placeholder="Digite o Nome "
               label="Nome"
             ></com-input>
+            <com-input
+              formControlName="categoriaTitulo"
+              placeholder="Digite a Categoria "
+              label="Categoria"
+            ></com-input>
+            <com-input
+              formControlName="siglaOrganizacaoGestora"
+              placeholder="Digite a Organização Gestora "
+              label="Organização Gestora"
+            ></com-input>
+            <com-select
+              class="no-margin-bottom"
+              [options]="statusOptions"
+              [label]="'Selecione o Status'"
+              formControlName="statusEvento"
+            ></com-select>
 
           </com-form-section>
           <com-form-section block>

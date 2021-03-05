@@ -26,7 +26,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     nome: new FormControl(''),
     sigla: new FormControl(''),
     statusEvento: new FormControl(''),
-    categoriaId: new FormControl(''),
+    categoriaTitulo: new FormControl(''),
+    siglaOrganizacaoGestora: new FormControl('')
 
   });
 
@@ -77,6 +78,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   totalPages = 1;
   eventoOptions: SelectOption[] = [];
   categoriaOptions: SelectOption[] = [];
+  statusOptions: SelectOption[] = [];
 
   constructor(
     private facade: EventoFacade,
@@ -85,6 +87,10 @@ export class ConsultaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.statusOptions = [
+      { name: 'Evento Aberto', value: 'ABERTO' },
+      { name: 'Evento Finalizado', value: 'FINALIZADO' },
+    ];
     this.options = [
       {name: 'Categoria', value: 'categoriaTitulo'},
       {name: 'Organização Gestora', value: 'siglaOrganizacaoGestora'},
