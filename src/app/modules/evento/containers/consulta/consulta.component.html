@@ -39,28 +39,70 @@
       <div class="main-content grid-item">
         <com-form [formGroup]="eventoSearch">
           <com-form-section formTitle="Filtrar">
-            <com-input
+            <div style="display: flex; margin-bottom: 20px">
+              <div
+              style="
+              display: flex;
+              align-items: flex-start;
+              width: 50%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+            >
+            <com-input style="width: 100%"
               formControlName="nome"
               placeholder="Digite o Nome "
               label="Nome"
             ></com-input>
-            <com-input
+              </div>
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              width: 50%;
+              padding-right: 10px;
+              flex-direction: column;
+            ">
+            <com-input style="width: 100%"
               formControlName="categoriaTitulo"
               placeholder="Digite a Categoria "
               label="Categoria"
             ></com-input>
-            <com-input
+              </div>
+            </div>
+            <div style="display: flex; margin-bottom: 20px">
+            <div
+              style="
+              display: flex;
+              align-items: flex-start;
+              width: 50%;
+              padding-right: 10px;
+              flex-direction: column;
+            "
+            >
+            <com-input style="width: 100%"
               formControlName="siglaOrganizacaoGestora"
               placeholder="Digite a Organização Gestora "
               label="Organização Gestora"
             ></com-input>
-            <com-select
+            </div>
+              <div
+                style="
+              display: flex;
+              align-items: flex-start;
+              padding-right: 10px;
+              width: 50%;
+              flex-direction: column;
+            "
+              >
+            <com-select style="width: 100%"
               class="no-margin-bottom"
               [options]="statusOptions"
               [label]="'Selecione o Status'"
               formControlName="statusEvento"
             ></com-select>
-
+              </div>
+              </div>
           </com-form-section>
           <com-form-section block>
             <div class="flex-container row button-set">
