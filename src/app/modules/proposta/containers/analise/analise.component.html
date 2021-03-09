@@ -48,15 +48,15 @@
         </com-button>
 
         <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]"
-          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA'">
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk()">
           <a slot="text">Nova Ficha</a>
         </com-button>
         <com-button fill confirm (click)="salvarProposta()" *ngIf="this.proposta?.status == 'ABERTA' || !this.proposta"
-          [disabled]="proposta?.status == 'FINALIZADA'">
+          [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk()">
           <a slot="text">Salvar proposta</a>
         </com-button>
         <com-button fill secondary (click)="encerrarProposta()"
-          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA'">
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk()">
           <a slot="text">Encerra Proposta</a>
         </com-button>
       </footer>

@@ -360,4 +360,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
+
+  checkPeriodoIndicacaoOk(){
+    if(new Date(this.evento.dataInicioIndicacao).getTime() <= new Date().getTime() &&
+      new Date().getTime() <= new Date(this.evento.dataTerminoIndicacao).getTime()){
+      return true;
+    }
+    return false;
+  }
 }
