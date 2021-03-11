@@ -389,4 +389,8 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+
+  checkEventoFinalizado(){
+    return new String(this.evento.statusEvento) == "FINALIZADO"
+  }
 }

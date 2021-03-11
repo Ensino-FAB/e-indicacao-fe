@@ -26,7 +26,7 @@
       </p-selectButton>
     </div>
 
-    <p-pickList [source]="fichas" [target]="fichasSelecionadas" [disabled]="isLoading || checkPropostaEncerrada()"
+    <p-pickList [source]="fichas" [target]="fichasSelecionadas" [disabled]="isLoading || checkPropostaEncerrada() || checkEventoFinalizado()"
       sourceHeader="Fichas de indicação" targetHeader="Proposta" dragdrop="true" styleClass="test"
       [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [responsive]="true"
       (onTargetReorder)="onTargetReorder($event)" (onMoveToTarget)="onMoveToTarget($event)"
@@ -48,15 +48,15 @@
         </com-button>
 
         <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]"
-          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada()">
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada() || checkEventoFinalizado()">
           <a slot="text">Nova Ficha</a>
         </com-button>
         <com-button fill confirm (click)="salvarProposta()" *ngIf="this.proposta?.status == 'ABERTA' || !this.proposta"
-          [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada()">
+          [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada() || checkEventoFinalizado()">
           <a slot="text">Salvar proposta</a>
         </com-button>
         <com-button fill secondary (click)="encerrarProposta()"
-          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada()">
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada() || checkEventoFinalizado()">
           <a slot="text">Encerra Proposta</a>
         </com-button>
       </footer>
