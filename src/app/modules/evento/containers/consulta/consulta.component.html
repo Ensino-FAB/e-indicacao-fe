@@ -185,6 +185,20 @@
                 </com-button>
 
               </a></div>
+            <div *ngIf="content.data.statusEvento == 'FINALIZADO'">
+<!--              <a routerLink="/proposta/evento/{{ content.data.id }}" pTooltip="Exibir relação final">-->
+                <com-button
+                  secondary
+                  transparent
+                  [disabled]="
+                    content.data.editavel == 'NAO_EDITAVEL' ? true : false
+                  "
+                >
+                  <com-icon outlined slot="icon">list</com-icon>
+                </com-button>
+
+<!--              </a>-->
+            </div>
 
           </div>
         </ng-template>
