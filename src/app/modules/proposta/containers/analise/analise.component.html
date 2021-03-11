@@ -5,7 +5,7 @@
         <div>
           <h2 class="indicacao-page-title">Análise das indicações ({{this.evento.nome}})</h2>
           <br>
-          <p-message severity="info"
+          <p-message [severity]="checkPeriodoIndicacaoOk()?'info':'error'"
             text="Período de Indicação &nbsp; {{ evento?.dataInicioIndicacao  | date:'dd/MM/yyyy' }} a {{ evento?.dataTerminoIndicacao | date:'dd/MM/yyyy' }}">
           </p-message>
         </div>
@@ -26,7 +26,7 @@
       </p-selectButton>
     </div>
 
-    <p-pickList [source]="fichas" [target]="fichasSelecionadas" [disabled]="isLoading"
+    <p-pickList [source]="fichas" [target]="fichasSelecionadas" [disabled]="isLoading || checkPropostaEncerrada()"
       sourceHeader="Fichas de indicação" targetHeader="Proposta" dragdrop="true" styleClass="test"
       [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [responsive]="true"
       (onTargetReorder)="onTargetReorder($event)" (onMoveToTarget)="onMoveToTarget($event)"
@@ -48,15 +48,15 @@
         </com-button>
 
         <com-button fill [routerLink]="['/indicacao', 'cadastro' ,  idEvento]"
-          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk()">
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada()">
           <a slot="text">Nova Ficha</a>
         </com-button>
         <com-button fill confirm (click)="salvarProposta()" *ngIf="this.proposta?.status == 'ABERTA' || !this.proposta"
-          [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk()">
+          [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada()">
           <a slot="text">Salvar proposta</a>
         </com-button>
         <com-button fill secondary (click)="encerrarProposta()"
-          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk()">
+          *ngIf="this.proposta?.status == 'ABERTA'  || !this.proposta" [disabled]="proposta?.status == 'FINALIZADA' || !checkPeriodoIndicacaoOk() || checkPropostaEncerrada()">
           <a slot="text">Encerra Proposta</a>
         </com-button>
       </footer>

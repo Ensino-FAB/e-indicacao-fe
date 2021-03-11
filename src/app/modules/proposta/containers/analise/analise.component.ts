@@ -27,6 +27,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   public proposta: PropostaResponse;
   public idEvento: number;
   public evento: Evento;
+  private propostaEnviada: PropostaResponse;
 
   isLoading = false;
   fichas: ItemPropostaResponse[] = [];
@@ -45,6 +46,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.idEvento = this.activatedRoute.snapshot.params.id;
     this.buscarEvento();
+    this.buscaPropostaEnviada();
     this.buscarFichasEPropostaOrgLogada(this.orgLogada.id);
     this.buscarOrgSubordinadas();
   }
@@ -53,6 +55,18 @@ export class AnaliseComponent implements OnInit, OnDestroy {
     this.eventoService.findById(this.idEvento).subscribe((response) => {
       this.evento = response;
     });
+  }
+
+  buscaPropostaEnviada(){
+    this.propostaFacade.findPropostaByEventoId(this.idEvento, this.orgLogada.id, 'ENVIADA').subscribe((response => {
+      this.propostaEnviada = response;
+      if(response){
+        this.toast.show({
+          message: 'Proposta Encerrada!',
+          type: 'alert',
+        });
+      }
+    }));
   }
 
   buscarFichasEPropostaOrgLogada(idOrg: number): void {
@@ -229,7 +243,7 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   }
 
   filtrarFichas(fichas: ItemPropostaResponse[],
-    fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
+                fichasSelecionadas: ItemPropostaResponse[]): ItemPropostaResponse[] {
     return fichas.filter(
       ficha => !fichasSelecionadas.map(el => el.indicacao.id).includes(ficha.indicacao.id)
     );
@@ -271,12 +285,12 @@ export class AnaliseComponent implements OnInit, OnDestroy {
 
       this.subs$.push(
         salvarProposta$.subscribe(response => {
-          this.proposta = response;
-          this.toast.show({
-            message: 'A proposta foi salva com sucesso!',
-            type: 'success',
-          });
-        }
+            this.proposta = response;
+            this.toast.show({
+              message: 'A proposta foi salva com sucesso!',
+              type: 'success',
+            });
+          }
         )
       );
     }
@@ -364,6 +378,13 @@ export class AnaliseComponent implements OnInit, OnDestroy {
   checkPeriodoIndicacaoOk(){
     if(new Date(this.evento.dataInicioIndicacao).getTime() <= new Date().getTime() &&
       new Date().getTime() <= new Date(this.evento.dataTerminoIndicacao).getTime()){
+      return true;
+    }
+    return false;
+  }
+
+  checkPropostaEncerrada() {
+    if(this.propostaEnviada){
       return true;
     }
     return false;
