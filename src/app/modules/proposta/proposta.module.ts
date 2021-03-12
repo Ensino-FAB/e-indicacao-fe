@@ -21,11 +21,12 @@ import {
   InputModule as InputModuleCCA,
 } from '@cca-fab/cca-fab-components-common';
 import {MessageModule} from 'primeng/message';
+import { IndicadosComponent } from './containers/indicados/indicados.component';
 
 
 
 @NgModule({
-  declarations: [AnaliseComponent, ConsultaComponent, CardParticipantDetailComponent, ItemParticipanteComponent],
+  declarations: [AnaliseComponent, ConsultaComponent, CardParticipantDetailComponent, ItemParticipanteComponent, IndicadosComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(PROPOSTA_ROUTES),
