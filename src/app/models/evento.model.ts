@@ -23,5 +23,5 @@ export interface Evento extends BaseModel {
 }
 
 export interface StatusEvento {
-  descricao: string;
+  statusEvento: string;
 }
