@@ -9,20 +9,20 @@
     <div class="wrapper">
       <com-form [id]="formId" [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
         <com-form-section partly formTitle="Cadastro" step="1">
-          <div class="flex-container row" id="nome">
-            <com-input formControlName="nome" label="Nome" class="full-width"
-                       [invalid]="
-                            (eventoForm.get('nome').invalid &&
-                              eventoForm.get('nome').touched) ||
-                            eventoForm.errors?.nome
-                          ">
-            </com-input>
+          <div class="flex-container row" id="sigla">
 
             <com-input formControlName="sigla" label="Sigla" class="half-width"
                        [invalid]="
                             (eventoForm.get('sigla').invalid &&
                               eventoForm.get('sigla').touched) ||
                             eventoForm.errors?.sigla
+                          ">
+            </com-input>
+            <com-input formControlName="nome" label="Nome" class="full-width"
+                       [invalid]="
+                            (eventoForm.get('nome').invalid &&
+                              eventoForm.get('nome').touched) ||
+                            eventoForm.errors?.nome
                           ">
             </com-input>
 
@@ -39,17 +39,6 @@
             >
             </com-autocomplete>
 
-            <com-select formControlName="statusEvento" label="Status do Evento" class="half-width"
-                        [options]="statusEvento"
-                        [invalid]="
-                            (eventoForm.get('statusEvento').invalid &&
-                              eventoForm.get('statusEvento').touched) ||
-                            eventoForm.errors?.statusEvento
-                          ">
-            </com-select>
-
-          </div>
-          <div class="flex-container row">
             <com-autocomplete enableConfirmOnInexistentValue autoActiveFirstOption label="Organização Gestora"
                               (changed)="filterOrganizacaoGestora($event)"
                               [options]="organizacaoGestoraOption"
@@ -60,8 +49,8 @@
                               class="full-width"
             >
             </com-autocomplete>
+
           </div>
-          <br>
           <div class="flex-container row">
             <com-input formControlName="dataInicio" label="Data Início" class="half-width"
                        type="date"

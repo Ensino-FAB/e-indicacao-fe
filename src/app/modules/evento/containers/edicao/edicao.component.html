@@ -63,6 +63,7 @@
                   class="no-margin-bottom"
                   [options]="statusEvento"
                   [label]="'Status do Evento'"
+                  [disabled] = "evento.statusEvento=='FINALIZADO'"
                 >
                 </com-select>
               </div>

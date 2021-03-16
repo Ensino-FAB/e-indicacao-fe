@@ -6,6 +6,7 @@ import {EventoFacade} from '../../evento-facade';
 import {ToastService} from '../../../../shared/services/toast.service';
 import {Router} from '@angular/router';
 import {SelectOption} from '@cca-fab/cca-fab-components-common/types/select';
+import {StatusEvento} from "../../../../models/evento.model";
 
 
 @Component({
@@ -66,7 +67,7 @@ export class CadastroComponent implements OnInit {
       dataTerminoIndicacao: ['', Validators.required],
       observacoes: [''],
       sigla: ['', Validators.required],
-      statusEvento: ['', Validators.required],
+      statusEvento: ['ABERTO'],
       ticket: [''],
     });
   }

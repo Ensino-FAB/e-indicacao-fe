@@ -23,6 +23,7 @@ export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
   eventoForm: FormGroup;
   formId: 'evento-form';
   evento: Evento;
+  status: string;
 
   statusEvento: SelectOption[] =[
     {
@@ -67,11 +68,12 @@ export class EdicaoComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.facade
         .findEvento(this.id)
         .subscribe((resp) => {
+          this.evento = resp;
           this.eventoForm.setValue(
             {
               ...resp,
               categoria: resp.categoria.titulo,
-              organizacaoResponse: resp.organizacaoResponse.nome
+              organizacaoResponse: resp.organizacaoResponse.nome,
             })
         })
   );
