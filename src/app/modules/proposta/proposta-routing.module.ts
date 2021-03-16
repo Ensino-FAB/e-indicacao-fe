@@ -9,7 +9,7 @@ import {IndicadosComponent} from "./containers/indicados/indicados.component";
 export const PROPOSTA_ROUTES: Routes = [
   {path: '', component: ConsultaComponent, data: {breadcrumb: null}},
   {path: 'evento/:id', component: AnaliseComponent, data: {breadcrumb: null}},
-  {path: 'indicados', component: IndicadosComponent, data: {breadcrumb: null}}
+  {path: ':id/indicados', component: IndicadosComponent, data: {breadcrumb: null}}
 ];
 
 @NgModule({

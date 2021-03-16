@@ -1,1 +1,39 @@
-<p>indicados works!</p>
+<section>
+  <div class="flex-container col wrapper">
+    <div class="aside-wrapper">
+      <div class="flex-container between">
+        <div>
+          <h2 class="fin-page-title">Relação de indicados</h2>
+          <br>
+        </div>
+        <div style="align-self: center;">
+          <a [routerLink]="['/evento']">
+            <com-button fill primary>
+              <com-icon slot="icon">keyboard_backspace</com-icon>
+            </com-button>
+            <br>
+          </a>
+        </div>
+      </div>
+      <com-table
+        [data]="data"
+        [paginated]=false
+        [pageSize]="pageSize"
+        [maxPageSize]="100"
+        [minPageSize]="5"
+        [pageIndex]="page"
+        [totalPages]="totalPages"
+        [columns]="columns"
+        (refresh)="refresh()"
+        (pageSizeChanged)="handlePageSizeChange($event)"
+        (pageIndexChanged)="handlePageIndexChange($event)"
+        (nextPage)="handleNextPage()"
+        (previousPage)="handlePreviousPage()"
+        (firstPage)="onFirstPage()"
+        (lastPage)="onLastPage()"
+        *ngIf="!isLoading"
+      >
+      </com-table>
+    </div>
+  </div>
+</section>

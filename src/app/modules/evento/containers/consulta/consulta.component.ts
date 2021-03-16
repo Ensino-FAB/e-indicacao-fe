@@ -221,4 +221,5 @@ export class ConsultaComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
+
 }
